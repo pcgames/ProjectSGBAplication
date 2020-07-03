@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DecoderSGB.Transformation
+namespace MathAndProcess.Transformation
 {
     public class PseudorandomSequence
     {

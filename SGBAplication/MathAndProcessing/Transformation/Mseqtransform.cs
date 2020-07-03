@@ -4,13 +4,13 @@ using DigitalSignalProcessing;
 using System.Linq;
 using System.IO;
 
-namespace DecoderSGB.Transformation
+namespace MathAndProcess.Transformation
 {
     /// <summary>
     /// Данный класс является библиотекой методов,
     /// позволяющих производить снятие ПСП
     /// </summary>
-    class Mseqtransform
+    public class Mseqtransform
     {
         /// <summary>
         /// часть исходного сигнала,в которой нет никакой информации,
@@ -38,8 +38,8 @@ namespace DecoderSGB.Transformation
             //былвывод result!
             //var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.LPF(37000, 1000, 76800).
             //            StartOperation(result);
-            ReaderAndWriter.Writer(signal, "emptyData.txt");
-            ReaderAndWriter.Writer(result, "empty_data_wo.txt");
+            DataAccess.DataWriter.Writer(signal, "emptyData.txt");
+            DataAccess.DataWriter.Writer(result, "empty_data_wo.txt");
             return result;
             
 
@@ -78,7 +78,7 @@ namespace DecoderSGB.Transformation
             var MsequanceQ = new List<double>();
             _startIndex = startIndex;
             EmptyPartOfOriginalSignal = Enumerable.Range(0, numberOfElements * 2).Select(i => new Complex(ImSamples[startIndex + i], QSamples[startIndex + i])).ToList();
-            ReaderAndWriter.Writer(EmptyPartOfOriginalSignal, "emptyData.txt");
+            DataAccess.DataWriter.Writer(EmptyPartOfOriginalSignal, "emptyData.txt");
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements+1, out MsequanceI, out MsequanceQ);
             //I.Reverse();
             //Q.Reverse();
@@ -97,13 +97,11 @@ namespace DecoderSGB.Transformation
             var numberOfElements = 128 * 32;//128*32-часть сигнала с немодулированной несущей
             var MsequanceI = new List<double>();
             var MsequanceQ = new List<double>();
-            //var ImSamples = new List<double>();
-            //var QSamples = new List<double>();
+
             _startIndex = startIndex;
             EmptyPartOfOriginalSignal = Enumerable.Range(0, numberOfElements * 2).Select(i => (signal[startIndex + i])).ToList();
 
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements+1, out MsequanceI, out MsequanceQ);
-            //ComplexSignals.FromComplex(signal, out ImSamples, out QSamples);
             return PseudosequanceMultiplication(EmptyPartOfOriginalSignal,MsequanceI, MsequanceQ);
         }
         /// <summary>
@@ -135,18 +133,7 @@ namespace DecoderSGB.Transformation
             var numberOfElements = 128 * 300;//128*300-пполная часть сигнала
             var MsequanceI = new List<double>();
             var MsequanceQ = new List<double>();
-            //var ImSamples = new List<double>();
-            //var QSamples = new List<double>();
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements+4, out MsequanceI, out MsequanceQ);
-            //ReaderAndWriter.Writer(ComplexSignals.ToComplex(MsequanceI, MsequanceQ), "msequanse.txt");
-            //FileStream fs = new FileStream("msequanse.txt", FileMode.OpenOrCreate);
-            //StreamWriter sw = new StreamWriter(fs);
-            //for (var i = 0; i < MsequanceI.Count(); i++)
-            //{
-            //    sw.WriteLine(MsequanceI[i].ToString() + '+' + MsequanceQ[i].ToString() + 'j');
-            //}
-            //fs.Close();
-            //ComplexSignals.FromComplex(signal, out ImSamples, out QSamples);
             return PseudosequanceMultiplicationOfFullPackage(signal,MsequanceI, MsequanceQ);
         }
     }

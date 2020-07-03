@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Numerics;
 using DigitalSignalProcessing;
 
-namespace DecoderSGB.Calculations
+namespace MathAndProcess.Calculations
 {
-    class PLL
+    public class PLL
     {
         double _Fs;
         double _omega;
@@ -92,17 +92,17 @@ namespace DecoderSGB.Calculations
             if (350 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 400 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                ReaderAndWriter.getSamples("coeffs_in_pll_357.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.getSamples("coeffs_in_pll_357.csv", ref coeffs, countOfCoeffs, 0);
             }
             if (550 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 650 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                ReaderAndWriter.getSamples("coeffs_in_pll_599.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.getSamples("coeffs_in_pll_599.csv", ref coeffs, countOfCoeffs, 0);
             }
             if (440 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 500 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                ReaderAndWriter.getSamples("coeffs_in_pll_475.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.getSamples("coeffs_in_pll_475.csv", ref coeffs, countOfCoeffs, 0);
             }
 
             //ReaderAndWriter.getSamples("coeffs_in_pll1.csv", ref coeffs, countOfCoeffs, 0);

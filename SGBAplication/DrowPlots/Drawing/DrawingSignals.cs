@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace DecoderSGB.Drawing
+namespace DrawPlot.Drawing
 {
      public class DrawingSignals : abstractDrawing<double>
         {

@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Controllers</RootNamespace>
     <AssemblyName>Controllers</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,27 +54,24 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess2\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{db92fb5e-7477-43e5-aaf6-a04ef1cb3366}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Drowing\Drawing.csproj">
+    <ProjectReference Include="..\DrowPlots\DrawPlots.csproj">
       <Project>{061120c2-890a-403d-a84a-e5caf2db8295}</Project>
-      <Name>Drawing</Name>
+      <Name>DrawPlots</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImitattionAndStatistic2\ImitattionAndStatistic2.csproj">
+    <ProjectReference Include="..\ImitattionAndStatistic\ImitattionAndStatistic.csproj">
       <Project>{fe149f55-7365-476a-9aea-143f88804ef5}</Project>
-      <Name>ImitattionAndStatistic2</Name>
+      <Name>ImitattionAndStatistic</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathAndProcessing\MathAndProcessing.csproj">
       <Project>{2f5b6ef7-f093-4730-9618-f424449e90c4}</Project>
       <Name>MathAndProcessing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SGBAplication\SGBAplication.csproj">
-      <Project>{a521d50f-a62c-43f1-a23a-ce98437bde1c}</Project>
-      <Name>SGBAplication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

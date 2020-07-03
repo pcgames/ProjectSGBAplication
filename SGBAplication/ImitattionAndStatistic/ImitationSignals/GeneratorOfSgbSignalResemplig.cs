@@ -9,8 +9,9 @@ using DigitalSignalProcessing.Windows;
 //using Generic
 
 using System.Threading.Tasks;
+using Generator.ImitationSignals;
 
-namespace DecoderSGB.ImitationSignals
+namespace Generator.ImitationSignals
 {
     public class GeneratorOfSgbSignalResemplig : ISGBSignalGenerator
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DecoderSGB.Calculations
+namespace MathAndProcess.Calculations
 {
-    class ResemplingOfSignal
+    public class ResemplingOfSignal
     {
         /// <summary>
         /// Данная функция является передискретизирующим фильтром, 
@@ -61,11 +61,7 @@ namespace DecoderSGB.Calculations
                   a0=inputData[(n1+2)];
                   res1=a0*(x-x1)/(4.0)*(x-x2)/(3.0)*(x-x3)/(2.0)*(x-x4)/(1.0);
                   res=res+res1;
-                //var num = resemplingData[1917439 + 23];
-                //if (j == 1917439+23+8)
-                //{
-                    
-                //}
+
                   resemplingData.Add(res);
                 j += 1;
                   }//i1
@@ -124,12 +120,10 @@ namespace DecoderSGB.Calculations
                 {
                     ind = (int)(((inputData.Count) * p) / (q));
 
-                    //y = np.zeros(int(float(len(inputData) * p) / float(q)))
                 }
             else
             {
                 ind = (int)(((inputData.Count) * p) / (q));
-                //y = np.zeros(int(float(len(inputData) * p) / float(q)))
 
             }
 
@@ -138,13 +132,8 @@ namespace DecoderSGB.Calculations
 
 
 
-            //t = np.zeros(len(y))
-            //for 
-            //inputData.Insert(0, 0);
-            //inputData.Insert(0, 0);
             inputData.Add(0);
             inputData.Add(0);
-            //inputData = np.concatenate((np.array([0., 0.]), inputData, np.array([0., 0.])))
             var resample_data = new List<double>();
             var t = new List<double>();
             for (var k = 0; k < ind - 1; k++)
@@ -245,52 +234,5 @@ namespace DecoderSGB.Calculations
     }
 
 
-    ////2. _________ FARROW ________
-    //        for(k=10;k<50000000;k++)
-    //        {
-    //      n=(int)(k*r)+1;
-    //      r1=k*r;
-    //      r2=n;
-    //      r3=(n-1);
-    //      x1=(fabs)(r1-r2);
-    //      x2=(fabs)(r1-r3);
-    //      n1=n-1;
-    //      if(x1<x2){n1=n;}
-
-    ////      printf("\n %4d %d %d %f %f",k,n,n1,x1,x2);
-    ////      printf("\n %4d %d %f %f %f %f %d",k,n,r1,r2,(r1-r2)*100.,r3-r1,(abs)(k*1023-n*768));
-    ////      //getch();
-
-    //res=0.;
-    //x=k*r-n1;
-    //x1=(n1-2)-n1;
-    //x2=(n1-1)-n1;
-    //x3=(n1-0)-n1;
-    //x4=(n1+1)-n1;
-    //x5=(n1+2)-n1;
-
-    ////1
-    //a0=inputData[2*(n1-2)+1];
-    //res1=a0*(x-x2)/(-1.)*(x-x3)/(-2.)*(x-x4)/(-3.)*(x-x5)/(-4.);
-    //res=res+res1;
-    ////2
-    //a0=inputData[2*(n1-1)+1];
-    //res1=a0*(x-x1)/(1.)*(x-x3)/(-1.)*(x-x4)/(-2.)*(x-x5)/(-3.);
-    //res=res+res1;
-    ////3
-    //a0=inputData[2*(n1-0)+1];
-    //res1=a0*(x-x1)/(2.)*(x-x2)/(1.)*(x-x4)/(-1.)*(x-x5)/(-2.);
-    //res=res+res1;
-    ////4
-    //a0=inputData[2*(n1+1)+1];
-    //res1=a0*(x-x1)/(3.)*(x-x2)/(2.)*(x-x3)/(1.)*(x-x5)/(-1.);
-    //res=res+res1;
-    ////5
-    //a0=inputData[2*(n1+2)+1];
-    //res1=a0*(x-x1)/(4.)*(x-x2)/(3.)*(x-x3)/(2.)*(x-x4)/(1.);
-    //res=res+res1;
-
-    //      input[2*(k-10)+1]=(res);
-
-    //      }//i1
+   
 }

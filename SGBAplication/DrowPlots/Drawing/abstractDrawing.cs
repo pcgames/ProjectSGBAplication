@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace DecoderSGB.Drawing
+namespace DrawPlot.Drawing
 {
     /// <summary>
 /// данный класс является родительским классом отрисовки графиков

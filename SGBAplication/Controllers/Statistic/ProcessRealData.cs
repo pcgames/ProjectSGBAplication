@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DecoderSGB;
 
-namespace DecoderSGB.Statistic
+namespace Controllers.Statistic
 {
     class ProcessRealData
     {
@@ -13,7 +13,7 @@ namespace DecoderSGB.Statistic
     System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = ReaderAndWriter.getNumbersOfpackages(fileOfPackages.Text);
+            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(fileOfPackages.Text);
             var indexes = new List<Int64>();
             for (var i = 0; i < dataOfPackages.Count; i++)
             {
@@ -44,7 +44,7 @@ namespace DecoderSGB.Statistic
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-            ReaderAndWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
+            DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
 
             //for 
         }
@@ -52,7 +52,7 @@ namespace DecoderSGB.Statistic
            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = ReaderAndWriter.getNumbersOfpackages(fileOfPackages.Text);
+            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(fileOfPackages.Text);
             var indexes = new List<Int64>();
             double std = 0;
             double meanFreq = 0;
@@ -89,7 +89,7 @@ namespace DecoderSGB.Statistic
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-            ReaderAndWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
+             DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
 
             //for 
         }

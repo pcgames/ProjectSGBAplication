@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 
-namespace DecoderSGB.Calculations
+namespace MathAndProcess.Calculations
 {
-    class ModulatingSignal//данный класс будет переделываться от абстрактного класса генерирования сигналов,необходимый для генерации, так же здесь будут различные типы модуляции сигналов
+    public class ModulatingSignal//данный класс будет переделываться от абстрактного класса генерирования сигналов,необходимый для генерации, так же здесь будут различные типы модуляции сигналов
     {
         public static List<double> generatingBPSKSignal(List<Complex> QPSKSignal,int lengthOfOneBit)
         {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace DecoderSGB.Calculations
+namespace MathAndProcess.Calculations
 {
     public static class FourierTransform
     {

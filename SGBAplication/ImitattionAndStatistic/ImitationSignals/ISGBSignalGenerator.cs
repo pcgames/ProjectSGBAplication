@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 
-namespace DecoderSGB.ImitationSignals
+namespace Generator.ImitationSignals
 {
     public interface ISGBSignalGenerator
     {

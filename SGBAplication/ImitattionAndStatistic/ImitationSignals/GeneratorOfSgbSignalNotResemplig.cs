@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DecoderSGB.ImitationSignals
+namespace Generator.ImitationSignals
 {
     public class GeneratorOfSgbSignalNotResemplig // : ISGBSignalGenerator
     {

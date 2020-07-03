@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
+using MathAndProcess.Calculations;
 using DigitalSignalProcessing;
 
-namespace DecoderSGB.Drawing
+namespace DrawPlot.Drawing
 {
 
-    class DrawingSpectrum : abstractDrawing<Complex>
+    public class DrawingSpectrum : abstractDrawing<Complex>
     {
         private static double _fSempling;
        public DrawingSpectrum(Chart samplesChart,double frequancySempling) : base(samplesChart)
@@ -43,7 +44,7 @@ namespace DecoderSGB.Drawing
             }
             else
             {
-                 xValues = Calculations.FreqCalculation.Getfrequancy(spectrum.Count, _fSempling);
+                 xValues = FreqCalculation.Getfrequancy(spectrum.Count, _fSempling);
                 _samplesChart.ChartAreas[0].AxisX.Minimum = -38400;
                 _samplesChart.ChartAreas[0].AxisX.Maximum = 38400;
                 _samplesChart.ChartAreas[0].AxisX.Interval = 12800;

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace DataAccess
 {
-    class DataReader
+    public class DataReader
     {
         public int _numberOfElements { get; private set; }
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DecoderSGB.ImitationSignals;
 
-namespace DecoderSGB.Statistic
+namespace Generator.Statistic
 {
     class GenerateStatisic
     {

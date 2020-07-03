@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DecoderSGB.Calculations
+namespace MathAndProcess.Calculations
 {
-    class FreqCalculation
+    public class FreqCalculation
     {
         /// <summary>
         ///данная функция возвращает набор частот от - freqSempling /2 до +freqSempling/2

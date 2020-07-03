@@ -6,35 +6,11 @@ using System.Threading.Tasks;
 using System.Numerics;
 using MathAndPhysics;
 
-namespace DecoderSGB.Decoding
+namespace MathAndProcess.Decoding
 {
-    class Decoder
+    public class Decoder
     {
 
-        //        for(i1=0;i1<150;i1++)//что такое 150 512???
-        //	{
-        //   r1=0.;
-        //   r2=0.;
-        //   rc=0.;
-        //   rs=0.;
-        //	for(i2=0;i2<512;i2++)
-        //	{
-        //   r1=r1+(fabs) (br[i1 * 512 + i2]);
-        //   r2=r2+(fabs) (bi[i1 * 512 + i2]);
-        //   rc=rc+br[i1 * 512 + i2];
-        //   rs=rs+bi[i1 * 512 + i2];
-        //   }
-        //    printf("\n_ %4d %f %f %f", i1, rc, rs, r1+r2);
-        //    getch();
-        //}//i1
-        // вообще не понятно что происзодит в модуле выше...
-
-        //     ng[0]=0;
-        //ng[1]=0;
-        //ng[2]=0;
-        //ng[3]=0;
-        //ng[4]=0;
-        //i4=5;
         public static string fullMessage(List<Complex> signal)
         {
             var decodeMesage = "";
@@ -72,11 +48,6 @@ namespace DecoderSGB.Decoding
                 {
                     decodeMesage += "0";
                 }
-                //ng[i4] = i3;
-                //i4 = i4 + 1;
-                //i3 = 0; if (rs < 0.) { i3 = 1; }
-                //ng[i4] = i3;
-                //i4 = i4 + 1;
             }//i1
             return decodeMesage;
 
