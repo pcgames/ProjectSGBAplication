@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
+using Controllers;
 using SGBFormAplication.ImitationSignals;
 using SGBFormAplication.Statistic;
 
@@ -24,8 +25,8 @@ namespace SGBFormAplication
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = SGBFormAplication.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
-                    SGBFormAplication.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                    Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
@@ -33,7 +34,7 @@ namespace SGBFormAplication
                         startIndex.Text = "0";
                          fileName.Text = "simulatedSignalnew.csv";
                         //var gg = ;
-                        ReaderAndWriter.Writer(new GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
+                        DataAccess.DataWriter.Writer(new GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
                         rnewDataAndSpectrum = SGBFormAplication.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
                         SGBFormAplication.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
