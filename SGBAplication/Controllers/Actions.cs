@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
 using System.Windows.Forms;
+using static DataAccess.DataReader;
 //using DecoderSGB.Calculations.;
 
 namespace DecoderSGB
@@ -22,7 +23,7 @@ namespace DecoderSGB
         {
             var I = new List<double>();
             var Q = new List<double>();
-            ReaderAndWriter.getSamples(fileName.Text, ref I, ref Q, 10000000);
+            getSamples(fileName.Text, ref I, ref Q, 10000000);
             var rI = Calculations.ResemplingOfSignal.GetResemplingSamples(I);
             var rQ = Calculations.ResemplingOfSignal.GetResemplingSamples(Q);
             //double std = 0;
@@ -39,7 +40,7 @@ namespace DecoderSGB
             var rI = new List<double>();
             var rQ = new List<double>();
 
-            ReaderAndWriter.getSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
+            getSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
 
             System.Windows.Forms.TextBox new_ind = new System.Windows.Forms.TextBox();
             new_ind.Text = "0";//поскольку прочитали уже с нужного индекса и выбрали посылку
@@ -51,7 +52,7 @@ namespace DecoderSGB
         {
             var I = new List<double>();
             var Q = new List<double>();
-            ReaderAndWriter.getSamples(fileName.Text, ref I, ref Q, 10000000);
+            getSamples(fileName.Text, ref I, ref Q, 10000000);
             var rI = Calculations.ResemplingOfSignal.GetResemplingSamples(I);
             var rQ = Calculations.ResemplingOfSignal.GetResemplingSamples(Q);
 
