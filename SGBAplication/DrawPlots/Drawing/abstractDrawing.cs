@@ -18,6 +18,7 @@ namespace DecoderSGB.Drawing
         /// на котором будет производиться отрисовка
         /// </summary>
         protected static Chart _samplesChart;
+
         #region public methods
         public abstractDrawing(Chart samplesChart)
         {
@@ -44,6 +45,7 @@ namespace DecoderSGB.Drawing
                 .Select(element=>(double)element).ToList(), Samples);
         }
         #endregion
+
         #region protected methods
         protected virtual void DrawSamples(Series usefullSeries, List<double> xValues, List<T> yValues)
         {
