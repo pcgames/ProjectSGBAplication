@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FE149F55-7365-476A-9AEA-143F88804EF5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ImitattionAndStatistic2</RootNamespace>
     <AssemblyName>ImitattionAndStatistic2</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
@@ -40,8 +43,6 @@
     <Compile Include="ImitationSignals\GeneratorOfSgbSignalNotResemplig.cs" />
     <Compile Include="ImitationSignals\GeneratorOfSgbSignalResemplig.cs" />
     <Compile Include="ImitationSignals\ISGBSignalGenerator.cs" />
-    <Compile Include="Statistic\GenerateStatisic.cs" />
-    <Compile Include="Statistic\ProcessRealData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DigitalSignalProcessing">
@@ -51,6 +52,12 @@
       <HintPath>..\SGBAplication\libs\MathAndPhysics.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathAndProcessing\MathAndProcessing.csproj">
+      <Project>{2f5b6ef7-f093-4730-9618-f424449e90c4}</Project>
+      <Name>MathAndProcessing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

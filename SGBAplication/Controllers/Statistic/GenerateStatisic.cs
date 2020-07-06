@@ -7,7 +7,7 @@ using Generator.ImitationSignals;
 
 namespace Controllers.Statistic
 {
-    class GenerateStatisic
+    public class GenerateStatisic
     {
 
         public static void StatisticsGenerator(int countMessages, System.Windows.Forms.TextBox SNR, System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
@@ -28,7 +28,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 }
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(SNR.Text) + k, ref rightFreq);
-                DecoderSGB.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
@@ -68,7 +68,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 double meanFreq = 0;
                 double phasa = 0;
                 double iteration = 0;
-                DecoderSGB.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
+                Controller.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
