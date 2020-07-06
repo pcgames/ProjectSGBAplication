@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\abstractDrawing.cs" />
+    <Compile Include="Drawing\DrawingSignals.cs" />
+    <Compile Include="Drawing\DrawingSpectrum.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,9 +90,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="libs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Controllers\Controllers.csproj">
       <Project>{52306596-bdeb-40cd-85c0-d43a0c09fb6e}</Project>
@@ -98,10 +99,6 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{db92fb5e-7477-43e5-aaf6-a04ef1cb3366}</Project>
       <Name>DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DrowPlots\DrawPlots.csproj">
-      <Project>{061120c2-890a-403d-a84a-e5caf2db8295}</Project>
-      <Name>DrawPlots</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImitattionAndStatistic\ImitattionAndStatistic.csproj">
       <Project>{fe149f55-7365-476a-9aea-143f88804ef5}</Project>

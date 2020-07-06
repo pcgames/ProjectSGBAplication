@@ -46,6 +46,7 @@
     <Compile Include="Calculations\ModulatingSignal.cs" />
     <Compile Include="Calculations\PLL.cs" />
     <Compile Include="Calculations\resemplingOfSignal.cs" />
+    <Compile Include="Processing.cs" />
     <Compile Include="Decoding\Decoder.cs" />
     <Compile Include="Transformation\Mseqtransform.cs" />
     <Compile Include="Transformation\PseudorandomSequence.cs" />

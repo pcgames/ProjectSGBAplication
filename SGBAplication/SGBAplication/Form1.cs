@@ -25,7 +25,7 @@ namespace SGBFormAplication
             {
                 case true:
                     var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
-                    Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
@@ -34,13 +34,13 @@ namespace SGBFormAplication
                          fileName.Text = "simulatedSignalnew.csv";
                         //var gg = ;
                         DataAccess.DataWriter.Writer(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
-                        rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
-                        Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
-                        rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
-                        Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     
                     break;
@@ -48,6 +48,20 @@ namespace SGBFormAplication
             }
             
         }
+
+        private void DrawingOfBPSKSignalAndSpectrum(List<System.Numerics.Complex> newDataWindowed, List<System.Numerics.Complex> rnewData)
+        {
+            var spectrum = new List<System.Numerics.Complex>();
+            List<double> xValues = new List<double>();
+            Controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
+            var signalsWithIQChanals= Controller.GetDataForSignalChart(rnewData);
+
+            new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
+
+            new SGBAplication.Drawing.DrawingSpectrum(spectrumChart, 76800).DrawChart(spectrum, xValues);
+        }
+
+
 
         private void statisticButton_Click(object sender, EventArgs e)
         {
@@ -92,25 +106,24 @@ namespace SGBFormAplication
                 case true:
                     var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy,
                         ref std, ref meanFreq, ref phasa, ref iteration);
-                    Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
                     {
                         startIndex.Text = "0";
                         fileName.Text = "simulatedSignalnew.csv";
-                        //var gg = ;
 
                         DataAccess.DataWriter.Writer(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
                         rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy, 
                             ref std, ref meanFreq, ref phasa, ref iteration);
-                        Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
                         rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy,
                             ref std, ref meanFreq, ref phasa, ref iteration);
-                        Controllers.Controller.DrawingOfBPSKSignalAndSpectrum(signalChart, spectrumChart, rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
 
                     break;
