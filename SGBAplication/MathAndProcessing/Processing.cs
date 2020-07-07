@@ -18,55 +18,42 @@ namespace MathAndProcessing
         private static List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex, string fileName,
             ref string fullMessage, ref string country, ref string currentFrequancy)
         {
-            if (startIndex != "")
+            if (startIndex != "" && rI.Count != 0)
             {
-                if (rI.Count != 0)
-                {
-                    var s = Convert.ToInt32(startIndex);
-                    var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
-                    EvaluationAndCompensation.PreprocessingOfSignal(result);
+                var s = Convert.ToInt32(startIndex);
+                var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
+                
+                EvaluationAndCompensation.PreprocessingOfSignal(result);
+                
+                var newData = EvaluationAndCompensation.
+                    CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
+                    GetRange(s + 8 - 1, 76801));
+                Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
 
+                newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
 
-                    DataAccess.DataWriter.WriteToFile(result, "emptyPart.txt");
-                    var newData = EvaluationAndCompensation.
-                        CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
-                        GetRange(s + 8 - 1, 76801));
-                    Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
+                fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
+               
+                country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage));
+                currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
-                    newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
-                    //ReaderAndWriter.Writer(newData, "data_before_psp.txt");ComplexSignals.ToComplex(rI, rQ).GetRange(s + 7, 76801)
-                    fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
-                    DataAccess.DataWriter.WriteToFile(newData, "result_without_psp.txt");
-                    country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage));
-                    currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
+                var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
+                    StartOperation(newData);
 
-                    var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
-                        StartOperation(newData);
+                //new Drawing.DrawingSignals(signalChart).DrawChart(Enumerable.Range(12000, 10000).Select(i => rnewData[i].Real).ToList());
+                //количество отсчетов в 1 бите OQPSK модуляции =512 т.к. в любой из частей комплексного сигнала каждый бит занимает два бита, +передискретизации два отсчёта на чип ПСП
 
-                    //new Drawing.DrawingSignals(signalChart).DrawChart(Enumerable.Range(12000, 10000).Select(i => rnewData[i].Real).ToList());
-                    //количество отсчетов в 1 бите OQPSK модуляции =512 т.к. в любой из частей комплексного сигнала каждый бит занимает два бита, +передискретизации два отсчёта на чип ПСП
+                var window = new Window(WindowType.Blackman, 0.16);
+                var newDataWindowed = window.StartOperation(rnewData);
 
-                    var window = new Window(WindowType.Blackman, 0.16);
-                    var newDataWindowed = window.StartOperation(rnewData);
-
-                    var listOfComplexComplex = new List<List<System.Numerics.Complex>>();
-                    listOfComplexComplex.Add(rnewData);
-                    listOfComplexComplex.Add(newDataWindowed);
-                    return listOfComplexComplex;
-                }
-                else
-                {
-                    startIndex = "";
-                    fullMessage = "";
-                    country = "";
-                    currentFrequancy = "";
-                    return new List<List<System.Numerics.Complex>>();
-                }
+                var listOfComplexComplex = new List<List<System.Numerics.Complex>>();
+                listOfComplexComplex.Add(rnewData);
+                listOfComplexComplex.Add(newDataWindowed);
+                return listOfComplexComplex;
+                
             }
             else
             {
-                startIndex = "";
                 fullMessage = "";
                 country = "";
                 currentFrequancy = "";
@@ -148,7 +135,6 @@ namespace MathAndProcessing
                 }
                 else
                 {
-                    startIndex = "";
                     fullMessage = "";
                     country = "";
                     currentFrequancy = "";
@@ -157,7 +143,6 @@ namespace MathAndProcessing
             }
             else
             {
-                startIndex = "";
                 fullMessage = "";
                 country = "";
                 currentFrequancy = "";
