@@ -47,5 +47,18 @@ namespace DataAccess
             sw.Close();
             fs.Close();
         }
+
+        public static void WriteToFile(List<object> data, string nameOfFile)
+        {
+
+            FileStream fs = new FileStream(nameOfFile, FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
+            for (var w = 0; w < data.Count; w++)
+            {
+                sw.WriteLine(data[w]);
+            }
+            sw.Close();
+            fs.Close();
+        }
     }
 }
