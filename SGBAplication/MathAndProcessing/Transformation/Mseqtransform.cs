@@ -38,8 +38,8 @@ namespace MathAndProcess.Transformation
             //былвывод result!
             //var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.LPF(37000, 1000, 76800).
             //            StartOperation(result);
-            DataAccess.DataWriter.Writer(signal, "emptyData.txt");
-            DataAccess.DataWriter.Writer(result, "empty_data_wo.txt");
+            DataAccess.DataWriter.WriteToFile(signal, "emptyData.txt");
+            DataAccess.DataWriter.WriteToFile(result, "empty_data_wo.txt");
             return result;
             
 
@@ -78,7 +78,7 @@ namespace MathAndProcess.Transformation
             var MsequanceQ = new List<double>();
             _startIndex = startIndex;
             EmptyPartOfOriginalSignal = Enumerable.Range(0, numberOfElements * 2).Select(i => new Complex(ImSamples[startIndex + i], QSamples[startIndex + i])).ToList();
-            DataAccess.DataWriter.Writer(EmptyPartOfOriginalSignal, "emptyData.txt");
+            DataAccess.DataWriter.WriteToFile(EmptyPartOfOriginalSignal, "emptyData.txt");
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements+1, out MsequanceI, out MsequanceQ);
             //I.Reverse();
             //Q.Reverse();

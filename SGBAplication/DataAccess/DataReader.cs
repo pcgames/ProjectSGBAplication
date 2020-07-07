@@ -9,7 +9,7 @@ namespace DataAccess
     {
         public int _numberOfElements { get; private set; }
 
-        public static void getSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public static void GetSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {
@@ -52,7 +52,7 @@ namespace DataAccess
             }
 
         }
-        public static void getSamples(string fileName, ref List<double> I, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public static void GetSamples(string fileName, ref List<double> I, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {

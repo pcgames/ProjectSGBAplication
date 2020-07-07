@@ -44,7 +44,7 @@ namespace Controllers.Statistic
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-            DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "_statistics.csv");
 
             //for 
         }
@@ -89,7 +89,7 @@ namespace Controllers.Statistic
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-             DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "_statistics.csv");
+             DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "_statistics.csv");
 
             //for 
         }

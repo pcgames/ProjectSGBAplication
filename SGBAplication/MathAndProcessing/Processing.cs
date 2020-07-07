@@ -25,11 +25,11 @@ namespace MathAndProcessing
                 {
                     var s = Convert.ToInt32(startIndex.Text);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.Writer(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
+                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
 
 
-                    DataAccess.DataWriter.Writer(result, "emptyPart.txt");
+                    DataAccess.DataWriter.WriteToFile(result, "emptyPart.txt");
                     var newData = EvaluationAndCompensation.
                         CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
                         GetRange(s + 8 - 1, 76801));
@@ -38,7 +38,7 @@ namespace MathAndProcessing
                     newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
                     //ReaderAndWriter.Writer(newData, "data_before_psp.txt");ComplexSignals.ToComplex(rI, rQ).GetRange(s + 7, 76801)
                     fullMessage.Text = MathAndProcess.Decoding.Decoder.fullMessage(newData);
-                    DataAccess.DataWriter.Writer(newData, "result_without_psp.txt");
+                    DataAccess.DataWriter.WriteToFile(newData, "result_without_psp.txt");
                     country.Text = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage.Text));
                     currentFrequancy.Text = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
@@ -88,7 +88,7 @@ namespace MathAndProcessing
                 {
                     var s = Convert.ToInt32(startIndex.Text);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.Writer(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
+                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
                     var cosData = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801));
                     var sinData = ComplexSignals.ToComplex(rQ.GetRange(s + 8 - 1, 76801));
@@ -97,7 +97,7 @@ namespace MathAndProcessing
                     var sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData.GetRange(1, 76800));
                     var cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
                     var coeffs = new List<double>();
-                    DataAccess.DataReader.getSamples("coeffs_wo_pll", ref coeffs, 101);
+                    DataAccess.DataReader.GetSamples("coeffs_wo_pll", ref coeffs, 101);
                     var conv = new DigitalSignalProcessing.Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
@@ -128,7 +128,7 @@ namespace MathAndProcessing
 
 
                     fullMessage.Text = MathAndProcess.Decoding.Decoder.fullMessage(bestData);
-                    DataAccess.DataWriter.Writer(bestData, "result_without_psp.txt");
+                    DataAccess.DataWriter.WriteToFile(bestData, "result_without_psp.txt");
                     country.Text = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage.Text));
                     currentFrequancy.Text = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
                     //DigitalSignalProcessing.Filters.Recursive.

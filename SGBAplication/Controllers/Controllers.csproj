@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions.cs" />
-    <Compile Include="ProcessingController.cs" />
     <Compile Include="Statistic\GenerateStatisic.cs" />
     <Compile Include="Statistic\ProcessRealData.cs" />
   </ItemGroup>

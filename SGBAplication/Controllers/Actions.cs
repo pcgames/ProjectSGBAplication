@@ -26,7 +26,7 @@ namespace Controllers
         {
             var I = new List<double>();
             var Q = new List<double>();
-            getSamples(fileName.Text, ref I, ref Q, 10000000);
+            GetSamples(fileName.Text, ref I, ref Q, 10000000);
             var rI = ResemplingOfSignal.GetResemplingSamples(I);
             var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
             //double std = 0;
@@ -43,7 +43,7 @@ namespace Controllers
             var rI = new List<double>();
             var rQ = new List<double>();
 
-            getSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
+            GetSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
 
             System.Windows.Forms.TextBox new_ind = new System.Windows.Forms.TextBox();
             new_ind.Text = "0";//поскольку прочитали уже с нужного индекса и выбрали посылку
@@ -51,25 +51,25 @@ namespace Controllers
 
         }
 
-               public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignal(System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignal(TextBox startIndex, TextBox fileName,
+           RichTextBox fullMessage, TextBox country, TextBox currentFrequancy)
         {
             var I = new List<double>();
             var Q = new List<double>();
-            getSamples(fileName.Text, ref I, ref Q, 10000000);
+            GetSamples(fileName.Text, ref I, ref Q, 10000000);
             var rI = ResemplingOfSignal.GetResemplingSamples(I);
             var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
 
             return Processing.Decoder(rI, rQ, startIndex, fileName, fullMessage, country, currentFrequancy);
         }
         
-        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignal(System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
+        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignal(TextBox startIndex, TextBox fileName,
+            RichTextBox fullMessage, TextBox country, TextBox currentFrequancy)
         {
             var rI = new List<double>();
             var rQ = new List<double>();
 
-            getSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
+            GetSamples(fileName.Text, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex.Text),';');
 
             System.Windows.Forms.TextBox new_ind = new System.Windows.Forms.TextBox();
             new_ind.Text = "0";//поскольку прочитали уже с нужного индекса и выбрали посылку
@@ -99,22 +99,16 @@ namespace Controllers
             return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-            //Stat
-            public static void Statistics(System.Windows.Forms.TextBox fileOfPackages, System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
+        //Stat
+        public static void Statistics(TextBox fileOfPackages, TextBox startIndex, TextBox fileName, RichTextBox fullMessage, TextBox country, TextBox currentFrequancy)
         {
             Statistic.ProcessRealData.ProcessRealResemplingData(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
         }
 
         //Stat
-        public static void StatisticsWithPll(System.Windows.Forms.TextBox fileOfPackages, System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
+        public static void StatisticsWithPll(TextBox fileOfPackages, TextBox startIndex, TextBox fileName, RichTextBox fullMessage, TextBox country, TextBox currentFrequancy)
         {
             Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
         }
-
-        //math
-        
-
     }
 }

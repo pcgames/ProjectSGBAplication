@@ -27,7 +27,7 @@ namespace SGBFormAplication
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref fM, ref c, ref freq);
+                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref fM, ref c, ref freq);
                     fullMessage.Text = fM;
                     country.Text = c;
                     currentFrequancy.Text =freq;
@@ -39,9 +39,9 @@ namespace SGBFormAplication
                         startIndex.Text = "0";
                          fileName.Text = "simulatedSignalnew.csv";
                         //var gg = ;
-                        DataAccess.DataWriter.Writer(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
+                        DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
 
-                        var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
+                        var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
@@ -76,11 +76,11 @@ namespace SGBFormAplication
             {
                 if (checkUsePLL.Checked == true)
                 {
-                    Controllers.Controller.StatisticsWithPll(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
+                    Controller.StatisticsWithPll(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
                 }
                 else
                 {
-                    Controllers.Controller.Statistics(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
+                    Controller.Statistics(fileOfPackages, startIndex, fileName, fullMessage, country, currentFrequancy);
 
                 }
 
@@ -121,7 +121,7 @@ namespace SGBFormAplication
                         startIndex.Text = "0";
                         fileName.Text = "simulatedSignalnew.csv";
 
-                        DataAccess.DataWriter.Writer(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
+                        DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
                         rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy, 
                             ref std, ref meanFreq, ref phasa, ref iteration);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);

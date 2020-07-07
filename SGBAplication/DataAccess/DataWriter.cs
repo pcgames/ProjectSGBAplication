@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class DataWriter
     {
-        public static void Writer(List<Complex> data, string nameOfFile, char separator = ';')
+        public static void WriteToFile(List<Complex> data, string nameOfFile, char separator = ';')
         {
 
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
@@ -21,7 +21,7 @@ namespace DataAccess
             sw.Close();
             fs.Close();
         }
-        public static void Writer(List<double> data, string nameOfFile)
+        public static void WriteToFile(List<double> data, string nameOfFile)
         {
 
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
@@ -34,7 +34,7 @@ namespace DataAccess
             sw.Close();
             fs.Close();
         }
-        public static void Writer(List<string> data, string nameOfFile)
+        public static void WriteToFile(List<string> data, string nameOfFile)
         {
 
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);

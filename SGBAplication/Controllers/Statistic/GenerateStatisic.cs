@@ -24,7 +24,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 if (i % 1000 == 0)
                 {
                     k -= 2;
-                    DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+                    DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
                 }
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(SNR.Text) + k, ref rightFreq);
@@ -40,7 +40,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 dataToWrite.Add(toWrite);
 
             }
-            DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
             //for 
         }
@@ -58,7 +58,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 if (i % 300 == 0)
                 {
                     k -= 2;
-                    DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+                    DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
                 }
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
@@ -84,7 +84,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
                 dataToWrite.Add(toWrite);
 
             }
-            DataAccess.DataWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
             //for 
         }
@@ -113,7 +113,7 @@ System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox count
             var newMessage = new List<int>();
             message.ForEach(a => newMessage.Add(a > 0 ? -1 : 1));
             freq = double.IsNaN(freq) ? r.Next(899, 903) + r.NextDouble() : freq;
-            DataAccess.DataWriter.Writer(new GeneratorOfSgbSignalResemplig(SNR, freq, 102300,newMessage).GetSGBSignal().ToList(), fileName);
+            DataAccess.DataWriter.WriteToFile(new GeneratorOfSgbSignalResemplig(SNR, freq, 102300,newMessage).GetSGBSignal().ToList(), fileName);
 
             return returnString;
         }
