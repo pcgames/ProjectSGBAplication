@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="DataReader.cs" />
     <Compile Include="DataWriter.cs" />
-    <Compile Include="ReaderAndWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Numerics" />
