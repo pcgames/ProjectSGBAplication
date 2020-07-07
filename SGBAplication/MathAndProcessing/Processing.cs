@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
-using System.Windows.Forms;
 using static DataAccess.DataReader;
 using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
@@ -16,20 +15,20 @@ namespace MathAndProcessing
 {
     public class Processing
     {
-        private static List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-            System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy)
+        private static List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex, string fileName,
+            ref string fullMessage, ref string country, ref string currentFrequancy)
         {
-            if (startIndex.Text != "")
+            if (startIndex != "")
             {
                 if (rI.Count != 0)
                 {
-                    var s = Convert.ToInt32(startIndex.Text);
+                    var s = Convert.ToInt32(startIndex);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.Writer(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
+                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
 
 
-                    DataAccess.DataWriter.Writer(result, "emptyPart.txt");
+                    DataAccess.DataWriter.WriteToFile(result, "emptyPart.txt");
                     var newData = EvaluationAndCompensation.
                         CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
                         GetRange(s + 8 - 1, 76801));
@@ -37,10 +36,10 @@ namespace MathAndProcessing
 
                     newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
                     //ReaderAndWriter.Writer(newData, "data_before_psp.txt");ComplexSignals.ToComplex(rI, rQ).GetRange(s + 7, 76801)
-                    fullMessage.Text = MathAndProcess.Decoding.Decoder.fullMessage(newData);
-                    DataAccess.DataWriter.Writer(newData, "result_without_psp.txt");
-                    country.Text = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage.Text));
-                    currentFrequancy.Text = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
+                    fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
+                    DataAccess.DataWriter.WriteToFile(newData, "result_without_psp.txt");
+                    country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage));
+                    currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
                     var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                         StartOperation(newData);
@@ -58,19 +57,19 @@ namespace MathAndProcessing
                 }
                 else
                 {
-                    startIndex.Text = "";
-                    fullMessage.Text = "";
-                    country.Text = "";
-                    currentFrequancy.Text = "";
+                    startIndex = "";
+                    fullMessage = "";
+                    country = "";
+                    currentFrequancy = "";
                     return new List<List<System.Numerics.Complex>>();
                 }
             }
             else
             {
-                startIndex.Text = "";
-                fullMessage.Text = "";
-                country.Text = "";
-                currentFrequancy.Text = "";
+                startIndex = "";
+                fullMessage = "";
+                country = "";
+                currentFrequancy = "";
                 return new List<List<System.Numerics.Complex>>();
             }
 
@@ -78,17 +77,17 @@ namespace MathAndProcessing
 
 
         //
-        private static List<List<System.Numerics.Complex>> DecoderPLL(List<double> rI, List<double> rQ, System.Windows.Forms.TextBox startIndex, System.Windows.Forms.TextBox fileName,
-           System.Windows.Forms.RichTextBox fullMessage, System.Windows.Forms.TextBox country, System.Windows.Forms.TextBox currentFrequancy, ref double std,
+        private static List<List<System.Numerics.Complex>> DecoderPLL(List<double> rI, List<double> rQ, string startIndex, string fileName,
+           ref string fullMessage, ref string country, ref string currentFrequancy, ref double std,
             ref double meanFreq, ref double phasa, ref double iteration)
         {
-            if (startIndex.Text != "")
+            if (startIndex != "")
             {
                 if (rI.Count != 0)
                 {
-                    var s = Convert.ToInt32(startIndex.Text);
+                    var s = Convert.ToInt32(startIndex);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.Writer(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
+                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
                     var cosData = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801));
                     var sinData = ComplexSignals.ToComplex(rQ.GetRange(s + 8 - 1, 76801));
@@ -97,7 +96,7 @@ namespace MathAndProcessing
                     var sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData.GetRange(1, 76800));
                     var cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
                     var coeffs = new List<double>();
-                    DataAccess.DataReader.getSamples("coeffs_wo_pll", ref coeffs, 101);
+                    DataAccess.DataReader.GetSamples("coeffs_wo_pll", ref coeffs, 101);
                     var conv = new DigitalSignalProcessing.Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
@@ -127,10 +126,10 @@ namespace MathAndProcessing
                     }
 
 
-                    fullMessage.Text = MathAndProcess.Decoding.Decoder.fullMessage(bestData);
-                    DataAccess.DataWriter.Writer(bestData, "result_without_psp.txt");
-                    country.Text = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage.Text));
-                    currentFrequancy.Text = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
+                    fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(bestData);
+                    DataAccess.DataWriter.WriteToFile(bestData, "result_without_psp.txt");
+                    country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(fullMessage));
+                    currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
                     //DigitalSignalProcessing.Filters.Recursive.
                     var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                         StartOperation(bestData);
@@ -149,19 +148,19 @@ namespace MathAndProcessing
                 }
                 else
                 {
-                    startIndex.Text = "";
-                    fullMessage.Text = "";
-                    country.Text = "";
-                    currentFrequancy.Text = "";
+                    startIndex = "";
+                    fullMessage = "";
+                    country = "";
+                    currentFrequancy = "";
                     return new List<List<System.Numerics.Complex>>();
                 }
             }
             else
             {
-                startIndex.Text = "";
-                fullMessage.Text = "";
-                country.Text = "";
-                currentFrequancy.Text = "";
+                startIndex = "";
+                fullMessage = "";
+                country = "";
+                currentFrequancy = "";
                 return new List<List<System.Numerics.Complex>>();
             }
 

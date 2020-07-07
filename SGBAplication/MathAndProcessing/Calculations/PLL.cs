@@ -92,17 +92,17 @@ namespace MathAndProcess.Calculations
             if (350 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 400 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                DataAccess.DataReader.getSamples("coeffs_in_pll_357.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.GetSamples("coeffs_in_pll_357.csv", ref coeffs, countOfCoeffs, 0);
             }
             if (550 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 650 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                DataAccess.DataReader.getSamples("coeffs_in_pll_599.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.GetSamples("coeffs_in_pll_599.csv", ref coeffs, countOfCoeffs, 0);
             }
             if (440 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 500 * 2 * 2 * Math.PI)
             {
                 coeffs = new List<double>();
-                DataAccess.DataReader.getSamples("coeffs_in_pll_475.csv", ref coeffs, countOfCoeffs, 0);
+                DataAccess.DataReader.GetSamples("coeffs_in_pll_475.csv", ref coeffs, countOfCoeffs, 0);
             }
 
             //ReaderAndWriter.getSamples("coeffs_in_pll1.csv", ref coeffs, countOfCoeffs, 0);
