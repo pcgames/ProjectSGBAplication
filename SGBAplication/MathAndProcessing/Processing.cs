@@ -15,7 +15,7 @@ namespace MathAndProcessing
 {
     public class Processing
     {
-        private static List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex, string fileName,
+        public static List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex, string fileName,
             ref string fullMessage, ref string country, ref string currentFrequancy)
         {
             if (startIndex != "" && rI.Count != 0)
@@ -64,7 +64,7 @@ namespace MathAndProcessing
 
 
         //
-        private static List<List<System.Numerics.Complex>> DecoderPLL(List<double> rI, List<double> rQ, string startIndex, string fileName,
+        public static List<List<System.Numerics.Complex>> DecoderPLL(List<double> rI, List<double> rQ, string startIndex, string fileName,
            ref string fullMessage, ref string country, ref string currentFrequancy, ref double std,
             ref double meanFreq, ref double phasa, ref double iteration)
         {

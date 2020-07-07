@@ -22,7 +22,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                        Controller.DecoderOfResemplingSignal(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + country + ";" + currentFrequancy + ";" + fullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -35,7 +35,7 @@ namespace Controllers.Statistic
                 else
                 {
                     startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                    Controller.DecoderOfResemplingSignal(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
                     string toWrite = startIndex + ";" + country + ";" + currentFrequancy + ";" + fullMessage;
                     dataToWrite.Add(toWrite);
                 }
@@ -65,7 +65,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy,ref std,ref meanFreq,ref phasa,ref iteration);
+                        Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy,ref std,ref meanFreq,ref phasa,ref iteration);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + country + ";" + currentFrequancy 
                             + ";" + fullMessage + std.ToString()+ ";" + meanFreq.ToString()+ ";" + phasa.ToString()+ ";" + iteration.ToString();
@@ -79,7 +79,7 @@ namespace Controllers.Statistic
                 else
                 {
                     startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, fullMessage, country, currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
+                    Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
                     string toWrite = startIndex + ";" + country + ";" + currentFrequancy
                         + ";" + fullMessage + std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
                     dataToWrite.Add(toWrite);
