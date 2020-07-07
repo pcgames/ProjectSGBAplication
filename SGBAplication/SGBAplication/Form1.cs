@@ -20,11 +20,17 @@ namespace SGBFormAplication
 
         private void go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
         {
-            
+            string fM = "";
+            string c = "";
+            string freq = "";
+
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+                    var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref fM, ref c, ref freq);
+                    fullMessage.Text = fM;
+                    country.Text = c;
+                    currentFrequancy.Text =freq;
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
@@ -34,7 +40,8 @@ namespace SGBFormAplication
                          fileName.Text = "simulatedSignalnew.csv";
                         //var gg = ;
                         DataAccess.DataWriter.Writer(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex, fileName, fullMessage, country, currentFrequancy);
+
+                        var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
