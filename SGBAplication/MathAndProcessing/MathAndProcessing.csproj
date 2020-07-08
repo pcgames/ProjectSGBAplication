@@ -46,13 +46,13 @@
     <Compile Include="Calculations\ModulatingSignal.cs" />
     <Compile Include="Calculations\PLL.cs" />
     <Compile Include="Calculations\resemplingOfSignal.cs" />
+    <Compile Include="OutputData\IOutputData.cs" />
+    <Compile Include="OutputData\OutputData.cs" />
+    <Compile Include="OutputData\OutputDataPLL.cs" />
     <Compile Include="Processing\IProcessing.cs" />
     <Compile Include="Processing\Processing.cs" />
     <Compile Include="Decoding\Decoder.cs" />
     <Compile Include="Processing\ProcessingPLL.cs" />
-    <Compile Include="RefData\IOutputData.cs" />
-    <Compile Include="RefData\OutputData.cs" />
-    <Compile Include="RefData\OutputDataPLL.cs" />
     <Compile Include="Transformation\Mseqtransform.cs" />
     <Compile Include="Transformation\PseudorandomSequence.cs" />
   </ItemGroup>
