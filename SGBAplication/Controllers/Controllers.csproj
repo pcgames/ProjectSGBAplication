@@ -43,6 +43,8 @@
     <Compile Include="Actions.cs" />
     <Compile Include="Statistic\GenerateStatisic.cs" />
     <Compile Include="Statistic\ProcessRealData.cs" />
+    <Compile Include="RefData.cs" />
+    <Compile Include="RefDataPLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DigitalSignalProcessing">
