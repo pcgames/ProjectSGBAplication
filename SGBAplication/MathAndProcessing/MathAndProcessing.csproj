@@ -50,6 +50,7 @@
     <Compile Include="Processing\Processing.cs" />
     <Compile Include="Decoding\Decoder.cs" />
     <Compile Include="Processing\ProcessingPLL.cs" />
+    <Compile Include="RefData\IOutputData.cs" />
     <Compile Include="RefData\OutputData.cs" />
     <Compile Include="RefData\OutputDataPLL.cs" />
     <Compile Include="Transformation\Mseqtransform.cs" />

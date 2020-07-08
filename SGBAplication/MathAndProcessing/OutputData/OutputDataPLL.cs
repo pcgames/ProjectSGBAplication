@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class OutputDataPLL : OutputData
+    public class OutputDataPLL : OutputData, IOutputData
     {
         public double std { get; set; }
 
