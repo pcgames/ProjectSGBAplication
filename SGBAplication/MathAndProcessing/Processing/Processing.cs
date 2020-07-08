@@ -15,8 +15,7 @@ namespace MathAndProcessing
 {
     public class Processing : IProcessing
     {
-        public OutputData _dataPack { get; set; }
-        private string _startIndex;
+        private OutputData _dataPack { get; set; }
 
         public Processing()
         {
@@ -26,11 +25,11 @@ namespace MathAndProcessing
 
         public List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex)
         {
-            if (_startIndex != "" && rI.Count != 0)
+            if (startIndex != "" && rI.Count != 0)
             {
-                var s = Convert.ToInt32(_startIndex);
+                var s = Convert.ToInt32(startIndex);
                 var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                
+
                 EvaluationAndCompensation.PreprocessingOfSignal(result);
                 
                 var newData = EvaluationAndCompensation.
@@ -68,6 +67,11 @@ namespace MathAndProcessing
                 return new List<List<System.Numerics.Complex>>();
             }
 
+        }
+
+        public OutputData GetOutputData()
+        {
+            return _dataPack;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Controllers
     /// </summary>
     public class Controller
     {
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref MathAndProcessing.OutputDataPLL dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref OutputDataPLL dataPack)
         {
             var I = new List<double>();
             var Q = new List<double>();
@@ -36,7 +36,7 @@ namespace Controllers
             return output;
         }
         
-        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignalWithPll(string startIndex, string fileName, ref MathAndProcessing.OutputDataPLL dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignalWithPll(string startIndex, string fileName, ref OutputDataPLL dataPack)
         {
             var rI = new List<double>();
             var rQ = new List<double>();
@@ -49,7 +49,7 @@ namespace Controllers
             return output;
         }
 
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignal(string startIndex, string fileName, ref MathAndProcessing.OutputData dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignal(string startIndex, string fileName, ref OutputData dataPack)
         {
             var I = new List<double>();
             var Q = new List<double>();
@@ -58,13 +58,13 @@ namespace Controllers
             var rI = ResemplingOfSignal.GetResemplingSamples(I);
             var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
 
-            Processing processor = new Processing();
+            IProcessing processor = new Processing();
             var output = processor.Decoder(rI, rQ, startIndex);
             dataPack = processor._dataPack;
             return output;
         }
         
-        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignal(string startIndex, string fileName, ref MathAndProcessing.OutputData dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignal(string startIndex, string fileName, ref OutputData dataPack)
         {
             var rI = new List<double>();
             var rQ = new List<double>();

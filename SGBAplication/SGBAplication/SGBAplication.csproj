@@ -104,6 +104,10 @@
       <Project>{fe149f55-7365-476a-9aea-143f88804ef5}</Project>
       <Name>ImitattionAndStatistic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MathAndProcessing\MathAndProcessing.csproj">
+      <Project>{2F5B6EF7-F093-4730-9618-F424449E90C4}</Project>
+      <Name>MathAndProcessing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
