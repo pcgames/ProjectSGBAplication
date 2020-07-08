@@ -15,9 +15,7 @@ namespace MathAndProcessing
 {
     public class ProcessingPLL : IProcessing
     {
-        public OutputDataPLL _dataPack { get; set; }
-
-        private string _startIndex;
+        private OutputDataPLL _dataPack { get; set; }
 
         public ProcessingPLL()
         {
@@ -26,11 +24,11 @@ namespace MathAndProcessing
 
         public List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex)
         {
-            if (_startIndex != "")
+            if (startIndex != "")
             {
                 if (rI.Count != 0)
                 {
-                    var s = Convert.ToInt32(_startIndex);
+                    var s = Convert.ToInt32(startIndex);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
                     DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
@@ -104,6 +102,11 @@ namespace MathAndProcessing
                 return new List<List<System.Numerics.Complex>>();
             }
 
+        }
+
+        public OutputData GetOutputData()
+        {
+            return _dataPack;
         }
     }
 }

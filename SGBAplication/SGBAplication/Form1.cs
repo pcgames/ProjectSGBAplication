@@ -6,7 +6,7 @@ using System.IO;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
 using Controllers;
-
+using MathAndProcessing;
 
 namespace SGBFormAplication
 {
@@ -23,11 +23,12 @@ namespace SGBFormAplication
             string fM = "";
             string c = "";
             string freq = "";
+            OutputData dataPack = new OutputData();
 
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref fM, ref c, ref freq);
+                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref dataPack);
                     fullMessage.Text = fM;
                     country.Text = c;
                     currentFrequancy.Text =freq;
@@ -123,7 +124,7 @@ namespace SGBFormAplication
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = Controllers.Controller.DecoderOfResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
+                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
                         ref std, ref meanFreq, ref phasa, ref iteration);
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
@@ -134,13 +135,13 @@ namespace SGBFormAplication
                         fileName.Text = "simulatedSignalnew.csv";
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
-                        rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq, 
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq, 
                             ref std, ref meanFreq, ref phasa, ref iteration);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
-                        rnewDataAndSpectrum = Controllers.Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
                             ref std, ref meanFreq, ref phasa, ref iteration);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
