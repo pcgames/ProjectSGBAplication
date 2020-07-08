@@ -90,7 +90,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Controllers\Controllers.csproj">
       <Project>{52306596-bdeb-40cd-85c0-d43a0c09fb6e}</Project>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class OutputData 
+    public class OutputData : IOutputData
     {
         public string fullMessage { get; set; }
 

@@ -6,6 +6,6 @@ namespace MathAndProcessing
     {
         List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex);
 
-        OutputData GetOutputData();
+        IOutputData GetOutputData();
     }
 }

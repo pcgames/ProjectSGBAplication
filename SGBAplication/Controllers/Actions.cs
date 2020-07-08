@@ -45,7 +45,7 @@ namespace Controllers
 
             ProcessingPLL processor = new ProcessingPLL();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor._dataPack;
+            dataPack = processor.GetOutputData();
             return output;
         }
 
@@ -60,7 +60,7 @@ namespace Controllers
 
             IProcessing processor = new Processing();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor._dataPack;
+            dataPack = processor.GetOutputData();
             return output;
         }
         
@@ -73,7 +73,7 @@ namespace Controllers
 
             Processing processor = new Processing();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor._dataPack;
+            dataPack = processor.GetOutputData();
             return output;
 
         }

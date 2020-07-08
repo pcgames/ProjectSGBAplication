@@ -69,7 +69,7 @@ namespace MathAndProcessing
 
         }
 
-        public OutputData GetOutputData()
+        public IOutputData GetOutputData()
         {
             return _dataPack;
         }
