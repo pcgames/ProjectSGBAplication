@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\GUIData.cs" />
     <Compile Include="Drawing\abstractDrawing.cs" />
     <Compile Include="Drawing\DrawingSignals.cs" />
     <Compile Include="Drawing\DrawingSpectrum.cs" />

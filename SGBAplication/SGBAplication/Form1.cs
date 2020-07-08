@@ -6,6 +6,7 @@ using System.IO;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
 using Controllers;
+//using static SGBAplication.Data.GUIData;
 using MathAndProcessing;
 
 namespace SGBFormAplication
@@ -16,38 +17,67 @@ namespace SGBFormAplication
         {
             InitializeComponent();
         }
+        private SGBAplication.Data.GUIData dataPack;
 
+
+        private void InitializeGUIDataPack()
+        {
+            dataPack = new SGBAplication.Data.GUIData();
+
+            dataPack.currentFrequancy = currentFrequancy.Text;
+            dataPack.fileName = fileName.Text;
+            dataPack.fileOfPackages = fileOfPackages.Text;
+            dataPack.fullMessage = fullMessage.Text;
+            dataPack.SNR = SNR.Text;
+            dataPack.StartIndex = startIndex.Text;
+            dataPack.country = country.Text;
+        }
+        private void InitializeForm()
+        {
+
+            currentFrequancy.Text = dataPack.currentFrequancy ;
+            fileName.Text = dataPack.fileName ;
+            fileOfPackages.Text = dataPack.fileOfPackages;
+            fullMessage.Text = dataPack.fullMessage ;
+            SNR.Text = dataPack.SNR ;
+            startIndex.Text = dataPack.StartIndex;
+            country.Text = dataPack.country ;
+        }
 
         private void go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
         {
-            string fM = "";
-            string c = "";
-            string freq = "";
-            OutputData dataPack = new OutputData();
+
 
             switch (checkResempling.Checked)
             {
                 case true:
+                    InitializeGUIDataPack();
                     var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref dataPack);
-                    fullMessage.Text = fM;
-                    country.Text = c;
-                    currentFrequancy.Text =freq;
+                    InitializeForm();
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
                     {
                         startIndex.Text = "0";
-                         fileName.Text = "simulatedSignalnew.csv";
-                        //var gg = ;
+
+                        fileName.Text = "simulatedSignalnew.csv";
+
+                        InitializeGUIDataPack();
+
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
 
-                        rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
+                        rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref dataPack);
+
+                        InitializeForm();
+
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
+                        InitializeGUIDataPack();
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex.Text, fileName.Text, ref dataPack);
+                        InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     
@@ -73,9 +103,7 @@ namespace SGBFormAplication
 
         private void statisticButton_Click(object sender, EventArgs e)
         {
-            string fM = "";
-            string c = "";
-            string freq = "";
+
             if (checkResempling.Checked == true)
             {
                 if (checkUsePLL.Checked == true)

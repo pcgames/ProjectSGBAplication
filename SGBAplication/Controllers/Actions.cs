@@ -21,7 +21,7 @@ namespace Controllers
     /// </summary>
     public class Controller
     {
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref OutputDataPLL dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref GUIData dataPack)
         {
             var I = new List<double>();
             var Q = new List<double>();
@@ -32,7 +32,8 @@ namespace Controllers
 
             ProcessingPLL processor = new ProcessingPLL();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor._dataPack;
+            var data = processor.GetOutputData();
+
             return output;
         }
         
@@ -45,7 +46,7 @@ namespace Controllers
 
             ProcessingPLL processor = new ProcessingPLL();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor.GetOutputData();
+            var data = processor.GetOutputData();
             return output;
         }
 
@@ -60,7 +61,7 @@ namespace Controllers
 
             IProcessing processor = new Processing();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor.GetOutputData();
+            var data = processor.GetOutputData();
             return output;
         }
         
@@ -73,7 +74,7 @@ namespace Controllers
 
             Processing processor = new Processing();
             var output = processor.Decoder(rI, rQ, startIndex);
-            dataPack = processor.GetOutputData();
+            var data = processor.GetOutputData();
             return output;
 
         }
