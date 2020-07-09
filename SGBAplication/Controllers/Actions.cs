@@ -23,6 +23,12 @@ namespace Controllers
     {
         public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref GUIData dataPack)
         {
+
+
+        }
+
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref GUIData dataPack)
+        {
             var I = new List<double>();
             var Q = new List<double>();
 
