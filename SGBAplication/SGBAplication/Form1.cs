@@ -28,7 +28,7 @@ namespace SGBFormAplication
             {
                 case true:
                     InitializeGUIDataPack();
-                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text,  ref dataPack);
+                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal( ref dataPack);
                     InitializeForm();
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
@@ -43,7 +43,7 @@ namespace SGBFormAplication
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
 
-                        rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(startIndex.Text, fileName.Text, ref dataPack);
+                        rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(ref dataPack);
 
                         InitializeForm();
 
@@ -52,7 +52,7 @@ namespace SGBFormAplication
                     else
                     {
                         InitializeGUIDataPack();
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(startIndex.Text, fileName.Text, ref dataPack);
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(ref dataPack);
                         InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
@@ -70,17 +70,15 @@ namespace SGBFormAplication
             {
                 if (checkUsePLL.Checked == true)
                 {
-                    Controller.StatisticsWithPll(fileOfPackages.Text, startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
-                    fullMessage.Text = fM;
-                    country.Text = c;
-                    currentFrequancy.Text = freq;
+                    InitializeGUIDataPack();
+
+                    Controller.StatisticsWithPll(dataPack);
                 }
                 else
                 {
-                    Controller.Statistics(fileOfPackages.Text, startIndex.Text, fileName.Text, ref fM, ref c, ref freq);
-                    fullMessage.Text = fM;
-                    country.Text = c;
-                    currentFrequancy.Text = freq;
+                    InitializeGUIDataPack();
+
+                    Controller.Statistics(dataPack);
 
                 }
 
@@ -92,11 +90,15 @@ namespace SGBFormAplication
         {
             if (checkUsePLL.Checked)
             {
-                Controllers.Statistic.GenerateStatisic.StatisticsGeneratorForPLL(10000, SNR.Text);//это ужасно!!!!!
+                InitializeGUIDataPack();
+
+                Controllers.Statistic.GenerateStatisic.StatisticsGeneratorForPLL(10000,dataPack);//это ужасно!!!!!
             }
             else
             {
-                Controllers.Statistic.GenerateStatisic.StatisticsGenerator(10000, SNR.Text);//АНАЛОГИЧНО
+                InitializeGUIDataPack();
+
+                Controllers.Statistic.GenerateStatisic.StatisticsGenerator(10000, dataPack);//АНАЛОГИЧНО
 
             }
 
@@ -104,18 +106,13 @@ namespace SGBFormAplication
 
         private void pllProcess_Click(object sender, EventArgs e)
         {
-            double std = 0;
-            double meanFreq = 0;
-            double phasa = 0;
-            double iteration = 0;
-            string fM = "";
-            string c = "";
-            string freq = "";
+
             switch (checkResempling.Checked)
             {
                 case true:
-                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
-                        ref std, ref meanFreq, ref phasa, ref iteration);
+                    InitializeGUIDataPack();
+
+                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignalWithPll(ref dataPack);
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
@@ -123,16 +120,16 @@ namespace SGBFormAplication
                     {
                         startIndex.Text = "0";
                         fileName.Text = "simulatedSignalnew.csv";
+                        InitializeGUIDataPack();
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
-                            ref std, ref meanFreq, ref phasa, ref iteration);
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
+                        InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(startIndex.Text, fileName.Text, ref fM, ref c, ref freq,
-                            ref std, ref meanFreq, ref phasa, ref iteration);
+                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
 
@@ -143,14 +140,14 @@ namespace SGBFormAplication
         }
         private void InitializeGUIDataPack()
         {
-            dataPack = new SGBAplication.Data.GUIData();
+            dataPack = new Controllers.Data.GUIData();
 
             dataPack.currentFrequancy = currentFrequancy.Text;
             dataPack.fileName = fileName.Text;
             dataPack.fileOfPackages = fileOfPackages.Text;
             dataPack.fullMessage = fullMessage.Text;
             dataPack.SNR = SNR.Text;
-            dataPack.StartIndex = startIndex.Text;
+            dataPack.startIndex = startIndex.Text;
             dataPack.country = country.Text;
         }
         private void InitializeForm()
@@ -161,7 +158,7 @@ namespace SGBFormAplication
             fileOfPackages.Text = dataPack.fileOfPackages;
             fullMessage.Text = dataPack.fullMessage;
             SNR.Text = dataPack.SNR;
-            startIndex.Text = dataPack.StartIndex;
+            startIndex.Text = dataPack.startIndex;
             country.Text = dataPack.country;
         }
         private void DrawingOfBPSKSignalAndSpectrum(List<System.Numerics.Complex> newDataWindowed, List<System.Numerics.Complex> rnewData)

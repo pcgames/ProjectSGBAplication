@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Generator.ImitationSignals;
+using Controllers.Data;
 
 namespace Controllers.Statistic
 {
     public class GenerateStatisic
     {
 
-        public static void StatisticsGenerator(int countMessages, string SNR)
+        public static void StatisticsGenerator(int countMessages, GUIData GUIDataPack)
         {
-            var startIndex= "0";
-            var fileName= "simulatedSignalnew.csv";
-            string fullMessage = "";
-            var country = "";
-            var currentFrequancy = "";
+            GUIDataPack.startIndex = "0";
+            GUIDataPack.fileName= "simulatedSignalnew.csv";
+            var dataPack = GUIDataPack.GUI2OutputDataConverter();
             //var gg = ;
 
             List<string> dataToWrite = new List<string>();
@@ -26,32 +25,32 @@ namespace Controllers.Statistic
                 if (i % 1000 == 0)
                 {
                     k -= 2;
-                    DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "SNR=" + SNR + "_statistics.csv");
+                    DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
                 }
                 var rightFreq = 900.2;
-                var rightMessage = generatorRandomSignal(Convert.ToDouble(SNR) + k, ref rightFreq);
-                Controller.DecoderOfNonResemplingSignal(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
+                var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
+                Controller.DecoderOfNonResemplingSignal(GUIDataPack.startIndex, GUIDataPack.fileName, ref dataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
 
                 //}
-                string toWrite = (rightFreq - 300).ToString() + ";" + currentFrequancy + ";" + rightMessage.Substring(50) + ";" + fullMessage;
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage;
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 dataToWrite.Add(toWrite);
 
             }
-            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "SNR=" + SNR + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
 
             //for 
         }
-        public static void StatisticsGeneratorForPLL(int countMessages, string SNR)
+        public static void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
         {
-            var startIndex = "0";
-            var fileName = "simulatedSignalnew.csv";
-            //var gg = ;
+            GUIDataPack.startIndex = "0";
+            GUIDataPack.fileName = "simulatedSignalnew.csv";
 
+            var dataPack=GUIDataPack.GUI2OutputPLLDataConverter();
             List<string> dataToWrite = new List<string>();
             var k = 0;
             for (var i = 0; i < countMessages; i++)
@@ -59,20 +58,14 @@ namespace Controllers.Statistic
                 if (i % 300 == 0)
                 {
                     k -= 2;
-                    DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "SNR=" + SNR + "_statistics.csv");
+                    DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
                 }
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 var rightFreq = 900.2;
-                var rightMessage = generatorRandomSignal(Convert.ToDouble(SNR) + k, ref rightFreq);
-                double std = 0;
-                double meanFreq = 0;
-                double phasa = 0;
-                double iteration = 0;
-                string fullMessage = "";
-                string country = "";
-                string currentFrequancy = "";
-                Controller.DecoderOfNonResemplingSignalWithPll(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
+                var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
+
+                Controller.DecoderOfNonResemplingSignalWithPll(GUIDataPack.startIndex, GUIDataPack.fileName, ref dataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
@@ -81,14 +74,14 @@ namespace Controllers.Statistic
                 //string toWrite = startIndex.Text + ";" + country.Text + ";" + currentFrequancy.Text
                 //        + ";" + fullMessage.Text + std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
 
-                string toWrite = (rightFreq - 300).ToString() + ";" + currentFrequancy + ";" + rightMessage.Substring(50) + ";" + fullMessage + ";" +
-                    std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage + ";" +
+                     dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 dataToWrite.Add(toWrite);
 
             }
-            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "SNR=" + SNR + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
 
             //for 
         }
