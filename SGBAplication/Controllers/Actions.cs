@@ -12,6 +12,8 @@ using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
 using MathAndProcess;
 using MathAndProcessing;
+using System.Numerics;
+using Controllers.Data;
 //using 
 //using DecoderSGB.Calculations.;
 
@@ -22,80 +24,25 @@ namespace Controllers
     /// </summary>
     public class Controller
     {
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref Data.GUIData dataPack)
+        public static List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-
-
+            return ControllerMathAndProcessing.DecoderOfNonResemplingSignalWithPll(ref dataPack);
         }
 
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref GUIData dataPack)
+        public static List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            var I = new List<double>();
-            var Q = new List<double>();
-
-            GetSamples(fileName, ref I, ref Q, 10000000);
-            var rI = ResemplingOfSignal.GetResemplingSamples(I);
-            var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
-
-            ProcessingPLL processor = new ProcessingPLL();
-            var output = processor.Decoder(rI, rQ, startIndex);
-            var data = processor.GetOutputData();
-
-            return output;
-        }
-        
-        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignalWithPll(string startIndex, string fileName, ref OutputDataPLL dataPack)
-        {
-            var rI = new List<double>();
-            var rQ = new List<double>();
-
-            GetSamples(fileName, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex),';');
-
-            ProcessingPLL processor = new ProcessingPLL();
-            var output = processor.Decoder(rI, rQ, startIndex);
-            var data = processor.GetOutputData();
-            return output;
+            return ControllerMathAndProcessing.DecoderOfResemplingSignalWithPll(ref dataPack);
         }
 
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignal(string startIndex, string fileName, ref OutputData dataPack)
+        public static List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            var I = new List<double>();
-            var Q = new List<double>();
-
-            GetSamples(fileName, ref I, ref Q, 10000000);
-            var rI = ResemplingOfSignal.GetResemplingSamples(I);
-            var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
-
-            IProcessing processor = new Processing();
-            var output = processor.Decoder(rI, rQ, startIndex);
-            var data = processor.GetOutputData();
-            return output;
-        }
-        
-        public static List<List<System.Numerics.Complex>> DecoderOfResemplingSignal(string startIndex, string fileName, ref OutputData dataPack)
-        {
-            var rI = new List<double>();
-            var rQ = new List<double>();
-
-            GetSamples(fileName, ref rI, ref rQ, 76809,Convert.ToInt64(startIndex),';');
-
-            Processing processor = new Processing();
-            var output = processor.Decoder(rI, rQ, startIndex);
-            var data = processor.GetOutputData();
-            return output;
-
+            return ControllerMathAndProcessing.DecoderOfNonResemplingSignal(ref dataPack);
         }
 
-        //public static void DrawingOfBPSKSignalAndSpectrum(System.Windows.Forms.DataVisualization.Charting.Chart signalChart, 
-        //    System.Windows.Forms.DataVisualization.Charting.Chart spectrumChart, List<System.Numerics.Complex> rnewData,
-        //    List<System.Numerics.Complex> newDataWindowed)
-        //{
-        //    new DrawPlot.Drawing.DrawingSignals(signalChart).DrawChart(ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000));
-        //    var spectrum = FFT.Forward(newDataWindowed.GetRange(0, 8192));
-        //    var xValues = FreqCalculation.Getfrequancy(spectrum.Count, 76800);
-
-        //    new SGBAplication.Drawing.DrawingSpectrum(spectrumChart, 76800).DrawChart(spectrum, xValues);
-        //}
+        public static List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
+        {
+            return ControllerMathAndProcessing.DecoderOfResemplingSignal(ref dataPack);
+        }
 
         public static void GetDataForSpectrumChart(ref List<System.Numerics.Complex> spectrum, ref List<double> xValues, List<System.Numerics.Complex> newDataWindowed)
         {
@@ -108,14 +55,12 @@ namespace Controllers
             return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-        //Stat
         public static void Statistics(Data.GUIData dataPack )
         {
 
             Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);
         }
 
-        //Stat
         public static void StatisticsWithPll(Data.GUIData dataPack)
         {
             Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(dataPack);
