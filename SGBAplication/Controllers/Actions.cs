@@ -12,6 +12,7 @@ using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
 using MathAndProcess;
 using MathAndProcessing;
+//using 
 //using DecoderSGB.Calculations.;
 
 namespace Controllers
@@ -21,7 +22,7 @@ namespace Controllers
     /// </summary>
     public class Controller
     {
-        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref GUIData dataPack)
+        public static List<List<System.Numerics.Complex>> DecoderOfNonResemplingSignalWithPll(string startIndex, string fileName, ref Data.GUIData dataPack)
         {
 
 
@@ -108,15 +109,16 @@ namespace Controllers
         }
 
         //Stat
-        public static void Statistics(string fileOfPackages, string startIndex, string fileName, ref string fullMessage, ref string country, ref string currentFrequancy)
+        public static void Statistics(Data.GUIData dataPack )
         {
-            Statistic.ProcessRealData.ProcessRealResemplingData(fileOfPackages, startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
+
+            Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);
         }
 
         //Stat
-        public static void StatisticsWithPll(string fileOfPackages, string startIndex, string fileName, ref string fullMessage, ref string country, ref string currentFrequancy)
+        public static void StatisticsWithPll(Data.GUIData dataPack)
         {
-            Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(fileOfPackages, startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
+            Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(dataPack);
         }
     }
 }
