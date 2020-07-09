@@ -9,7 +9,7 @@ namespace Controllers.Data
     public class GUIData
     {
 
-        public string StartIndex { get; set; }
+        public string startIndex { get; set; }
 
         public string fileName { get; set; }
 
