@@ -29,7 +29,7 @@ namespace Controllers.Statistic
                 }
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
-                Controller.DecoderOfNonResemplingSignal(GUIDataPack.startIndex, GUIDataPack.fileName, ref dataPack);
+                Controller.DecoderOfNonResemplingSignal(ref GUIDataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
@@ -65,7 +65,7 @@ namespace Controllers.Statistic
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
-                Controller.DecoderOfNonResemplingSignalWithPll(GUIDataPack.startIndex, GUIDataPack.fileName, ref dataPack);
+                Controller.DecoderOfNonResemplingSignalWithPll(ref GUIDataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
