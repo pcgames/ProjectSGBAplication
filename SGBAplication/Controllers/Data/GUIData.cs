@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SGBAplication.Data
+namespace Controllers.Data
 {
     public class GUIData
     {
@@ -22,6 +22,8 @@ namespace SGBAplication.Data
         public string currentFrequancy { get; set; }
 
         public string fileOfPackages { get; set; }
+
+        //public 
 
     }
 }
