@@ -6,7 +6,6 @@ using System.IO;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
 using Controllers;
-//using static SGBAplication.Data.GUIData;
 using MathAndProcessing;
 
 namespace SGBFormAplication

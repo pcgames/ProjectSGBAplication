@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Threading.Tasks;
-            
+
 namespace Controllers.Statistic
 {
     public class ProcessRealData
@@ -23,7 +20,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         var startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignal(startIndex, GUIDataPack.fileName, ref dataPack);
+                        Controller.DecoderOfResemplingSignal(ref GUIDataPack);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -36,7 +33,7 @@ namespace Controllers.Statistic
                 else
                 {
                     var startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignal(startIndex, GUIDataPack.fileName, ref dataPack);
+                    Controller.DecoderOfResemplingSignal(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
                     dataToWrite.Add(toWrite);
                 }
@@ -62,7 +59,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         var startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignalWithPll(startIndex, GUIDataPack.fileName, ref dataPack);
+                        Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
                         string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy 
                             + ";" + dataPack.fullMessage + dataPack.std.ToString()+ ";" + dataPack.meanFreq.ToString()+ ";" + dataPack.phasa.ToString()+ ";" + dataPack.iteration.ToString();
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -75,18 +72,13 @@ namespace Controllers.Statistic
                 else
                 {
                     var startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignalWithPll(startIndex, GUIDataPack.fileName, ref dataPack);
+                    Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy
                         + ";" + dataPack.fullMessage + dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
                     dataToWrite.Add(toWrite);
                 }
-
-
-                //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
              DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
-
-            //for 
         }
     }
 }

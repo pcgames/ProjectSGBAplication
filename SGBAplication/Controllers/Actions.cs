@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System;
-using System.Threading.Tasks;
+﻿using Controllers.Data;
 using DigitalSignalProcessing;
-using DigitalSignalProcessing.Windows;
-using System.Windows.Forms;
-using static DataAccess.DataReader;
 using MathAndProcess.Calculations;
-using MathAndProcess.Transformation;
-using MathAndProcess;
-using MathAndProcessing;
+using System.Collections.Generic;
 using System.Numerics;
-using Controllers.Data;
-//using 
-//using DecoderSGB.Calculations.;
 
 namespace Controllers
 {
