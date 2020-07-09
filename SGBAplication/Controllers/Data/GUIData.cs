@@ -23,7 +23,35 @@ namespace Controllers.Data
 
         public string fileOfPackages { get; set; }
 
-        //public 
+        public MathAndProcessing.OutputData GUI2OutputDataConverter()
+        {
+            var dataPack = new MathAndProcessing.OutputData();
+            dataPack.country = country;
+            dataPack.currentFrequancy = country;
+            dataPack.fullMessage = country;
+            return dataPack;
+            //dataPack.country = country;
+
+        }
+        public MathAndProcessing.OutputDataPLL GUI2OutputPLLDataConverter()
+        {
+            var dataPack = new MathAndProcessing.OutputDataPLL();
+            dataPack.country = country;
+            dataPack.currentFrequancy = country;
+            dataPack.fullMessage = country;
+            return dataPack;
+            //dataPack.country = country;
+
+        }
+        public void Output2GUIDataConverter(MathAndProcessing.OutputData dataPack)
+        {
+            //var dataPack = new MathAndProcessing.OutputData();
+            country = dataPack.country;
+            currentFrequancy = dataPack.country;
+            fullMessage = dataPack.country;
+            //dataPack.country = country;
+
+        }
 
     }
 }

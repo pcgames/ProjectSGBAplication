@@ -8,12 +8,13 @@ namespace Controllers.Statistic
 {
     public class ProcessRealData
     {
-        public static void ProcessRealResemplingData(string fileOfPackages, string startIndex, string fileName,
-    ref string fullMessage, ref string country, ref string currentFrequancy)
+        public static void ProcessRealResemplingData(Data.GUIData GUIDataPack)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(fileOfPackages);
+            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataPack = GUIDataPack.GUI2OutputDataConverter();
             var indexes = new List<Int64>();
+
             for (var i = 0; i < dataOfPackages.Count; i++)
             {
 
@@ -21,10 +22,10 @@ namespace Controllers.Statistic
                 {
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
+                        var startIndex = dataOfPackages[i][0];
+                        Controller.DecoderOfResemplingSignal(startIndex, GUIDataPack.fileName, ref dataPack);
                         startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignal(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
-                        startIndex = dataOfPackages[i][0];
-                        string toWrite = startIndex + ";" + country + ";" + currentFrequancy + ";" + fullMessage;
+                        string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
                         dataOfPackages.Remove(dataOfPackages[i - 1]);
                         i -= 1;
@@ -34,29 +35,25 @@ namespace Controllers.Statistic
                 }
                 else
                 {
-                    startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignal(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy);
-                    string toWrite = startIndex + ";" + country + ";" + currentFrequancy + ";" + fullMessage;
+                    var startIndex = dataOfPackages[i][0];
+                    Controller.DecoderOfResemplingSignal(startIndex, GUIDataPack.fileName, ref dataPack);
+                    string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
                     dataToWrite.Add(toWrite);
                 }
 
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-            DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "_statistics.csv");
+            DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
 
             //for 
         }
-        public static void ProcessRealResemplingDataWithPLL(string fileOfPackages, string startIndex, string fileName,
-           ref string fullMessage, ref string country, ref string currentFrequancy)
+        public static void ProcessRealResemplingDataWithPLL(Data.GUIData GUIDataPack)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(fileOfPackages);
-            var indexes = new List<Int64>();
-            double std = 0;
-            double meanFreq = 0;
-            double phasa = 0;
-            double iteration = 0;
+            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataPack = GUIDataPack.GUI2OutputPLLDataConverter();
+
             for (var i = 0; i < dataOfPackages.Count; i++)
             {
 
@@ -64,11 +61,10 @@ namespace Controllers.Statistic
                 {
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
-                        startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy,ref std,ref meanFreq,ref phasa,ref iteration);
-                        startIndex = dataOfPackages[i][0];
-                        string toWrite = startIndex + ";" + country + ";" + currentFrequancy 
-                            + ";" + fullMessage + std.ToString()+ ";" + meanFreq.ToString()+ ";" + phasa.ToString()+ ";" + iteration.ToString();
+                        var startIndex = dataOfPackages[i][0];
+                        Controller.DecoderOfResemplingSignalWithPll(startIndex, GUIDataPack.fileName, ref dataPack);
+                        string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy 
+                            + ";" + dataPack.fullMessage + dataPack.std.ToString()+ ";" + dataPack.meanFreq.ToString()+ ";" + dataPack.phasa.ToString()+ ";" + dataPack.iteration.ToString();
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
                         dataOfPackages.Remove(dataOfPackages[i - 1]);
                         i -= 1;
@@ -78,17 +74,17 @@ namespace Controllers.Statistic
                 }
                 else
                 {
-                    startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignalWithPll(startIndex, fileName, ref fullMessage, ref country, ref currentFrequancy, ref std, ref meanFreq, ref phasa, ref iteration);
-                    string toWrite = startIndex + ";" + country + ";" + currentFrequancy
-                        + ";" + fullMessage + std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
+                    var startIndex = dataOfPackages[i][0];
+                    Controller.DecoderOfResemplingSignalWithPll(startIndex, GUIDataPack.fileName, ref dataPack);
+                    string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy
+                        + ";" + dataPack.fullMessage + dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
                     dataToWrite.Add(toWrite);
                 }
 
 
                 //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-             DataAccess.DataWriter.WriteToFile(dataToWrite, fileName + "_statistics.csv");
+             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
 
             //for 
         }
