@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MathAndProcessing;
 
 namespace Controllers.Data
 {
     public class GUIData
     {
 
-        public string StartIndex { get; set; }
+        public string startIndex { get; set; }
 
         public string fileName { get; set; }
 
@@ -27,8 +28,8 @@ namespace Controllers.Data
         {
             var dataPack = new MathAndProcessing.OutputData();
             dataPack.country = country;
-            dataPack.currentFrequancy = country;
-            dataPack.fullMessage = country;
+            dataPack.currentFrequancy = currentFrequancy;
+            dataPack.fullMessage = fullMessage;
             return dataPack;
             //dataPack.country = country;
 
@@ -36,19 +37,29 @@ namespace Controllers.Data
         public MathAndProcessing.OutputDataPLL GUI2OutputPLLDataConverter()
         {
             var dataPack = new MathAndProcessing.OutputDataPLL();
-            dataPack.country = country;
-            dataPack.currentFrequancy = country;
-            dataPack.fullMessage = country;
+            dataPack.country = this.country;
+            dataPack.currentFrequancy = this.currentFrequancy;
+            dataPack.fullMessage = this.fullMessage;
             return dataPack;
             //dataPack.country = country;
 
         }
-        public void Output2GUIDataConverter(MathAndProcessing.OutputData dataPack)
+        public void Output2GUIDataConverter(OutputData dataPack)
         {
             //var dataPack = new MathAndProcessing.OutputData();
-            country = dataPack.country;
-            currentFrequancy = dataPack.country;
-            fullMessage = dataPack.country;
+            this.country = dataPack.country;
+            this.currentFrequancy = dataPack.currentFrequancy;
+            this.fullMessage = dataPack.fullMessage;
+            //dataPack.country = country;
+
+        }
+
+        public void Output2GUIDataConverter(OutputDataPLL dataPack)
+        {
+            //var dataPack = new MathAndProcessing.OutputData();
+            this.country = dataPack.country;
+            this.currentFrequancy = dataPack.currentFrequancy;
+            this.fullMessage = dataPack.fullMessage;
             //dataPack.country = country;
 
         }
