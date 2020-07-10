@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DataReader.cs" />
     <Compile Include="DataWriter.cs" />
+    <Compile Include="CoefficientsReader.cs" />
     <Compile Include="IDataReader.cs" />
     <Compile Include="IDataWriter.cs" />
   </ItemGroup>

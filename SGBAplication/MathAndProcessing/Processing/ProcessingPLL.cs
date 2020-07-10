@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
-using static DataAccess.DataReader;
 using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
-using MathAndProcess;
 
 namespace MathAndProcessing
 {
@@ -30,8 +28,9 @@ namespace MathAndProcessing
                 {
                     var s = Convert.ToInt32(startIndex);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
+
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
+
                     var cosData = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801));
                     var sinData = ComplexSignals.ToComplex(rQ.GetRange(s + 8 - 1, 76801));
                     var cosQchanel = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801), true);
@@ -40,7 +39,7 @@ namespace MathAndProcessing
                     var cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
                     var coeffs = new List<double>();
                     DataAccess.DataReader.GetSamples("coeffs_wo_pll", ref coeffs, 101);
-                    var conv = new DigitalSignalProcessing.Convolution(ConvolutionType.Common);
+                    var conv = new Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
                     cosIsig = conv.StartMagic(cosIsig, ComplexSignals.ToComplex(coeffs));

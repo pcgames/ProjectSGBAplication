@@ -35,7 +35,6 @@ namespace MathAndProcessing
                 var newData = EvaluationAndCompensation.
                     CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
                     GetRange(s + 8 - 1, 76801));
-                Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
 
                 newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
 

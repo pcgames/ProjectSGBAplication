@@ -52,40 +52,7 @@ namespace DataAccess
             }
 
         }
-        public void GetSamples(string fileName, ref List<double> I, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
-        {
-            if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
-            {
-                seporator = ',';
-            }
-            try
-            {
-
-                StreamReader sr = new StreamReader(fileName);
-                string line;
-                // Read and display lines from the file until the end of 
-                // the file is reached.
-                var numberOfCurrentRow = 0;
-                while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
-                {
-                    if (numberOfCurrentRow >= (startIndex))
-                    {
-                        var elements = line.Split(seporator);
-                        var k = elements[0];
-                        I.Add(Convert.ToDouble(elements[0].Replace('.', ',')));
-
-                    }
-                    numberOfCurrentRow += 1;
-                }
-                sr.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("file didn't read");
-                Console.WriteLine(e.Message);
-            }
-
-        }
+        
 
         public List<List<string>> GetNumbersOfpackages(string fileName)
         {

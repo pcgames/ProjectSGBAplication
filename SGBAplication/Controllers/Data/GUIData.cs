@@ -55,7 +55,7 @@ namespace Controllers.Data
         }
 
         public void Output2GUIDataConverter(OutputDataPLL dataPack)
-        {
+            {
             //var dataPack = new MathAndProcessing.OutputData();
             this.country = dataPack.country;
             this.currentFrequancy = dataPack.currentFrequancy;
