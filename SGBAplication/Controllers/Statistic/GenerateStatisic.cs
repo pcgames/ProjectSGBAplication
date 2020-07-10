@@ -10,8 +10,8 @@ namespace Controllers.Statistic
 {
     public class GenerateStatisic
     {
-
-        public static void StatisticsGenerator(int countMessages, GUIData GUIDataPack)
+        Controller _controller = new Controller();
+        public void StatisticsGenerator(int countMessages, GUIData GUIDataPack)
         {
             GUIDataPack.startIndex = "0";
             GUIDataPack.fileName= "simulatedSignalnew.csv";
@@ -29,7 +29,8 @@ namespace Controllers.Statistic
                 }
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
-                Controller.DecoderOfNonResemplingSignal(ref GUIDataPack);
+                
+                _controller.DecoderOfNonResemplingSignal(ref GUIDataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{
@@ -45,7 +46,7 @@ namespace Controllers.Statistic
 
             //for 
         }
-        public static void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
+        public void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
         {
             GUIDataPack.startIndex = "0";
             GUIDataPack.fileName = "simulatedSignalnew.csv";
@@ -65,7 +66,8 @@ namespace Controllers.Statistic
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
-                Controller.DecoderOfNonResemplingSignalWithPll(ref GUIDataPack);
+                
+                _controller.DecoderOfNonResemplingSignalWithPll(ref GUIDataPack);
                 //var detectMessage = "";
                 //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
                 //{

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 using DigitalSignalProcessing;
+using DataAccess;
 
 namespace MathAndProcess.Calculations
 {
@@ -17,8 +18,6 @@ namespace MathAndProcess.Calculations
         public double _meanOmega { get; private set; }
 
         public double _inputPhasa { get; private set; }
-        //        k1=.02790479
-        //k2=0.0000099
         private double _k1 = .02790479;
         private double _k2 = .0000099;
         private int countOfCoeffs;
@@ -58,20 +57,8 @@ namespace MathAndProcess.Calculations
             return Complex.Exp(Complex.ImaginaryOne*(omega * i / _Fs + dphi));
 
         }
-        private static List<Complex> getimpulseResponse(int ImpulseResponseLength,double CutoffFrequency,double SamplingFrequency)
-        {
-            int cutoffFreqIndex = (int)Math.Ceiling(ImpulseResponseLength * Math.Abs(CutoffFrequency) / SamplingFrequency);
-
-            Complex[] H = new Complex[ImpulseResponseLength];
-
-            for (int i = ImpulseResponseLength / 2 - cutoffFreqIndex; i <= ImpulseResponseLength / 2 + cutoffFreqIndex; i++)
-            {
-                H[i] = 1;// e_iPIover4;
-            }
-            return DigitalSignalProcessing.Filters.FilterCharacteristic.GetImpulseResponse(H.ToList());
-
-        }
-        public List<Complex> pll_from_class_mamedov(List<Complex> realSignal, List<double> QSignal=null)
+        
+        public List<Complex> pll_from_class_mamedov(List<Complex> realSignal, List<double> coeffs, List<double> QSignal = null)
         {
             var returnSignal = new List<Complex>();
             var dphi = 0.0;
@@ -81,31 +68,8 @@ namespace MathAndProcess.Calculations
             var exp = new Complex(Math.Cos(_inputPhasa), Math.Sin(_inputPhasa));
             var register = new Complex[countOfCoeffs];
             var register1 = new double[countOfCoeffs];
-            //var coeffs = new List<double>();
             var resultData = new List<Complex>();
             _lisOmega = new List<double>();
-            var coeffs = ComplexSignals.Real(getimpulseResponse(countOfCoeffs+1,(_omega) * 0.03, _Fs).GetRange(1,countOfCoeffs));
-            //var cc = new DigitalSignalProcessing.Filters.Nonrecursive.LPF(Math.Abs(_omega) * 0.03,128, _Fs);
-            //cc.StartOperation(realSignal);
-
-            //realSignal=ComplexSignals.Shift(realSignal, 0, 76800, _inputPhasa);
-            if (350 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 400 * 2 * 2 * Math.PI)
-            {
-                coeffs = new List<double>();
-                DataAccess.DataReader.GetSamples("coeffs_in_pll_357.csv", ref coeffs, countOfCoeffs, 0);
-            }
-            if (550 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 650 * 2 * 2 * Math.PI)
-            {
-                coeffs = new List<double>();
-                DataAccess.DataReader.GetSamples("coeffs_in_pll_599.csv", ref coeffs, countOfCoeffs, 0);
-            }
-            if (440 * 2 * 2 * Math.PI<Math.Abs(_omega) && Math.Abs(_omega) < 500 * 2 * 2 * Math.PI)
-            {
-                coeffs = new List<double>();
-                DataAccess.DataReader.GetSamples("coeffs_in_pll_475.csv", ref coeffs, countOfCoeffs, 0);
-            }
-
-            //ReaderAndWriter.getSamples("coeffs_in_pll1.csv", ref coeffs, countOfCoeffs, 0);
 
             var gamma = 0.9999;
             for (var i = 0; i < realSignal.Count(); i++)
@@ -128,8 +92,7 @@ namespace MathAndProcess.Calculations
             var preambulaMeanI = 0.0;
             var _powerI = 0.0;
             var _powerQ = 0.0;
-            //_omega = -7533.539183308324;
-            //QSignal.Aggregate(x=> x*multiply);
+
             for (var i = 0; i < realSignal.Count(); i++)
             {
 
@@ -188,8 +151,7 @@ namespace MathAndProcess.Calculations
 
             _stdOmega = MathAndPhysics.Statistics.CalculateStandardDeviation(_lisOmega.GetRange(12000,64850));
             _meanOmega = MathAndPhysics.Statistics.CalculateMean(_lisOmega.GetRange(12000, 64850));
-            //_powerI=_powerI / realSignal.Count;
-            //_powerQ /= realSignal.Count;
+
             return resultData;
 
         }

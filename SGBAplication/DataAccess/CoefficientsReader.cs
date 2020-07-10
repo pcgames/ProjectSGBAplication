@@ -9,7 +9,7 @@ namespace DataAccess
 {
     public class CoefficientsReader
     {
-        public List<double> GetSamples(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public List<double> GetCoefficients(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             List<double> Samples = new List<double>();
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))

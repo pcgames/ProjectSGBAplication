@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess;
+using System;
 using System.Collections.Generic;
 
 namespace Controllers.Statistic
@@ -7,10 +8,10 @@ namespace Controllers.Statistic
     {
         public static void ProcessRealResemplingData(Data.GUIData GUIDataPack)
         {
+            var dataAccess = new DataReader();
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.GetNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataOfPackages = dataAccess.GetNumbersOfStartPackages(GUIDataPack.fileOfPackages);
             var dataPack = GUIDataPack.GUI2OutputDataConverter();
-            var indexes = new List<Int64>();
 
             for (var i = 0; i < dataOfPackages.Count; i++)
             {
@@ -37,18 +38,14 @@ namespace Controllers.Statistic
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                     dataToWrite.Add(toWrite);
                 }
-
-
-                //indexes.Add(Convert.ToInt64(dataOfPackages[i][0]));
             }
-            DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
-
-            //for 
+            DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
         }
         public static void ProcessRealResemplingDataWithPLL(Data.GUIData GUIDataPack)
         {
+            var dataAccess = new DataReader();
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.GetNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataOfPackages = dataAccess.GetNumbersOfStartPackages(GUIDataPack.fileOfPackages);
             var dataPack = GUIDataPack.GUI2OutputPLLDataConverter();
 
             for (var i = 0; i < dataOfPackages.Count; i++)
@@ -78,7 +75,7 @@ namespace Controllers.Statistic
                     dataToWrite.Add(toWrite);
                 }
             }
-             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
+            DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
         }
     }
 }

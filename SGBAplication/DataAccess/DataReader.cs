@@ -54,7 +54,7 @@ namespace DataAccess
         }
         
 
-        public List<List<string>> GetNumbersOfpackages(string fileName)
+        public List<List<string>> GetNumbersOfStartPackages(string fileName)
         {
             var listOfNumbers = new List<List<string>>();
             FileStream fs = new FileStream(fileName, FileMode.Open);
@@ -66,10 +66,6 @@ namespace DataAccess
                 listOfNumbers.Add(new List<string>(elements));
             }
             return listOfNumbers;
-        }
-        internal static void getSamples(int p)
-        {
-            throw new NotImplementedException();
         }
     }
 }

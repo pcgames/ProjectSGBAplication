@@ -40,6 +40,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculations\CoeficientFinder.cs" />
     <Compile Include="Calculations\EvaluationAndCompensation.cs" />
     <Compile Include="Calculations\FourierTransform.cs" />
     <Compile Include="Calculations\FreqCalculation.cs" />

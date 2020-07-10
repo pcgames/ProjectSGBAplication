@@ -11,27 +11,33 @@ namespace Controllers
     /// </summary>
     public class Controller
     {
-        public static List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
+        ControllerMathAndProcessing _controllerMAP;
+        public Controller()
         {
-            return ControllerMathAndProcessing.DecoderOfNonResemplingSignalWithPll(ref dataPack);
+            _controllerMAP = new ControllerMathAndProcessing();
         }
 
-        public static List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
+        public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            return ControllerMathAndProcessing.DecoderOfResemplingSignalWithPll(ref dataPack);
+            return _controllerMAP.DecoderOfNonResemplingSignalWithPll(ref dataPack);
         }
 
-        public static List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            return ControllerMathAndProcessing.DecoderOfNonResemplingSignal(ref dataPack);
+            return _controllerMAP.DecoderOfResemplingSignalWithPll(ref dataPack);
         }
 
-        public static List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            return ControllerMathAndProcessing.DecoderOfResemplingSignal(ref dataPack);
+            return _controllerMAP.DecoderOfNonResemplingSignal(ref dataPack);
         }
 
-        public static void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
+        public List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
+        {
+            return _controllerMAP.DecoderOfResemplingSignal(ref dataPack);
+        }
+
+        public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
         {
             spectrum = FFT.Forward(newDataWindowed.GetRange(0, 8192));
             xValues = FreqCalculation.Getfrequancy(spectrum.Count, 76800);
@@ -42,7 +48,7 @@ namespace Controllers
             return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-        public static void Statistics(GUIData dataPack)
+        public void Statistics(GUIData dataPack)
         {
 
             Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);

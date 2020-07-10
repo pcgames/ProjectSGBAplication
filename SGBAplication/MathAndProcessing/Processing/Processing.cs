@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DigitalSignalProcessing;
+﻿using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
-using static DataAccess.DataReader;
 using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
-using MathAndProcess;
+using System;
+using System.Collections.Generic;
 
 namespace MathAndProcessing
 {
@@ -23,23 +17,23 @@ namespace MathAndProcessing
         }
         
 
-        public List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndex)
+        public List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndexStr)
         {
-            if (startIndex != "" && rI.Count != 0)
+            if (startIndexStr != "" && rI.Count != 0)
             {
-                var s = Convert.ToInt32(startIndex);
-                var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
+                var startIndex = Convert.ToInt32(startIndexStr);
+                var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
 
                 EvaluationAndCompensation.PreprocessingOfSignal(result);
                 
                 var newData = EvaluationAndCompensation.
                     CompensationOfPhazeAndFrequancy(ComplexSignals.ToComplex(rI, rQ).
-                    GetRange(s + 8 - 1, 76801));
+                    GetRange(startIndex + 8 - 1, 76801));
                 Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
 
                 newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
 
-                _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
+                _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.FullMessage(newData);
 
                 _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.FullMessage));
                 _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
