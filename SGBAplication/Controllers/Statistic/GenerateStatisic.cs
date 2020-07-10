@@ -16,6 +16,7 @@ namespace Controllers.Statistic
             GUIDataPack.startIndex = "0";
             GUIDataPack.fileName= "simulatedSignalnew.csv";
             var dataPack = GUIDataPack.GUI2OutputDataConverter();
+            //var gg = ;
 
             List<string> dataToWrite = new List<string>();
             var k = 0;
@@ -29,12 +30,20 @@ namespace Controllers.Statistic
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
                 Controller.DecoderOfNonResemplingSignal(ref GUIDataPack);
-                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage;
-                
+                //var detectMessage = "";
+                //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
+                //{
+
+                //}
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + dataPack.FullMessage;
+                //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+
                 dataToWrite.Add(toWrite);
 
             }
             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
+
+            //for 
         }
         public static void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
         {
@@ -51,20 +60,31 @@ namespace Controllers.Statistic
                     k -= 2;
                     DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
                 }
+                //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 var rightFreq = 900.2;
                 var rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
                 Controller.DecoderOfNonResemplingSignalWithPll(ref GUIDataPack);
-                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage + ";" +
-                     dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
-                
+                //var detectMessage = "";
+                //for (var l = 0; l < fullMessage.Text.Count(); l += 2)
+                //{
+
+                //}
+                //string toWrite = startIndex.Text + ";" + country.Text + ";" + currentFrequancy.Text
+                //        + ";" + fullMessage.Text + std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
+
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + dataPack.FullMessage + ";" +
+                     dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
+                //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
+
                 dataToWrite.Add(toWrite);
 
             }
             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
-        }
 
+            //for 
+        }
         private static List<int> messageGenerator()
         {
             var r = new Random();

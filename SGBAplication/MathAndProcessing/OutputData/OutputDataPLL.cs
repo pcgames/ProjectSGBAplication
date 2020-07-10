@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class OutputDataPLL : OutputData, IOutputData
+    public class OutputDataPLL : AOutputData
     {
-        public double std { get; set; }
+        public double Std { get; set; }
 
-        public double meanFreq { get; set; }
+        public double MeanFrequency_Hz { get; set; }
 
-        public double phasa { get; set; }
+        public double Phase { get; set; }
 
-        public double iteration { get; set; }
+        public double Iteration { get; set; }
     }
 }

@@ -12,11 +12,12 @@ namespace SGBFormAplication
 {
     public partial class Form1 : Form
     {
+
+        private Controllers.Data.GUIData dataPack;
         public Form1()
         {
             InitializeComponent();
         }
-        private Controllers.Data.GUIData dataPack;
 
 
         private void go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
@@ -123,6 +124,9 @@ namespace SGBFormAplication
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
                         rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
+                        // var fullMessage = ..();
+                        // dataPack.FullMessage = 
+                        
                         InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }

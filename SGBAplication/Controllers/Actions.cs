@@ -42,7 +42,7 @@ namespace Controllers
             return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-        public static void Statistics(GUIData dataPack )
+        public static void Statistics(GUIData dataPack)
         {
 
             Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);

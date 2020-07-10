@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Windows;
+using static DataAccess.DataReader;
 using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
+using MathAndProcess;
 
 namespace MathAndProcessing
 {
@@ -28,9 +30,8 @@ namespace MathAndProcessing
                 {
                     var s = Convert.ToInt32(startIndex);
                     var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, s + 8);//9829622
-
+                    DataAccess.DataWriter.WriteToFile(ComplexSignals.ToComplex(rI, rQ), "resempling_signal_full.txt");
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
-
                     var cosData = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801));
                     var sinData = ComplexSignals.ToComplex(rQ.GetRange(s + 8 - 1, 76801));
                     var cosQchanel = ComplexSignals.ToComplex(rI.GetRange(s + 8 - 1, 76801), true);
@@ -39,7 +40,7 @@ namespace MathAndProcessing
                     var cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
                     var coeffs = new List<double>();
                     DataAccess.DataReader.GetSamples("coeffs_wo_pll", ref coeffs, 101);
-                    var conv = new Convolution(ConvolutionType.Common);
+                    var conv = new DigitalSignalProcessing.Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
                     cosIsig = conv.StartMagic(cosIsig, ComplexSignals.ToComplex(coeffs));
@@ -56,21 +57,21 @@ namespace MathAndProcessing
                             ComplexSignals.Imaginary(cosQsig.GetRange(0, 76850)));
                         if (pllResult._stdOmega < minStd)
                         {
-                            _dataPack.phasa = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
+                            _dataPack.Phase = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
                             minStd = pllResult._stdOmega;
                             bestData = data.GetRange(50, 76800);
-                            _dataPack.std = minStd;
-                            _dataPack.meanFreq = pllResult._meanOmega;
-                            _dataPack.iteration = i;
+                            _dataPack.Std = minStd;
+                            _dataPack.MeanFrequency_Hz = pllResult._meanOmega;
+                            _dataPack.Iteration = i;
                         }
 
                     }
 
 
-                    _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.FullMessage(bestData);
+                    _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.fullMessage(bestData);
                     DataAccess.DataWriter.WriteToFile(bestData, "result_without_psp.txt");
-                    _dataPack.country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.fullMessage));
-                    _dataPack.currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
+                    _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.FullMessage));
+                    _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
                     var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                         StartOperation(bestData);
 
@@ -87,23 +88,23 @@ namespace MathAndProcessing
                 }
                 else
                 {
-                    _dataPack.fullMessage = "";
-                    _dataPack.country = "";
-                    _dataPack.currentFrequancy = "";
+                    _dataPack.FullMessage = "";
+                    _dataPack.Country = "";
+                    _dataPack.CurrentFrequency_Hz = "";
                     return new List<List<System.Numerics.Complex>>();
                 }
             }
             else
             {
-                _dataPack.fullMessage = "";
-                _dataPack.country = "";
-                _dataPack.currentFrequancy = "";
+                _dataPack.FullMessage = "";
+                _dataPack.Country = "";
+                _dataPack.CurrentFrequency_Hz = "";
                 return new List<List<System.Numerics.Complex>>();
             }
 
         }
 
-        public IOutputData GetOutputData()
+        public AOutputData GetOutputData()
         {
             return _dataPack;
         }

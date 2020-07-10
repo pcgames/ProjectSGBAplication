@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class OutputData : IOutputData
+    public class OutputData : AOutputData
     {
-        public string fullMessage { get; set; }
 
-        public string country { get; set; }
-
-        public string currentFrequancy { get; set; }
     }
 }
