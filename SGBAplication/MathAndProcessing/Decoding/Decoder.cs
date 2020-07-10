@@ -11,7 +11,7 @@ namespace MathAndProcess.Decoding
     public class Decoder
     {
 
-        public static string fullMessage(List<Complex> signal)
+        public static string FullMessage(List<Complex> signal)
         {
             var decodeMesage = "";
 

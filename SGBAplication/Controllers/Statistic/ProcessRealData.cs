@@ -8,7 +8,7 @@ namespace Controllers.Statistic
         public static void ProcessRealResemplingData(Data.GUIData GUIDataPack)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataOfPackages = DataAccess.DataReader.GetNumbersOfpackages(GUIDataPack.fileOfPackages);
             var dataPack = GUIDataPack.GUI2OutputDataConverter();
             var indexes = new List<Int64>();
 
@@ -48,7 +48,7 @@ namespace Controllers.Statistic
         public static void ProcessRealResemplingDataWithPLL(Data.GUIData GUIDataPack)
         {
             List<string> dataToWrite = new List<string>();
-            var dataOfPackages = DataAccess.DataReader.getNumbersOfpackages(GUIDataPack.fileOfPackages);
+            var dataOfPackages = DataAccess.DataReader.GetNumbersOfpackages(GUIDataPack.fileOfPackages);
             var dataPack = GUIDataPack.GUI2OutputPLLDataConverter();
 
             for (var i = 0; i < dataOfPackages.Count; i++)

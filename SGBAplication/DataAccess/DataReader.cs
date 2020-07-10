@@ -1,15 +1,16 @@
-﻿using System;
+﻿using DataAccess2;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace DataAccess
 {
-    public class DataReader
+    public class DataReader : IDataReader
     {
         public int _numberOfElements { get; private set; }
 
-        public static void GetSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public void GetSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {
@@ -25,7 +26,6 @@ namespace DataAccess
                 var numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
                 {
-                    //Console.WriteLine(line);
                     if (numberOfCurrentRow >= (startIndex))
                     {
                         var elements = line.Split(seporator);
@@ -52,7 +52,7 @@ namespace DataAccess
             }
 
         }
-        public static void GetSamples(string fileName, ref List<double> I, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public void GetSamples(string fileName, ref List<double> I, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {
@@ -68,7 +68,6 @@ namespace DataAccess
                 var numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
                 {
-                    //Console.WriteLine(line);
                     if (numberOfCurrentRow >= (startIndex))
                     {
                         var elements = line.Split(seporator);
@@ -88,7 +87,7 @@ namespace DataAccess
 
         }
 
-        public static List<List<string>> getNumbersOfpackages(string fileName)
+        public List<List<string>> GetNumbersOfpackages(string fileName)
         {
             var listOfNumbers = new List<List<string>>();
             FileStream fs = new FileStream(fileName, FileMode.Open);

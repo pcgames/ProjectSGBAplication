@@ -68,7 +68,7 @@ namespace MathAndProcessing
                     }
 
 
-                    _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(bestData);
+                    _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.FullMessage(bestData);
                     DataAccess.DataWriter.WriteToFile(bestData, "result_without_psp.txt");
                     _dataPack.country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.fullMessage));
                     _dataPack.currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess2;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace DataAccess
 {
-    public class DataWriter
+    public class DataWriter : IDataWriter
     {
         public static void WriteToFile(List<Complex> data, string nameOfFile, char separator = ';')
         {
@@ -36,21 +37,23 @@ namespace DataAccess
         }
         public static void WriteToFile(List<string> data, string nameOfFile)
         {
+            Write(data, nameOfFile);
+        }
 
+        public static void WriteToFile(List<object> data, string nameOfFile)
+        {
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            Action<string> writing = s => sw.WriteLine(s);
             for (var w = 0; w < data.Count; w++)
             {
-                writing(data[w]);
+                sw.WriteLine(data[w]);
             }
             sw.Close();
             fs.Close();
         }
 
-        public static void WriteToFile(List<object> data, string nameOfFile)
+        private static void Write(List<string> data, string nameOfFile)
         {
-
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
             for (var w = 0; w < data.Count; w++)

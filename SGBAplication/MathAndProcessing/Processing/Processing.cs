@@ -39,7 +39,7 @@ namespace MathAndProcessing
 
                 newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
 
-                _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
+                _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.FullMessage(newData);
 
                 _dataPack.country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.fullMessage));
                 _dataPack.currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
