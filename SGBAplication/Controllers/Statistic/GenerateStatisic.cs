@@ -35,7 +35,7 @@ namespace Controllers.Statistic
                 //{
 
                 //}
-                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage;
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + dataPack.FullMessage;
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 dataToWrite.Add(toWrite);
@@ -74,8 +74,8 @@ namespace Controllers.Statistic
                 //string toWrite = startIndex.Text + ";" + country.Text + ";" + currentFrequancy.Text
                 //        + ";" + fullMessage.Text + std.ToString() + ";" + meanFreq.ToString() + ";" + phasa.ToString() + ";" + iteration.ToString();
 
-                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.currentFrequancy + ";" + rightMessage.Substring(50) + ";" + dataPack.fullMessage + ";" +
-                     dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
+                string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + dataPack.FullMessage + ";" +
+                     dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
                 //ReaderAndWriter.Writer(dataToWrite, fileName.Text + "SNR=" + SNR.Text + "_statistics.csv");
 
                 dataToWrite.Add(toWrite);

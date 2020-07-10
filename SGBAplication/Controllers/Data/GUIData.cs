@@ -27,9 +27,9 @@ namespace Controllers.Data
         public MathAndProcessing.OutputData GUI2OutputDataConverter()
         {
             var dataPack = new MathAndProcessing.OutputData();
-            dataPack.country = country;
-            dataPack.currentFrequancy = currentFrequancy;
-            dataPack.fullMessage = fullMessage;
+            dataPack.Country = country;
+            dataPack.CurrentFrequency_Hz = currentFrequancy;
+            dataPack.FullMessage = fullMessage;
             return dataPack;
             //dataPack.country = country;
 
@@ -37,19 +37,19 @@ namespace Controllers.Data
         public MathAndProcessing.OutputDataPLL GUI2OutputPLLDataConverter()
         {
             var dataPack = new MathAndProcessing.OutputDataPLL();
-            dataPack.country = this.country;
-            dataPack.currentFrequancy = this.currentFrequancy;
-            dataPack.fullMessage = this.fullMessage;
+            dataPack.Country = this.country;
+            dataPack.CurrentFrequency_Hz = this.currentFrequancy;
+            dataPack.FullMessage = this.fullMessage;
             return dataPack;
             //dataPack.country = country;
 
         }
-        public void Output2GUIDataConverter(OutputData dataPack)
+        public void Output2GUIDataConverter(AOutputData dataPack)
         {
             //var dataPack = new MathAndProcessing.OutputData();
-            this.country = dataPack.country;
-            this.currentFrequancy = dataPack.currentFrequancy;
-            this.fullMessage = dataPack.fullMessage;
+            this.country = dataPack.Country;
+            this.currentFrequancy = dataPack.CurrentFrequency_Hz;
+            this.fullMessage = dataPack.FullMessage;
             //dataPack.country = country;
 
         }
@@ -57,9 +57,9 @@ namespace Controllers.Data
         public void Output2GUIDataConverter(OutputDataPLL dataPack)
         {
             //var dataPack = new MathAndProcessing.OutputData();
-            this.country = dataPack.country;
-            this.currentFrequancy = dataPack.currentFrequancy;
-            this.fullMessage = dataPack.fullMessage;
+            this.country = dataPack.Country;
+            this.currentFrequancy = dataPack.CurrentFrequency_Hz;
+            this.fullMessage = dataPack.FullMessage;
             //dataPack.country = country;
 
         }

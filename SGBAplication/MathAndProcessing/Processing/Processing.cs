@@ -39,10 +39,10 @@ namespace MathAndProcessing
 
                 newData = Mseqtransform.GetSamplesOfFullPackage(newData.GetRange(1, 76800));
 
-                _dataPack.fullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
+                _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.fullMessage(newData);
 
-                _dataPack.country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.fullMessage));
-                _dataPack.currentFrequancy = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
+                _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.FullMessage));
+                _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
                 var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                     StartOperation(newData);
@@ -61,15 +61,15 @@ namespace MathAndProcessing
             }
             else
             {
-                _dataPack.fullMessage = "";
-                _dataPack.country = "";
-                _dataPack.currentFrequancy = "";
+                _dataPack.FullMessage = "";
+                _dataPack.Country = "";
+                _dataPack.CurrentFrequency_Hz = "";
                 return new List<List<System.Numerics.Complex>>();
             }
 
         }
 
-        public IOutputData GetOutputData()
+        public AOutputData GetOutputData()
         {
             return _dataPack;
         }

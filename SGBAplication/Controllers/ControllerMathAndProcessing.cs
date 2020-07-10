@@ -61,7 +61,7 @@ namespace Controllers
 
             IProcessing processor = new Processing();
             var output = processor.Decoder(rI, rQ, dataPack.startIndex);
-            var data = (OutputData)processor.GetOutputData();
+            var data = processor.GetOutputData();
             dataPack.Output2GUIDataConverter(data);
             return output;
         }

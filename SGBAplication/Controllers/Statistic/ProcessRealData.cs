@@ -22,7 +22,7 @@ namespace Controllers.Statistic
                         var startIndex = dataOfPackages[i][0];
                         Controller.DecoderOfResemplingSignal(ref GUIDataPack);
                         startIndex = dataOfPackages[i][0];
-                        string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
+                        string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
                         dataOfPackages.Remove(dataOfPackages[i - 1]);
                         i -= 1;
@@ -34,7 +34,7 @@ namespace Controllers.Statistic
                 {
                     var startIndex = dataOfPackages[i][0];
                     Controller.DecoderOfResemplingSignal(ref GUIDataPack);
-                    string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy + ";" + dataPack.fullMessage;
+                    string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                     dataToWrite.Add(toWrite);
                 }
 
@@ -60,8 +60,8 @@ namespace Controllers.Statistic
                     {
                         var startIndex = dataOfPackages[i][0];
                         Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
-                        string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy 
-                            + ";" + dataPack.fullMessage + dataPack.std.ToString()+ ";" + dataPack.meanFreq.ToString()+ ";" + dataPack.phasa.ToString()+ ";" + dataPack.iteration.ToString();
+                        string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz 
+                            + ";" + dataPack.FullMessage + dataPack.Std.ToString()+ ";" + dataPack.MeanFrequency_Hz.ToString()+ ";" + dataPack.Phase.ToString()+ ";" + dataPack.Iteration.ToString();
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
                         dataOfPackages.Remove(dataOfPackages[i - 1]);
                         i -= 1;
@@ -73,8 +73,8 @@ namespace Controllers.Statistic
                 {
                     var startIndex = dataOfPackages[i][0];
                     Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
-                    string toWrite = startIndex + ";" + dataPack.country + ";" + dataPack.currentFrequancy
-                        + ";" + dataPack.fullMessage + dataPack.std.ToString() + ";" + dataPack.meanFreq.ToString() + ";" + dataPack.phasa.ToString() + ";" + dataPack.iteration.ToString();
+                    string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz
+                        + ";" + dataPack.FullMessage + dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
                     dataToWrite.Add(toWrite);
                 }
             }
