@@ -31,24 +31,24 @@ namespace Controllers
             return ControllerMathAndProcessing.DecoderOfResemplingSignal(ref dataPack);
         }
 
-        public static void GetDataForSpectrumChart(ref List<System.Numerics.Complex> spectrum, ref List<double> xValues, List<System.Numerics.Complex> newDataWindowed)
+        public static void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
         {
             spectrum = FFT.Forward(newDataWindowed.GetRange(0, 8192));
             xValues = FreqCalculation.Getfrequancy(spectrum.Count, 76800);
         }
 
-        public static List<double> GetDataForSignalChart(List<System.Numerics.Complex> rnewData)
+        public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
             return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-        public static void Statistics(Data.GUIData dataPack )
+        public static void Statistics(GUIData dataPack )
         {
 
             Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);
         }
 
-        public static void StatisticsWithPll(Data.GUIData dataPack)
+        public static void StatisticsWithPll(GUIData dataPack)
         {
             Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(dataPack);
         }
