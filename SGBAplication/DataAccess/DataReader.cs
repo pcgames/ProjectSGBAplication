@@ -21,8 +21,7 @@ namespace DataAccess
 
                 StreamReader sr = new StreamReader(fileName);
                 string line;
-                // Read and display lines from the file until the end of 
-                // the file is reached.
+
                 var numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
                 {

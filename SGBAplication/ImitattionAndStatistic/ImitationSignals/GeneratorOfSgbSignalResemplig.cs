@@ -6,7 +6,6 @@ using MathAndProcess.Transformation;
 using DigitalSignalProcessing;
 using DigitalSignalProcessing.Generator;
 using DigitalSignalProcessing.Windows;
-//using Generic
 
 using System.Threading.Tasks;
 using Generator.ImitationSignals;
@@ -48,8 +47,6 @@ namespace Generator.ImitationSignals
                 messageQ[i] = messageQ[i] == 1 ? -1 : 1;
                 messageQ.Insert(i, messageQ[i]);
                 i++;
-
-                //j++;
             }
 
             var W = 0.0;

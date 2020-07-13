@@ -4,6 +4,7 @@ using MathAndProcess.Calculations;
 using MathAndProcess.Transformation;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace MathAndProcessing
 {
@@ -17,7 +18,7 @@ namespace MathAndProcessing
         }
         
 
-        public List<List<System.Numerics.Complex>> Decoder(List<double> rI, List<double> rQ, string startIndexStr)
+        public List<List<Complex>> Decoder(List<double> rI, List<double> rQ, string startIndexStr)
         {
             if (startIndexStr != "" && rI.Count != 0)
             {
@@ -47,7 +48,7 @@ namespace MathAndProcessing
                 var window = new Window(WindowType.Blackman, 0.16);
                 var newDataWindowed = window.StartOperation(rnewData);
 
-                var listOfComplexComplex = new List<List<System.Numerics.Complex>>();
+                var listOfComplexComplex = new List<List<Complex>>();
                 listOfComplexComplex.Add(rnewData);
                 listOfComplexComplex.Add(newDataWindowed);
                 return listOfComplexComplex;
@@ -58,7 +59,7 @@ namespace MathAndProcessing
                 _dataPack.FullMessage = "";
                 _dataPack.Country = "";
                 _dataPack.CurrentFrequency_Hz = "";
-                return new List<List<System.Numerics.Complex>>();
+                return new List<List<Complex>>();
             }
 
         }

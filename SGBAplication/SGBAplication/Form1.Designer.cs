@@ -185,7 +185,7 @@
             this.pllProcess.TabIndex = 18;
             this.pllProcess.Text = "pllProcess";
             this.pllProcess.UseVisualStyleBackColor = true;
-            this.pllProcess.Click += new System.EventHandler(this.pllProcess_Click);
+            this.pllProcess.Click += new System.EventHandler(this.PllProcess_Click);
             // 
             // statisticGenerator
             // 
@@ -195,7 +195,7 @@
             this.statisticGenerator.TabIndex = 17;
             this.statisticGenerator.Text = "генератор статистики";
             this.statisticGenerator.UseVisualStyleBackColor = true;
-            this.statisticGenerator.Click += new System.EventHandler(this.statisticGenerator_Click);
+            this.statisticGenerator.Click += new System.EventHandler(this.StatisticGenerator_Click);
             // 
             // CheckingSimulateSignal
             // 
@@ -251,7 +251,7 @@
             this.statisticButton.TabIndex = 10;
             this.statisticButton.Text = "статистика";
             this.statisticButton.UseVisualStyleBackColor = true;
-            this.statisticButton.Click += new System.EventHandler(this.statisticButton_Click);
+            this.statisticButton.Click += new System.EventHandler(this.StatisticButton_Click);
             // 
             // label5
             // 
@@ -303,7 +303,7 @@
             this.go.TabIndex = 0;
             this.go.Text = "go";
             this.go.UseVisualStyleBackColor = true;
-            this.go.Click += new System.EventHandler(this.go_Click);
+            this.go.Click += new System.EventHandler(this.Go_Click);
             // 
             // label1
             // 

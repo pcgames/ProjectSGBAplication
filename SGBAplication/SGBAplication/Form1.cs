@@ -21,10 +21,8 @@ namespace SGBFormAplication
         }
 
 
-        private void go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
+        private void Go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
         {
-
-
             switch (checkResempling.Checked)
             {
                 case true:
@@ -64,7 +62,7 @@ namespace SGBFormAplication
             
         }
 
-        private void statisticButton_Click(object sender, EventArgs e)
+        private void StatisticButton_Click(object sender, EventArgs e)
         {
 
             if (checkResempling.Checked == true)
@@ -87,7 +85,7 @@ namespace SGBFormAplication
 
         }
 
-        private void statisticGenerator_Click(object sender, EventArgs e)
+        private void StatisticGenerator_Click(object sender, EventArgs e)
         {
             if (checkUsePLL.Checked)
             {
@@ -105,7 +103,7 @@ namespace SGBFormAplication
 
         }
 
-        private void pllProcess_Click(object sender, EventArgs e)
+        private void PllProcess_Click(object sender, EventArgs e)
         {
 
             switch (checkResempling.Checked)
@@ -174,9 +172,5 @@ namespace SGBFormAplication
 
             new SGBAplication.Drawing.DrawingSpectrum(spectrumChart, 76800).DrawChart(spectrum, xValues);
         }
-
-
-
- 
     }
 }
