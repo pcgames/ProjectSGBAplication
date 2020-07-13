@@ -1,12 +1,19 @@
 ﻿using DataAccess;
 using System;
 using System.Collections.Generic;
+using Controllers.Data;
 
 namespace Controllers.Statistic
 {
     public class ProcessRealData
     {
-        public static void ProcessRealResemplingData(Data.GUIData GUIDataPack)
+        ControllerMathAndProcessing _controller;
+        public ProcessRealData(ControllerMathAndProcessing controller)
+        {
+            _controller = controller;
+        }
+
+        public void ProcessRealResemplingData(GUIData GUIDataPack)
         {
             var dataAccess = new DataReader();
             List<string> dataToWrite = new List<string>();
@@ -21,7 +28,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         var startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignal(ref GUIDataPack);
+                        _controller.DecoderOfResemplingSignal(ref GUIDataPack);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -34,14 +41,14 @@ namespace Controllers.Statistic
                 else
                 {
                     var startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignal(ref GUIDataPack);
+                    _controller.DecoderOfResemplingSignal(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                     dataToWrite.Add(toWrite);
                 }
             }
             DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
         }
-        public static void ProcessRealResemplingDataWithPLL(Data.GUIData GUIDataPack)
+        public void ProcessRealResemplingDataWithPLL(GUIData GUIDataPack)
         {
             var dataAccess = new DataReader();
             List<string> dataToWrite = new List<string>();
@@ -56,7 +63,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         var startIndex = dataOfPackages[i][0];
-                        Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
+                        _controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
                         string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz 
                             + ";" + dataPack.FullMessage + dataPack.Std.ToString()+ ";" + dataPack.MeanFrequency_Hz.ToString()+ ";" + dataPack.Phase.ToString()+ ";" + dataPack.Iteration.ToString();
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -69,7 +76,7 @@ namespace Controllers.Statistic
                 else
                 {
                     var startIndex = dataOfPackages[i][0];
-                    Controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
+                    _controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz
                         + ";" + dataPack.FullMessage + dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
                     dataToWrite.Add(toWrite);

@@ -1,4 +1,5 @@
 ﻿using Controllers.Data;
+using Controllers.Statistic;
 using DigitalSignalProcessing;
 using MathAndProcess.Calculations;
 using System.Collections.Generic;
@@ -12,9 +13,13 @@ namespace Controllers
     public class Controller
     {
         ControllerMathAndProcessing _controllerMAP;
+        ProcessRealData _statisticControl;
+        GenerateStatisic _statisticGenerator;
         public Controller()
         {
             _controllerMAP = new ControllerMathAndProcessing();
+            _statisticControl = new ProcessRealData(_controllerMAP);
+            _statisticGenerator = new GenerateStatisic();
         }
 
         public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
@@ -51,12 +56,22 @@ namespace Controllers
         public void Statistics(GUIData dataPack)
         {
 
-            Statistic.ProcessRealData.ProcessRealResemplingData(dataPack);
+            _statisticControl.ProcessRealResemplingData(dataPack);
         }
 
-        public static void StatisticsWithPll(GUIData dataPack)
+        public void StatisticsWithPll(GUIData dataPack)
         {
-            Statistic.ProcessRealData.ProcessRealResemplingDataWithPLL(dataPack);
+            _statisticControl.ProcessRealResemplingDataWithPLL(dataPack);
+        }
+
+        public void StatisticsGenerator(int countMessages, GUIData GUIDataPack)
+        {
+            _statisticGenerator.StatisticsGenerator(countMessages, GUIDataPack);
+        }
+
+        public void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
+        {
+            _statisticGenerator.StatisticsGeneratorForPLL(countMessages, GUIDataPack);
         }
     }
 }

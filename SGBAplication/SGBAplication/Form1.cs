@@ -12,11 +12,12 @@ namespace SGBFormAplication
 {
     public partial class Form1 : Form
     {
-
+        Controller _controller;
         private Controllers.Data.GUIData dataPack;
         public Form1()
         {
             InitializeComponent();
+            _controller = new Controller();
         }
 
 
@@ -28,7 +29,7 @@ namespace SGBFormAplication
             {
                 case true:
                     InitializeGUIDataPack();
-                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal( ref dataPack);
+                    var rnewDataAndSpectrum = _controller.DecoderOfResemplingSignal( ref dataPack);
                     InitializeForm();
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
@@ -43,7 +44,7 @@ namespace SGBFormAplication
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
 
-                        rnewDataAndSpectrum = Controller.DecoderOfResemplingSignal(ref dataPack);
+                        rnewDataAndSpectrum = _controller.DecoderOfResemplingSignal(ref dataPack);
 
                         InitializeForm();
 
@@ -52,7 +53,7 @@ namespace SGBFormAplication
                     else
                     {
                         InitializeGUIDataPack();
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignal(ref dataPack);
+                        rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignal(ref dataPack);
                         InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
@@ -72,13 +73,13 @@ namespace SGBFormAplication
                 {
                     InitializeGUIDataPack();
 
-                    Controller.StatisticsWithPll(dataPack);
+                    _controller.StatisticsWithPll(dataPack);
                 }
                 else
                 {
                     InitializeGUIDataPack();
 
-                    Controller.Statistics(dataPack);
+                    _controller.Statistics(dataPack);
 
                 }
 
@@ -92,13 +93,13 @@ namespace SGBFormAplication
             {
                 InitializeGUIDataPack();
 
-                Controllers.Statistic.GenerateStatisic.StatisticsGeneratorForPLL(10000,dataPack);//это ужасно!!!!!
+                _controller.StatisticsGeneratorForPLL(10000, dataPack);//это ужасно!!!!!
             }
             else
             {
                 InitializeGUIDataPack();
 
-                Controllers.Statistic.GenerateStatisic.StatisticsGenerator(10000, dataPack);//АНАЛОГИЧНО
+                _controller.StatisticsGenerator(10000, dataPack);//АНАЛОГИЧНО
 
             }
 
@@ -112,7 +113,7 @@ namespace SGBFormAplication
                 case true:
                     InitializeGUIDataPack();
 
-                    var rnewDataAndSpectrum = Controller.DecoderOfResemplingSignalWithPll(ref dataPack);
+                    var rnewDataAndSpectrum = _controller.DecoderOfResemplingSignalWithPll(ref dataPack);
                     DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
@@ -123,16 +124,14 @@ namespace SGBFormAplication
                         InitializeGUIDataPack();
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
-                        // var fullMessage = ..();
-                        // dataPack.FullMessage = 
+                        rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
                         
                         InitializeForm();
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
-                        rnewDataAndSpectrum = Controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
+                        rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
                         DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
 
@@ -168,7 +167,7 @@ namespace SGBFormAplication
         {
             var spectrum = new List<System.Numerics.Complex>();
             List<double> xValues = new List<double>();
-            Controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
+            _controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
             var signalsWithIQChanals= Controller.GetDataForSignalChart(rnewData);
 
             new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
