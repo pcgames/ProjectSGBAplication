@@ -46,7 +46,7 @@ namespace Controllers.Statistic
                     dataToWrite.Add(toWrite);
                 }
             }
-            DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
+            DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "_statistics.csv");
         }
         public void ProcessRealResemplingDataWithPLL(GUIData GUIDataPack)
         {
@@ -82,7 +82,7 @@ namespace Controllers.Statistic
                     dataToWrite.Add(toWrite);
                 }
             }
-            DataWriter.WriteToFile(dataToWrite, GUIDataPack.fileName + "_statistics.csv");
+            DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "_statistics.csv");
         }
     }
 }

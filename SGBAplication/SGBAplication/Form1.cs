@@ -42,7 +42,7 @@ namespace SGBFormAplication
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
 
-                        rnewDataAndSpectrum = _controller.DecoderOfResemplingSignal(ref dataPack);
+                        rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignal(ref dataPack);
 
                         InitializeForm();
 
@@ -142,24 +142,24 @@ namespace SGBFormAplication
         {
             dataPack = new Controllers.Data.GUIData();
 
-            dataPack.currentFrequancy = currentFrequancy.Text;
-            dataPack.fileName = fileName.Text;
+            dataPack.CurrentFrequency_Hz = currentFrequancy.Text;
+            dataPack.FileName = fileName.Text;
             dataPack.fileOfPackages = fileOfPackages.Text;
-            dataPack.fullMessage = fullMessage.Text;
+            dataPack.FullMessage = fullMessage.Text;
             dataPack.SNR = SNR.Text;
-            dataPack.startIndex = startIndex.Text;
-            dataPack.country = country.Text;
+            dataPack.StartIndex = startIndex.Text;
+            dataPack.Country = country.Text;
         }
         private void InitializeForm()
         {
 
-            currentFrequancy.Text = dataPack.currentFrequancy;
-            fileName.Text = dataPack.fileName;
+            currentFrequancy.Text = dataPack.CurrentFrequency_Hz;
+            fileName.Text = dataPack.FileName;
             fileOfPackages.Text = dataPack.fileOfPackages;
-            fullMessage.Text = dataPack.fullMessage;
+            fullMessage.Text = dataPack.FullMessage;
             SNR.Text = dataPack.SNR;
-            startIndex.Text = dataPack.startIndex;
-            country.Text = dataPack.country;
+            startIndex.Text = dataPack.StartIndex;
+            country.Text = dataPack.Country;
         }
         private void DrawingOfBPSKSignalAndSpectrum(List<System.Numerics.Complex> newDataWindowed, List<System.Numerics.Complex> rnewData)
         {
