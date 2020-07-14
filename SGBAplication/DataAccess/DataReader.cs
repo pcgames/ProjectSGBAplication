@@ -1,4 +1,5 @@
 ﻿using DataAccess2;
+using DataAccess2.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ namespace DataAccess
     {
         public int _numberOfElements { get; private set; }
 
-        public void GetSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public InputData GetSamples(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {
@@ -18,7 +19,7 @@ namespace DataAccess
             }
             try
             {
-
+                InputData inputData = new InputData();
                 StreamReader sr = new StreamReader(fileName);
                 string line;
 
@@ -31,23 +32,25 @@ namespace DataAccess
                         switch (elements.Length)
                         {
                             case 1:
-                                I.Add(Convert.ToDouble(elements[0]));
-                                Q.Add(0);
+                                inputData.I.Add(Convert.ToDouble(elements[0]));
+                                inputData.Q.Add(0);
                                 break;
                             case 2:
-                                I.Add(Convert.ToDouble(elements[0]));
-                                Q.Add(Convert.ToDouble(elements[1]));
+                                inputData.I.Add(Convert.ToDouble(elements[0]));
+                                inputData.Q.Add(Convert.ToDouble(elements[1]));
                                 break;
                         }
                     }
                     numberOfCurrentRow += 1;
                 }
                 sr.Close();
+                return inputData;
             }
             catch (Exception e)
             {
                 Console.WriteLine("file didn't read");
                 Console.WriteLine(e.Message);
+                throw new Exception();
             }
 
         }

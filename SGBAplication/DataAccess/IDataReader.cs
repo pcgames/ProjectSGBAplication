@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace DataAccess2
 {
     interface IDataReader
     {
-        void GetSamples(string fileName, ref List<double> I, ref List<double> Q, int numberOfElements, Int64 startIndex = 0, char seporator = ';');
+        InputData GetSamples(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';');
 
         List<List<string>> GetNumbersOfStartPackages(string fileName);
     }

@@ -45,6 +45,7 @@
     <Compile Include="CoefficientsReader.cs" />
     <Compile Include="IDataReader.cs" />
     <Compile Include="IDataWriter.cs" />
+    <Compile Include="Models\InputData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Numerics" />

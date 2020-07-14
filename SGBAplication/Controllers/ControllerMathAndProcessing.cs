@@ -1,5 +1,6 @@
 ﻿using Controllers.Data;
 using DataAccess;
+using DataAccess2.Models;
 using MathAndProcess.Calculations;
 using MathAndProcessing;
 using MathAndProcessing.Calculations;
@@ -20,29 +21,20 @@ namespace Controllers
 
         public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            var I = new List<double>();
-            var Q = new List<double>();
+            var inputData = ResampleData(_dataReader.GetSamples(dataPack.FileName, 10000000));
 
-            _dataReader.GetSamples(dataPack.FileName, ref I, ref Q, 10000000);
-            var rI = ResemplingOfSignal.GetResemplingSamples(I);
-            var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
+            IProcessing processor = new ProcessingPLL();
 
-            ProcessingPLL processor = new ProcessingPLL();
-            var output = processor.Decoder(rI, rQ, dataPack.StartIndex);
-            OutputDataPLL data = (OutputDataPLL)processor.GetOutputData();
-            dataPack.Output2GUIDataConverter(data);
-
-            return output;
+            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
         }
 
+        //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать 
+        #region фигня статистическая
         public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
         {
-            var I = new List<double>();
-            var Q = new List<double>();
-
-            _dataReader.GetSamples(dataPack.FileName, ref I, ref Q, 10000000);
-            var rI = ResemplingOfSignal.GetResemplingSamples(I);
-            var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
+            var inputData = _dataReader.GetSamples(dataPack.FileName, 10000000);
+            var rI = ResemplingOfSignal.GetResemplingSamples(inputData.I);
+            var rQ = ResemplingOfSignal.GetResemplingSamples(inputData.Q);
 
             ProcessingPLL processor = new ProcessingPLL();
             var output = processor.Decoder(rI, rQ, dataPack.StartIndex);
@@ -51,50 +43,48 @@ namespace Controllers
 
             return output;
         }
+        #endregion
 
         public List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            var rI = new List<double>();
-            var rQ = new List<double>();
+            var inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
 
-            _dataReader.GetSamples(dataPack.FileName, ref rI, ref rQ, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
+            IProcessing processor = new ProcessingPLL();
 
-            ProcessingPLL processor = new ProcessingPLL();
-            var output = processor.Decoder(rI, rQ, dataPack.StartIndex);
-            var data = (OutputDataPLL)processor.GetOutputData();
-            dataPack.Output2GUIDataConverter(data);
-            return output;
+            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
         }
 
         public List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            var I = new List<double>();
-            var Q = new List<double>();
-
-            _dataReader.GetSamples(dataPack.FileName, ref I, ref Q, 10000000);
-            var rI = ResemplingOfSignal.GetResemplingSamples(I);
-            var rQ = ResemplingOfSignal.GetResemplingSamples(Q);
+            var inputData = ResampleData(_dataReader.GetSamples(dataPack.FileName, 10000000));
 
             IProcessing processor = new Processing();
-            var output = processor.Decoder(rI, rQ, dataPack.StartIndex);
-            var data = processor.GetOutputData();
-            dataPack.Output2GUIDataConverter(data);
-            return output;
+
+            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
         }
 
         public List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
         {
-            var rI = new List<double>();
-            var rQ = new List<double>();
+            var inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
 
-            _dataReader.GetSamples(dataPack.FileName, ref rI, ref rQ, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
+            IProcessing processor = new Processing();
 
-            Processing processor = new Processing();
-            var output = processor.Decoder(rI, rQ, dataPack.StartIndex);
+            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
+        }
+
+        private List<List<Complex>> DecoderOfResemplingSignal_Test(InputData inputData, IProcessing processor , ref GUIData dataPack)
+        {
+            var output = processor.Decoder(inputData.I, inputData.Q, dataPack.StartIndex);
             var data = (OutputData)processor.GetOutputData();
             dataPack.Output2GUIDataConverter(data);
             return output;
+        }
 
+        private InputData ResampleData(InputData nonReseplingData)
+        {
+            var rI = ResemplingOfSignal.GetResemplingSamples(nonReseplingData.I);
+            var rQ = ResemplingOfSignal.GetResemplingSamples(nonReseplingData.Q);
+            return new InputData(rI, rQ);
         }
     }
 }
