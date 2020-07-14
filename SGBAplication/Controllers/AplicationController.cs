@@ -10,12 +10,12 @@ namespace Controllers
     /// <summary>
     /// данный класс создан для использования патерна Медиатор
     /// </summary>
-    public class Controller
+    public class ControllerSGBApplication
     {
         ControllerMathAndProcessing _controllerMAP;
         ProcessRealData _statisticControl;
         GenerateStatisic _statisticGenerator;
-        public Controller()
+        public ControllerSGBApplication()
         {
             _controllerMAP = new ControllerMathAndProcessing();
             _statisticControl = new ProcessRealData(_controllerMAP);

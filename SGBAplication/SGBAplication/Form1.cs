@@ -12,12 +12,12 @@ namespace SGBFormAplication
 {
     public partial class Form1 : Form
     {
-        Controller _controller;
+        ControllerSGBApplication _controller;
         private Controllers.Data.GUIData dataPack;
         public Form1()
         {
             InitializeComponent();
-            _controller = new Controller();
+            _controller = new ControllerSGBApplication();
         }
 
 
@@ -166,7 +166,7 @@ namespace SGBFormAplication
             var spectrum = new List<System.Numerics.Complex>();
             List<double> xValues = new List<double>();
             _controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
-            var signalsWithIQChanals= Controller.GetDataForSignalChart(rnewData);
+            var signalsWithIQChanals= ControllerSGBApplication.GetDataForSignalChart(rnewData);
 
             new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
 

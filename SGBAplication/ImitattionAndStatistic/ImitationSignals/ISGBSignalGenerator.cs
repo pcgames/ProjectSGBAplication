@@ -10,7 +10,6 @@ namespace Generator.ImitationSignals
     public interface ISGBSignalGenerator
     {
         IEnumerable<Complex> GetSGBSignal();
-        //int GetIValue(double time_Sec, double Frequancy, List<int> Sequance);
-        //int GetQValue(double time_Sec, double Frequancy, List<int> Sequance);
+
     }
 }
