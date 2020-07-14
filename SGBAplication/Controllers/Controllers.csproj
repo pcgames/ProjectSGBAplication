@@ -40,7 +40,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions.cs" />
+    <Compile Include="AplicationController.cs" />
     <Compile Include="ControllerMathAndProcessing.cs" />
     <Compile Include="Data\GUIData.cs" />
     <Compile Include="Statistic\GenerateStatisic.cs" />

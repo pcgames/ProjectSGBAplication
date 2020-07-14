@@ -87,17 +87,19 @@ namespace SGBFormAplication
 
         private void StatisticGenerator_Click(object sender, EventArgs e)
         {
+            var countMessages = 10000;
+
             if (checkUsePLL.Checked)
             {
                 InitializeGUIDataPack();
 
-                _controller.StatisticsGeneratorForPLL(10000, dataPack);//это ужасно!!!!!
+                _controller.StatisticsGeneratorForPLL(countMessages, dataPack);//это ужасно!!!!!
             }
             else
             {
                 InitializeGUIDataPack();
 
-                _controller.StatisticsGenerator(10000, dataPack);//АНАЛОГИЧНО
+                _controller.StatisticsGenerator(countMessages, dataPack);//АНАЛОГИЧНО
 
             }
 
