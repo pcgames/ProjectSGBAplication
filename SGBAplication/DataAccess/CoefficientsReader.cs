@@ -12,6 +12,7 @@ namespace DataAccess
         public List<double> GetCoefficients(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
         {
             List<double> Samples = new List<double>();
+            string pathToCoeffsFolder = "..//..//..//coeffs//";
             if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
             {
                 seporator = ',';
@@ -19,7 +20,7 @@ namespace DataAccess
             try
             {
 
-                StreamReader sr = new StreamReader(fileName);
+                StreamReader sr = new StreamReader(pathToCoeffsFolder + fileName);
                 string line;
                 var numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
