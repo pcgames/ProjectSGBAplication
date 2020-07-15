@@ -12,34 +12,34 @@ namespace Controllers
 {
     public class ControllerMathAndProcessing
     {
-        DataReader _dataReader;
+        SampleReader _dataReader;
 
         public ControllerMathAndProcessing()
         {
-            _dataReader = new DataReader();
+            _dataReader = new SampleReader();
         }
 
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000));
+            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000, 0));
 
             IProcessing processor = new ProcessingPLL();
 
             return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать 
+        //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать
         #region фигня статистическая
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
         {
-            InputData inputData = _dataReader.GetSamples(dataPack.FileName, 10000000);
+            InputData inputData = _dataReader.GetSamples(dataPack.FileName, 10000000, 0);
             List<double> rI = ResemplingOfSignal.GetResemplingSamples(inputData.I);
             List<double> rQ = ResemplingOfSignal.GetResemplingSamples(inputData.Q);
 
             ProcessingPLL processor = new ProcessingPLL();
             List<List<Complex>> output = processor.Decoder(rI, rQ, dataPack.StartIndex);
             data = (OutputDataPLL)processor.GetOutputData();
-            dataPack.Output2GUIDataConverter(data);
+            dataPack.ConvertOutput2GUIData(data);
 
             return output;
         }
@@ -56,7 +56,7 @@ namespace Controllers
 
         public List<List<Complex>> StartDecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000));
+            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000, 0));
 
             IProcessing processor = new Processing();
 
@@ -76,7 +76,7 @@ namespace Controllers
         {
             List<List<Complex>> output = processor.Decoder(inputData.I, inputData.Q, dataPack.StartIndex);
             OutputData data = (OutputData)processor.GetOutputData();
-            dataPack.Output2GUIDataConverter(data);
+            dataPack.ConvertOutput2GUIData(data);
             return output;
         }
 

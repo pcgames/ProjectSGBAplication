@@ -67,9 +67,9 @@
       <Project>{db92fb5e-7477-43e5-aaf6-a04ef1cb3366}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImitattionAndStatistic\ImitattionAndStatistic.csproj">
+    <ProjectReference Include="..\ImitattionAndStatistic\SignalImitator.csproj">
       <Project>{fe149f55-7365-476a-9aea-143f88804ef5}</Project>
-      <Name>ImitattionAndStatistic</Name>
+      <Name>SignalImitator</Name>
     </ProjectReference>
     <ProjectReference Include="..\MathAndProcessing\MathAndProcessing.csproj">
       <Project>{2f5b6ef7-f093-4730-9618-f424449e90c4}</Project>

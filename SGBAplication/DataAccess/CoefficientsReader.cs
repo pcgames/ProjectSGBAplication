@@ -6,39 +6,34 @@ namespace DataAccess
 {
     public class CoefficientsReader
     {
-        public List<double> GetCoefficients(string fileName, int numberOfElements, Int64 startIndex = 0, char seporator = ';')
+        public List<double> GetCoefficients(string fileName, int numberOfElements, long startIndex = 0)
         {
+            char seporator = ';';
             List<double> Samples = new List<double>();
             string pathToCoeffsFolder = "..//..//..//coeffs//";
-            if (Convert.ToBoolean(fileName.IndexOf(".dat") >= 0))
+            
+            using (StreamReader sr = new StreamReader(pathToCoeffsFolder + fileName))
             {
-                seporator = ',';
-            }
-            try
-            {
+                SkipLines(sr, startIndex);
 
-                StreamReader sr = new StreamReader(pathToCoeffsFolder + fileName);
-                string line;
-                int numberOfCurrentRow = 0;
-                while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
+                for (long i = 0; i < numberOfElements && sr.Peek() > 0; i++)
                 {
-                    if (numberOfCurrentRow >= (startIndex))
-                    {
-                        string[] elements = line.Split(seporator);
-                        string k = elements[0];
-                        Samples.Add(Convert.ToDouble(elements[0].Replace('.', ',')));
+                    string line = sr.ReadLine();
+                    string[] elements = line.Split(seporator);
+                    string k = elements[0];
+                    Samples.Add(Convert.ToDouble(elements[0].Replace('.', ',')));
 
-                    }
-                    numberOfCurrentRow += 1;
                 }
-                sr.Close();
-                return Samples;
             }
-            catch (Exception e)
+            return Samples;
+        }
+
+
+        private void SkipLines(StreamReader sr, long linesToSkipCount)
+        {
+            for (long i = 0; i < linesToSkipCount && sr.Peek() > 0; i++)
             {
-                Console.WriteLine("file didn't read");
-                Console.WriteLine(e.Message);
-                throw new Exception();
+                sr.ReadLine();
             }
         }
     }

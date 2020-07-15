@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGBAplication", "SGBAplication\SGBAplication.csproj", "{A521D50F-A62C-43F1-A23A-CE98437BDE1C}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathAndProcessing", "MathAn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DB92FB5E-7477-43E5-AAF6-A04EF1CB3366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImitattionAndStatistic", "ImitattionAndStatistic\ImitattionAndStatistic.csproj", "{FE149F55-7365-476A-9AEA-143F88804EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalImitator", "ImitattionAndStatistic\SignalImitator.csproj", "{FE149F55-7365-476A-9AEA-143F88804EF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,10 +15,10 @@ namespace Controllers.Statistic
 
         public void ProcessRealResemplingData(GUIData GUIDataPack)
         {
-            DataReader dataAccess = new DataReader();
+            SampleReader dataAccess = new SampleReader();
             List<string> dataToWrite = new List<string>();
-            List<List<string>> dataOfPackages = dataAccess.GetNumbersOfStartPackages(GUIDataPack.fileOfPackages);
-            MathAndProcessing.OutputData dataPack = GUIDataPack.GUI2OutputDataConverter();
+            List<List<string>> dataOfPackages = dataAccess.GetStartIndexAndEnergy(GUIDataPack.fileOfPackages);
+            MathAndProcessing.OutputData dataPack = GUIDataPack.ConvertGUI2OutputData();
 
             for (int i = 0; i < dataOfPackages.Count; i++)
             {
@@ -50,10 +50,10 @@ namespace Controllers.Statistic
         }
         public void ProcessRealResemplingDataWithPLL(GUIData GUIDataPack)
         {
-            DataReader dataAccess = new DataReader();
+            SampleReader dataAccess = new SampleReader();
             List<string> dataToWrite = new List<string>();
-            List<List<string>> dataOfPackages = dataAccess.GetNumbersOfStartPackages(GUIDataPack.fileOfPackages);
-            MathAndProcessing.OutputDataPLL dataPack = GUIDataPack.GUI2OutputPLLDataConverter();
+            List<List<string>> dataOfPackages = dataAccess.GetStartIndexAndEnergy(GUIDataPack.fileOfPackages);
+            MathAndProcessing.OutputDataPLL dataPack = GUIDataPack.ConvertGUI2OutputPLLData();
 
             for (int i = 0; i < dataOfPackages.Count; i++)
             {

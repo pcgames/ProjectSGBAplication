@@ -40,10 +40,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataReader.cs" />
+    <Compile Include="SampleReader.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="CoefficientsReader.cs" />
-    <Compile Include="IDataReader.cs" />
+    <Compile Include="ISampleReader.cs" />
     <Compile Include="IDataWriter.cs" />
     <Compile Include="Models\InputData.cs" />
   </ItemGroup>

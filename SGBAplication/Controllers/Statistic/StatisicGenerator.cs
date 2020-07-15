@@ -42,7 +42,7 @@ namespace Controllers.Statistic
             GUIDataPack.StartIndex = "0";
             GUIDataPack.FileName = "simulatedSignalnew.csv";
 
-            MathAndProcessing.OutputDataPLL dataPack = GUIDataPack.GUI2OutputPLLDataConverter();
+            MathAndProcessing.OutputDataPLL dataPack = GUIDataPack.ConvertGUI2OutputPLLData();
             List<string> dataToWrite = new List<string>();
             int k = 0;
             for (int i = 0; i < countMessages; i++)

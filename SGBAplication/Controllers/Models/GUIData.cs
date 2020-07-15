@@ -19,44 +19,37 @@ namespace Controllers.Models
 
         public string fileOfPackages { get; set; }
 
-        public OutputData GUI2OutputDataConverter()
+        public OutputData ConvertGUI2OutputData()
         {
             OutputData dataPack = new OutputData();
             dataPack.Country = Country;
             dataPack.CurrentFrequency_Hz = CurrentFrequency_Hz;
             dataPack.FullMessage = FullMessage;
             return dataPack;
-            //dataPack.country = country;
 
         }
-        public OutputDataPLL GUI2OutputPLLDataConverter()
+        public OutputDataPLL ConvertGUI2OutputPLLData()
         {
             OutputDataPLL dataPack = new OutputDataPLL();
             dataPack.Country = this.Country;
             dataPack.CurrentFrequency_Hz = this.CurrentFrequency_Hz;
             dataPack.FullMessage = this.FullMessage;
             return dataPack;
-            //dataPack.country = country;
 
         }
-        public void Output2GUIDataConverter(AOutputData dataPack)
+        public void ConvertOutput2GUIData(AOutputData dataPack)
         {
-            //var dataPack = new MathAndProcessing.OutputData();
             this.Country = dataPack.Country;
             this.CurrentFrequency_Hz = dataPack.CurrentFrequency_Hz;
             this.FullMessage = dataPack.FullMessage;
-            //dataPack.country = country;
 
         }
 
-        public void Output2GUIDataConverter(OutputDataPLL dataPack)
+        public void ConvertOutput2GUIData(OutputDataPLL dataPack)
         {
-            //var dataPack = new MathAndProcessing.OutputData();
             this.Country = dataPack.Country;
             this.CurrentFrequency_Hz = dataPack.CurrentFrequency_Hz;
             this.FullMessage = dataPack.FullMessage;
-            //dataPack.country = country;
-
         }
 
     }
