@@ -1,4 +1,4 @@
-﻿namespace DataAccess2
+﻿namespace DataAccess
 {
     interface IDataWriter
     {

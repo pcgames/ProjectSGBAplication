@@ -43,7 +43,7 @@
     <Compile Include="AplicationController.cs" />
     <Compile Include="ControllerMathAndProcessing.cs" />
     <Compile Include="Models\GUIData.cs" />
-    <Compile Include="Statistic\GenerateStatisic.cs" />
+    <Compile Include="Statistic\StatisicGenerator.cs" />
     <Compile Include="Statistic\ProcessRealData.cs" />
   </ItemGroup>
   <ItemGroup>

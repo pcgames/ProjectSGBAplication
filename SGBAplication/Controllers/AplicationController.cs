@@ -14,32 +14,32 @@ namespace Controllers
     {
         ControllerMathAndProcessing _controllerMAP;
         ProcessRealData _statisticControl;
-        GenerateStatisic _statisticGenerator;
+        StatisicGenerator _statisticGenerator;
         public ControllerSGBApplication()
         {
             _controllerMAP = new ControllerMathAndProcessing();
             _statisticControl = new ProcessRealData(_controllerMAP);
-            _statisticGenerator = new GenerateStatisic();
+            _statisticGenerator = new StatisicGenerator();
         }
 
-        public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            return _controllerMAP.DecoderOfNonResemplingSignalWithPll(ref dataPack);
+            return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
         }
 
-        public List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            return _controllerMAP.DecoderOfResemplingSignalWithPll(ref dataPack);
+            return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
         }
 
-        public List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            return _controllerMAP.DecoderOfNonResemplingSignal(ref dataPack);
+            return _controllerMAP.StartDecoderOfNonResemplingSignal(ref dataPack);
         }
 
-        public List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignal(ref GUIData dataPack)
         {
-            return _controllerMAP.DecoderOfResemplingSignal(ref dataPack);
+            return _controllerMAP.StartDecoderOfResemplingSignal(ref dataPack);
         }
 
         public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
@@ -50,28 +50,28 @@ namespace Controllers
 
         public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
-            return ModulatingSignal.generatingBPSKSignal(rnewData, 512).GetRange(20000, 10000);
+            return ModulatingSignal.GenerateBPSKSignal(rnewData, 512).GetRange(20000, 10000);
         }
 
-        public void Statistics(GUIData dataPack)
+        public void GenerateRealResemplingDataStatistics(GUIData dataPack)
         {
 
             _statisticControl.ProcessRealResemplingData(dataPack);
         }
 
-        public void StatisticsWithPll(GUIData dataPack)
+        public void GenerateRealResemplingDataStatisticsWithPll(GUIData dataPack)
         {
             _statisticControl.ProcessRealResemplingDataWithPLL(dataPack);
         }
 
-        public void StatisticsGenerator(int countMessages, GUIData GUIDataPack)
+        public void GenerateStatistics(int countMessages, GUIData GUIDataPack)
         {
-            _statisticGenerator.StatisticsGenerator(countMessages, GUIDataPack);
+            _statisticGenerator.GenerateStatistics(countMessages, GUIDataPack);
         }
 
-        public void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
+        public void GenerateStatisticsWithPLL(int countMessages, GUIData GUIDataPack)
         {
-            _statisticGenerator.StatisticsGeneratorForPLL(countMessages, GUIDataPack);
+            _statisticGenerator.GenerateStatisticsWithPLL(countMessages, GUIDataPack);
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using DataAccess2.Models;
+﻿using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 
-namespace DataAccess2
+namespace DataAccess
 {
     interface IDataReader
     {

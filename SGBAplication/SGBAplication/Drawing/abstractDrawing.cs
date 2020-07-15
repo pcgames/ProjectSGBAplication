@@ -9,7 +9,7 @@ namespace SGBAplication.Drawing
     /// данный класс является родительским классом отрисовки графиков
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class abstractDrawing<T> where T : struct
+    public abstract class AbstractDrawing<T> where T : struct
     {
         /// <summary>
         /// ссылка на график,
@@ -18,7 +18,7 @@ namespace SGBAplication.Drawing
         protected static Chart _samplesChart;
 
         #region public methods
-        public abstractDrawing(Chart samplesChart)
+        public AbstractDrawing(Chart samplesChart)
         {
             _samplesChart = samplesChart;
         }
@@ -105,7 +105,7 @@ namespace SGBAplication.Drawing
                 }
                 catch
                 {
-                    throw new NotImplementedException("Вы не произвели вычисление параметра");
+                    throw new Exception("Вы не произвели вычисление параметра");
                 }
 
             }

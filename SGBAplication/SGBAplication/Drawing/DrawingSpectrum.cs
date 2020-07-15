@@ -7,14 +7,16 @@ using System.Windows.Forms.DataVisualization.Charting;
 namespace SGBAplication.Drawing
 {
 
-    public class DrawingSpectrum : abstractDrawing<Complex>
+    public class DrawingSpectrum : AbstractDrawing<Complex>
     {
         private static double _fSempling;
+
         public DrawingSpectrum(Chart samplesChart, double frequancySempling) : base(samplesChart)
         {
             _fSempling = frequancySempling;
             _samplesChart = samplesChart;
         }
+
         public DrawingSpectrum(Chart samplesChart) : base(samplesChart)
         {
             _samplesChart = samplesChart;
@@ -49,6 +51,7 @@ namespace SGBAplication.Drawing
             DrawSamples(ChartSeries, xValues, spectrum);
             DrawCarrierFrequancy(spectrum, xValues);
         }
+
         private void DrawCarrierFrequancy(List<Complex> spectrum, List<double> xValues)
         {
 
@@ -74,6 +77,7 @@ namespace SGBAplication.Drawing
             DrawPoint(_samplesChart, ChartSeries, xValues[maxElement.Index], maxElement.Value);
 
         }
+
         protected override void DrawSamples(Series usefullSeries, List<double> xValues, List<Complex> yValues)
         {
             for (int i = 0; i < xValues.Count; i++)

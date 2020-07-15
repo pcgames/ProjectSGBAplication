@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataAccess2.Models
+namespace DataAccess.Models
 {
     public class InputData
     {

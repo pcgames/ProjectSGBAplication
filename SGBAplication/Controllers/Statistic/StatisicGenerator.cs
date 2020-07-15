@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Controllers.Statistic
 {
-    public class GenerateStatisic
+    public class StatisicGenerator
     {
         ControllerMathAndProcessing _controller = new ControllerMathAndProcessing();
-        public void StatisticsGenerator(int countMessages, GUIData GUIDataPack) //TODO: переименовать
+        public void GenerateStatistics(int countMessages, GUIData GUIDataPack) //TODO: переименовать
         {
             GUIDataPack.StartIndex = "0";
             GUIDataPack.FileName = "simulatedSignalnew_";
@@ -24,9 +24,9 @@ namespace Controllers.Statistic
                     DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
                 }
                 double rightFreq = 900.2;
-                string rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
+                string rightMessage = GenerateRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
-                _controller.DecoderOfNonResemplingSignal(ref GUIDataPack);
+                _controller.StartDecoderOfNonResemplingSignal(ref GUIDataPack);
 
                 string toWrite = (rightFreq - 300).ToString() + ";" + GUIDataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + GUIDataPack.FullMessage;
 
@@ -37,7 +37,7 @@ namespace Controllers.Statistic
             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
         }
 
-        public void StatisticsGeneratorForPLL(int countMessages, GUIData GUIDataPack)
+        public void GenerateStatisticsWithPLL(int countMessages, GUIData GUIDataPack)
         {
             GUIDataPack.StartIndex = "0";
             GUIDataPack.FileName = "simulatedSignalnew.csv";
@@ -53,10 +53,10 @@ namespace Controllers.Statistic
                     DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
                 }
                 double rightFreq = 900.2;
-                string rightMessage = generatorRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
+                string rightMessage = GenerateRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
 
-                _controller.DecoderOfNonResemplingSignalWithPll(GUIDataPack, ref dataPack);
+                _controller.StartDecoderOfNonResemplingSignalWithPll(GUIDataPack, ref dataPack);
 
                 string toWrite = (rightFreq - 300).ToString() + ";" + dataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + dataPack.FullMessage + ";" +
                      dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
@@ -66,7 +66,7 @@ namespace Controllers.Statistic
             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
         }
 
-        private static List<int> messageGenerator()
+        private static List<int> GenerateMessage()
         {
             Random r = new Random();
             List<int> m = new List<int>();
@@ -81,11 +81,11 @@ namespace Controllers.Statistic
             }
             return m;
         }
-        private static string generatorRandomSignal(double SNR, ref double freq)
+        private static string GenerateRandomSignal(double SNR, ref double freq)
         {
             string fileName = "simulatedSignalnew.csv";
             Random r = new Random();
-            List<int> message = messageGenerator();
+            List<int> message = GenerateMessage();
             string returnString = "";
             message.ForEach(a => returnString += a.ToString());
             List<int> newMessage = new List<int>();

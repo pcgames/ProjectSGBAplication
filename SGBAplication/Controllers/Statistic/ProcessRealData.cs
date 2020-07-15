@@ -28,7 +28,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         string startIndex = dataOfPackages[i][0];
-                        _controller.DecoderOfResemplingSignal(ref GUIDataPack);
+                        _controller.StartDecoderOfResemplingSignal(ref GUIDataPack);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -41,7 +41,7 @@ namespace Controllers.Statistic
                 else
                 {
                     string startIndex = dataOfPackages[i][0];
-                    _controller.DecoderOfResemplingSignal(ref GUIDataPack);
+                    _controller.StartDecoderOfResemplingSignal(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                     dataToWrite.Add(toWrite);
                 }
@@ -63,7 +63,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         string startIndex = dataOfPackages[i][0];
-                        _controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
+                        _controller.StartDecoderOfResemplingSignalWithPll(ref GUIDataPack);
                         string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz
                             + ";" + dataPack.FullMessage + dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -76,7 +76,7 @@ namespace Controllers.Statistic
                 else
                 {
                     string startIndex = dataOfPackages[i][0];
-                    _controller.DecoderOfResemplingSignalWithPll(ref GUIDataPack);
+                    _controller.StartDecoderOfResemplingSignalWithPll(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz
                         + ";" + dataPack.FullMessage + dataPack.Std.ToString() + ";" + dataPack.MeanFrequency_Hz.ToString() + ";" + dataPack.Phase.ToString() + ";" + dataPack.Iteration.ToString();
                     dataToWrite.Add(toWrite);

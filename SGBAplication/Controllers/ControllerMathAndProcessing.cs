@@ -1,6 +1,6 @@
 ﻿using Controllers.Models;
 using DataAccess;
-using DataAccess2.Models;
+using DataAccess.Models;
 using MathAndProcess.Calculations;
 using MathAndProcessing;
 using MathAndProcessing.Calculations;
@@ -19,18 +19,18 @@ namespace Controllers
             _dataReader = new DataReader();
         }
 
-        public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            InputData inputData = ResampleData(_dataReader.GetSamples(dataPack.FileName, 10000000));
+            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000));
 
             IProcessing processor = new ProcessingPLL();
 
-            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
+            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
         //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать 
         #region фигня статистическая
-        public List<List<Complex>> DecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
         {
             InputData inputData = _dataReader.GetSamples(dataPack.FileName, 10000000);
             List<double> rI = ResemplingOfSignal.GetResemplingSamples(inputData.I);
@@ -45,34 +45,34 @@ namespace Controllers
         }
         #endregion
 
-        public List<List<Complex>> DecoderOfResemplingSignalWithPll(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
             InputData inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
 
             IProcessing processor = new ProcessingPLL();
 
-            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
+            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        public List<List<Complex>> DecoderOfNonResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignal(ref GUIData dataPack)
         {
-            InputData inputData = ResampleData(_dataReader.GetSamples(dataPack.FileName, 10000000));
+            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000));
 
             IProcessing processor = new Processing();
 
-            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
+            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        public List<List<Complex>> DecoderOfResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignal(ref GUIData dataPack)
         {
             InputData inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
 
             IProcessing processor = new Processing();
 
-            return DecoderOfResemplingSignal_Test(inputData, processor, ref dataPack);
+            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        private List<List<Complex>> DecoderOfResemplingSignal_Test(InputData inputData, IProcessing processor, ref GUIData dataPack)
+        private List<List<Complex>> StartDecoderOfResemplingSignal(InputData inputData, IProcessing processor, ref GUIData dataPack)
         {
             List<List<Complex>> output = processor.Decoder(inputData.I, inputData.Q, dataPack.StartIndex);
             OutputData data = (OutputData)processor.GetOutputData();
@@ -80,7 +80,7 @@ namespace Controllers
             return output;
         }
 
-        private InputData ResampleData(InputData nonReseplingData)
+        private InputData ResampleInputData(InputData nonReseplingData)
         {
             List<double> rI = ResemplingOfSignal.GetResemplingSamples(nonReseplingData.I);
             List<double> rQ = ResemplingOfSignal.GetResemplingSamples(nonReseplingData.Q);

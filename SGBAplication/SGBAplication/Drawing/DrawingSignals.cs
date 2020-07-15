@@ -4,22 +4,22 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SGBAplication.Drawing
 {
-    public class DrawingSignals : abstractDrawing<double>
+    public class DrawingSignals : AbstractDrawing<double>
     {
         private static double _f;
         private static double _s;
+
         public DrawingSignals(Chart samplesChart, double start, double finish) : base(samplesChart)
         {
             //_samplesChart = samplesChart;
             _s = start;
             _f = finish;
         }
+
         public DrawingSignals(Chart samplesChart) : base(samplesChart)
         {
         }
-        //public DrawingSignals(int t)//супер магия-необходимо для создания конструктора не основываясь на том, что в абстрактном классе
-        //{
-        //}
+
         public override void DrawChart(List<double> signalSamples)
         {
             Series ChartSeries = new Series()
