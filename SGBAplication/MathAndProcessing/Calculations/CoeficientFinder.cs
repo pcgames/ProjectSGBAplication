@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathAndProcessing.Calculations
 {
@@ -13,7 +11,7 @@ namespace MathAndProcessing.Calculations
     {
         internal static List<double> Find(double _omega)
         {
-             int countOfCoeffs = 127; //TODO: tudu
+            int countOfCoeffs = 127; //TODO: tudu
             CoefficientsReader _coffReader = new CoefficientsReader();
             List<double> coeffs = ComplexSignals.Real(GetimpulseResponse(countOfCoeffs + 1, (_omega) * 0.03, 76800).GetRange(1, countOfCoeffs));
 

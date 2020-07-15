@@ -3,7 +3,6 @@ using DataAccess2.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace DataAccess
 {
@@ -23,12 +22,12 @@ namespace DataAccess
                 StreamReader sr = new StreamReader(fileName);
                 string line;
 
-                var numberOfCurrentRow = 0;
+                int numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
                 {
                     if (numberOfCurrentRow >= (startIndex))
                     {
-                        var elements = line.Split(seporator);
+                        string[] elements = line.Split(seporator);
                         switch (elements.Length)
                         {
                             case 1:
@@ -54,17 +53,17 @@ namespace DataAccess
             }
 
         }
-        
+
 
         public List<List<string>> GetNumbersOfStartPackages(string fileName)
         {
-            var listOfNumbers = new List<List<string>>();
+            List<List<string>> listOfNumbers = new List<List<string>>();
             FileStream fs = new FileStream(fileName, FileMode.Open);
             StreamReader sr = new StreamReader(fs);
             string line;
             while ((line = sr.ReadLine()) != null)
             {
-                var elements = line.Split(' ');
+                string[] elements = line.Split(' ');
                 listOfNumbers.Add(new List<string>(elements));
             }
             return listOfNumbers;

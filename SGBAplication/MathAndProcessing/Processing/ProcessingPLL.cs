@@ -26,33 +26,33 @@ namespace MathAndProcessing.Calculations
             {
                 if (rI.Count != 0)
                 {
-                    var startIndex = Convert.ToInt32(startIndexStr);
-                    var result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
+                    int startIndex = Convert.ToInt32(startIndexStr);
+                    List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
 
                     EvaluationAndCompensation.PreprocessingOfSignal(result);
-                    var cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801));
-                    var sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + 8 - 1, 76801));
-                    var cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801), true);
-                    var cosIsig = Mseqtransform.GetSamplesOfFullPackage(cosData.GetRange(1, 76800));
-                    var sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData.GetRange(1, 76800));
-                    var cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
-                    var coeffs = _coffReader.GetCoefficients("coeffs_wo_pll", 101);
-                    var conv = new Convolution(ConvolutionType.Common);
+                    List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801));
+                    List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + 8 - 1, 76801));
+                    List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801), true);
+                    List<Complex> cosIsig = Mseqtransform.GetSamplesOfFullPackage(cosData.GetRange(1, 76800));
+                    List<Complex> sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData.GetRange(1, 76800));
+                    List<Complex> cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
+                    List<double> coeffs = _coffReader.GetCoefficients("coeffs_wo_pll", 101);
+                    Convolution conv = new Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
                     cosIsig = conv.StartMagic(cosIsig, ComplexSignals.ToComplex(coeffs));
-                    var signPhasa = EvaluationAndCompensation.Phaza - Math.PI / 4 > 0 ? -1 : 1;
-                    var phasaShift = 2 * Math.PI / 21;
-                    var minStd = 1000.0;
+                    int signPhasa = EvaluationAndCompensation.Phaza - Math.PI / 4 > 0 ? -1 : 1;
+                    double phasaShift = 2 * Math.PI / 21;
+                    double minStd = 1000.0;
                     List<Complex> bestData = null;
-                    for (var i = 0; i < 22; i++)
+                    for (int i = 0; i < 22; i++)
                     {
-                        var phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
-                        var omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
-                        var pllResult = new PLL(76800, omega, phaza, 127);
+                        double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
+                        double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
+                        PLL pllResult = new PLL(76800, omega, phaza, 127);
 
-                        var FIRImpulsCharacteristics = CoeficientFinder.Find(omega);
-                        var data = pllResult.pll_from_class_mamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, 76850)), ComplexSignals.Real(sinIsig.GetRange(0, 76850))),
+                        List<double> FIRImpulsCharacteristics = CoeficientFinder.Find(omega);
+                        List<Complex> data = pllResult.pll_from_class_mamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, 76850)), ComplexSignals.Real(sinIsig.GetRange(0, 76850))),
                             ComplexSignals.Imaginary(cosQsig.GetRange(0, 76850)), FIRImpulsCharacteristics);
                         if (pllResult._stdOmega < minStd)
                         {
@@ -66,19 +66,19 @@ namespace MathAndProcessing.Calculations
 
                     }
 
-                    _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.FullMessage(bestData);
-                    _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.decodeCountry(_dataPack.FullMessage));
+                    _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.GetFullMessage(bestData);
+                    _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                     _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
-                    var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
+                    List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                         StartOperation(bestData);
 
                     //new Drawing.DrawingSignals(signalChart).DrawChart(Enumerable.Range(12000, 10000).Select(i => rnewData[i].Real).ToList());
                     //количество отсчетов в 1 бите OQPSK модуляции =512 т.к. в любой из частей комплексного сигнала каждый бит занимает два бита, +передискретизации два отсчёта на чип ПСП
 
-                    var window = new Window(WindowType.Blackman, 0.16);
-                    var newDataWindowed = window.StartOperation(rnewData);
+                    Window window = new Window(WindowType.Blackman, 0.16);
+                    List<Complex> newDataWindowed = window.StartOperation(rnewData);
 
-                    var listOfComplexComplex = new List<List<Complex>>();
+                    List<List<Complex>> listOfComplexComplex = new List<List<Complex>>();
                     listOfComplexComplex.Add(rnewData);
                     listOfComplexComplex.Add(newDataWindowed);
                     return listOfComplexComplex;

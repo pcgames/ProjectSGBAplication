@@ -1,12 +1,8 @@
-﻿using System;
+﻿using DigitalSignalProcessing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-//using MathAndPhysics;
-using System.Threading.Tasks;
-using DigitalSignalProcessing;
-using System.IO;
-//using 
 
 namespace MathAndProcess.Calculations
 {/// <summary>
@@ -14,7 +10,7 @@ namespace MathAndProcess.Calculations
 /// </summary>
     public class EvaluationAndCompensation
     {
-        private static double _fsempling  = 76800;
+        private static double _fsempling = 76800;
         public static List<Complex> Spectrum { get; private set; }
         public static double Phaza { get; private set; }
         public static double AccuracyFreq { get; private set; }
@@ -31,39 +27,39 @@ namespace MathAndProcess.Calculations
 
 
             //Spectrum = FFT.Forward(signal);
-            var I = ComplexSignals.Real(signal).ToArray();
-            var Q = ComplexSignals.Imaginary(signal).ToArray();
+            double[] I = ComplexSignals.Real(signal).ToArray();
+            double[] Q = ComplexSignals.Imaginary(signal).ToArray();
             //I.Reverse();
             //Q.Reverse();
 
             FourierTransform.fft_f(ref I, ref Q, I.Length, -1);
             Spectrum = ComplexSignals.ToComplex(I.ToList(), Q.ToList());
 
-            
+
             int maxIndex = FindingMaxIndex(ComplexSignals.Module(Spectrum));
 
             maxIndex = maxIndex > 0 ? maxIndex : 1;
             double ttt = I[maxIndex - 1] * Q[maxIndex - 1] + I[maxIndex - 1] * Q[maxIndex - 1];
-            var r1 = Math.Sqrt(I[maxIndex - 1] * I[maxIndex - 1] + Q[maxIndex - 1] * Q[maxIndex - 1]) / Q.Length;
-            var r2 = Math.Sqrt(I[maxIndex - 0] * I[maxIndex - 0] + Q[maxIndex - 0] * Q[maxIndex - 0]) / Q.Length;
-            var r3 = Math.Sqrt(I[maxIndex + 1] * I[maxIndex + 1] + Q[maxIndex  +1] * Q[maxIndex + 1]) / Q.Length;
-            var r = r1;
+            double r1 = Math.Sqrt(I[maxIndex - 1] * I[maxIndex - 1] + Q[maxIndex - 1] * Q[maxIndex - 1]) / Q.Length;
+            double r2 = Math.Sqrt(I[maxIndex - 0] * I[maxIndex - 0] + Q[maxIndex - 0] * Q[maxIndex - 0]) / Q.Length;
+            double r3 = Math.Sqrt(I[maxIndex + 1] * I[maxIndex + 1] + Q[maxIndex + 1] * Q[maxIndex + 1]) / Q.Length;
+            double r = r1;
             if (r1 < r3) { r = r3; }
-            r = 1000.0* r / r2;
+            r = 1000.0 * r / r2;
 
-            var i3 = 0;
-            var freq = FourierTransform.getFrequancyWindow();
-            for ( var i1 = 0; i1 < freq.Count-1; i1++)
+            int i3 = 0;
+            List<float> freq = FourierTransform.getFrequancyWindow();
+            for (int i1 = 0; i1 < freq.Count - 1; i1++)
             {
                 if ((r > freq[i1]) && (r <= freq[i1 + 1])) { i3 = i1; }
             }
-            if (r1 < r3) { AccuracyFreq = maxIndex * 76800.0/ 8192 + i3 / 10000.0/ 2.0* 76800.0/ 8192; }
-            if (r1 > r3) { AccuracyFreq = maxIndex * 76800.0/ 8192 - i3 / 10000.0/ 2.0* 76800.0/ 8192; }
+            if (r1 < r3) { AccuracyFreq = maxIndex * 76800.0 / 8192 + i3 / 10000.0 / 2.0 * 76800.0 / 8192; }
+            if (r1 > r3) { AccuracyFreq = maxIndex * 76800.0 / 8192 - i3 / 10000.0 / 2.0 * 76800.0 / 8192; }
 
             if (maxIndex > 8192 / 2) { AccuracyFreq -= 76800.0; }
 
             return AccuracyFreq;
-         }
+        }
 
         /// <summary>
         /// данная функция предназначена для оценки фазы сигнала, 
@@ -74,21 +70,21 @@ namespace MathAndProcess.Calculations
         /// <returns>фаза сигнала на нулевой частоте</returns>
         public static double EvaluationPhaze(List<Complex> signal)//Назаров мод
         {
-            var newSignal = NazarovCompensationOfFreq(signal);
+            List<Complex> newSignal = NazarovCompensationOfFreq(signal);
 
-            var I = ComplexSignals.Real(newSignal).ToArray();
-            var Q = ComplexSignals.Imaginary(newSignal).ToArray();
+            double[] I = ComplexSignals.Real(newSignal).ToArray();
+            double[] Q = ComplexSignals.Imaginary(newSignal).ToArray();
 
             FourierTransform.fft_f(ref I, ref Q, I.Length, -1);
-            var newSpectrum = ComplexSignals.ToComplex(I.ToList(), Q.ToList());
+            List<Complex> newSpectrum = ComplexSignals.ToComplex(I.ToList(), Q.ToList());
 
-                
-                Phaza = Math.Atan2(newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Imaginary,
-                newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Real) + Math.PI / 4.0;//на вопрос почему пи/4 ответ один, назаров МОД
-            var p = Math.Atan2(newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Imaginary,
+
+            Phaza = Math.Atan2(newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Imaginary,
+            newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Real) + Math.PI / 4.0;//на вопрос почему пи/4 ответ один, назаров МОД
+            double p = Math.Atan2(newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Imaginary,
             newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))].Real);
             //}
-            var d = newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))];
+            Complex d = newSpectrum[FindingMaxIndex(ComplexSignals.Module(newSpectrum))];
             return Phaza;
         }
         /// <summary>
@@ -135,8 +131,8 @@ namespace MathAndProcess.Calculations
 
         private static int FindingMaxIndex(List<double> moduleSpectrum)
         {
-            var m = moduleSpectrum.Max()/moduleSpectrum.Count();
-            var b=20*Math.Log10((moduleSpectrum.Sum()/ moduleSpectrum.Count()-m)/ moduleSpectrum.Count());
+            double m = moduleSpectrum.Max() / moduleSpectrum.Count();
+            double b = 20 * Math.Log10((moduleSpectrum.Sum() / moduleSpectrum.Count() - m) / moduleSpectrum.Count());
             int k = moduleSpectrum.IndexOf(moduleSpectrum.Max());
             return k;
         }
@@ -165,7 +161,7 @@ namespace MathAndProcess.Calculations
             }
 
             return ComplexSignals.Shift(signal, -AccuracyFreq, _fsempling);//<-здесь изменение
-         }
+        }
 
         /// <summary>
         /// назаровская реалиация компенсации фазы 
@@ -184,7 +180,7 @@ namespace MathAndProcess.Calculations
 
         //}
 
-       
+
         /// <summary>
         /// назаровская реалиация компенсации фазы
         /// </summary>
@@ -194,7 +190,7 @@ namespace MathAndProcess.Calculations
         /// с компенсированной фазой</returns>
         private static List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
         {
-            return ComplexSignals.Shift(signal, 0, _fsempling,-Phaza);
+            return ComplexSignals.Shift(signal, 0, _fsempling, -Phaza);
         }
         #endregion
 

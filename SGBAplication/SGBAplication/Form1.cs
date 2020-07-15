@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Controllers;
+using Controllers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
-using DigitalSignalProcessing;
-using DigitalSignalProcessing.Windows;
-using Controllers;
-using MathAndProcessing;
 
 namespace SGBFormAplication
 {
     public partial class Form1 : Form
     {
-        ControllerSGBApplication _controller;
-        private Controllers.Data.GUIData dataPack;
+        readonly ControllerSGBApplication _controller;
+        private GUIData dataPack;
         public Form1()
         {
             InitializeComponent();
@@ -21,15 +18,16 @@ namespace SGBFormAplication
         }
 
 
-        private void Go_Click(object sender, EventArgs e)//Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
+        private void Go_Click(object sender, EventArgs e)
+        //Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
         {
             switch (checkResempling.Checked)
             {
                 case true:
                     InitializeGUIDataPack();
-                    var rnewDataAndSpectrum = _controller.DecoderOfResemplingSignal( ref dataPack);
+                    List<List<System.Numerics.Complex>> rnewDataAndSpectrum = _controller.DecoderOfResemplingSignal(ref dataPack);
                     InitializeForm();
-                    DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
@@ -40,26 +38,26 @@ namespace SGBFormAplication
 
                         InitializeGUIDataPack();
 
-                        DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text),900.2,102300).GetSGBSignal().ToList(), fileName.Text);
+                        DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
 
                         rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignal(ref dataPack);
 
                         InitializeForm();
 
-                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
                         InitializeGUIDataPack();
                         rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignal(ref dataPack);
                         InitializeForm();
-                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
-                    
+
                     break;
-                
+
             }
-            
+
         }
 
         private void StatisticButton_Click(object sender, EventArgs e)
@@ -87,7 +85,7 @@ namespace SGBFormAplication
 
         private void StatisticGenerator_Click(object sender, EventArgs e)
         {
-            var countMessages = 10000;
+            int countMessages = 10000;
 
             if (checkUsePLL.Checked)
             {
@@ -113,8 +111,8 @@ namespace SGBFormAplication
                 case true:
                     InitializeGUIDataPack();
 
-                    var rnewDataAndSpectrum = _controller.DecoderOfResemplingSignalWithPll(ref dataPack);
-                    DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    List<List<System.Numerics.Complex>> rnewDataAndSpectrum = _controller.DecoderOfResemplingSignalWithPll(ref dataPack);
+                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
                     if (CheckingSimulateSignal.Checked)
@@ -125,14 +123,14 @@ namespace SGBFormAplication
 
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
                         rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
-                        
+
                         InitializeForm();
-                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
                     else
                     {
                         rnewDataAndSpectrum = _controller.DecoderOfNonResemplingSignalWithPll(ref dataPack);
-                        DrawingOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                        DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
 
                     break;
@@ -142,7 +140,7 @@ namespace SGBFormAplication
         }
         private void InitializeGUIDataPack()
         {
-            dataPack = new Controllers.Data.GUIData();
+            dataPack = new Controllers.Models.GUIData();
 
             dataPack.CurrentFrequency_Hz = currentFrequancy.Text;
             dataPack.FileName = fileName.Text;
@@ -163,12 +161,12 @@ namespace SGBFormAplication
             startIndex.Text = dataPack.StartIndex;
             country.Text = dataPack.Country;
         }
-        private void DrawingOfBPSKSignalAndSpectrum(List<System.Numerics.Complex> newDataWindowed, List<System.Numerics.Complex> rnewData)
+        private void DrawOfBPSKSignalAndSpectrum(List<System.Numerics.Complex> newDataWindowed, List<System.Numerics.Complex> rnewData)
         {
-            var spectrum = new List<System.Numerics.Complex>();
+            List<System.Numerics.Complex> spectrum = new List<System.Numerics.Complex>();
             List<double> xValues = new List<double>();
             _controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
-            var signalsWithIQChanals= ControllerSGBApplication.GetDataForSignalChart(rnewData);
+            List<double> signalsWithIQChanals = ControllerSGBApplication.GetDataForSignalChart(rnewData);
 
             new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
 

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 
 namespace MathAndProcess.Calculations
 {
@@ -28,7 +26,7 @@ namespace MathAndProcess.Calculations
                 {
 
                 }
-                while (lr <= j&& j>0)
+                while (lr <= j && j > 0)
                 {
                     j = j - lr;
                     lr = lr / 2;
@@ -91,21 +89,21 @@ namespace MathAndProcess.Calculations
         private static List<float> generationOfFrequancyWindow()
         {
             List<float> fw = new List<float>();
-            var nb1 = 8192;
+            int nb1 = 8192;
             FileStream fs = new FileStream("freq_gen.dat", FileMode.CreateNew);
             StreamWriter sw = new StreamWriter(fs);
-            
 
-            for (var i = 0; i < 10000; i++)
+
+            for (int i = 0; i < 10000; i++)
             {
                 int i1;
-                var f0 = i / 10000.0/ 2.0;
-                var bi = new double[nb1];
-                var br = new double[nb1]; 
-                for (i1=0; i1 < nb1; i1++)
+                double f0 = i / 10000.0 / 2.0;
+                double[] bi = new double[nb1];
+                double[] br = new double[nb1];
+                for (i1 = 0; i1 < nb1; i1++)
                 {
-                    br[i1] = Math.Cos(2.0* Math.PI * f0 / nb1 * i1);
-                    bi[i1] = Math.Sin(2.0* Math.PI * f0 / nb1 * i1);
+                    br[i1] = Math.Cos(2.0 * Math.PI * f0 / nb1 * i1);
+                    bi[i1] = Math.Sin(2.0 * Math.PI * f0 / nb1 * i1);
                 }//i1
 
                 /*8. FFT */
@@ -113,10 +111,10 @@ namespace MathAndProcess.Calculations
                 fft_f(ref br, ref bi, nb1, -1);
 
                 i1 = 0;
-                var r1 =Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
+                double r1 = Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
                 i1 = 1;
-                var r2 = Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
-                fw.Add((float)(1000.0* r2 / r1));
+                double r2 = Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
+                fw.Add((float)(1000.0 * r2 / r1));
                 sw.WriteLine(fw.Last().ToString());
                 //fprintf(fp," i=%d r1=%f r2=%f 1000.*r2/r1=%f f0=%f\n",i,r1,r2,1000.*r2/r1,f0);
                 //	  getch();
@@ -136,7 +134,7 @@ namespace MathAndProcess.Calculations
                 fw = new List<float>();
                 FileStream fs = new FileStream("freq_gen.dat", FileMode.Open);
                 StreamReader sr = new StreamReader(fs);
-                for(var i=0; i<10000;i++)
+                for (int i = 0; i < 10000; i++)
                 {
                     fw.Add((float)Convert.ToDouble(sr.ReadLine()));
                 }

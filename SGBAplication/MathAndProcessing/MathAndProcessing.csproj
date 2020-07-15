@@ -47,9 +47,9 @@
     <Compile Include="Calculations\ModulatingSignal.cs" />
     <Compile Include="Calculations\PLL.cs" />
     <Compile Include="Calculations\resemplingOfSignal.cs" />
-    <Compile Include="OutputData\AOutputData.cs" />
-    <Compile Include="OutputData\OutputData.cs" />
-    <Compile Include="OutputData\OutputDataPLL.cs" />
+    <Compile Include="Models\AOutputData.cs" />
+    <Compile Include="Models\OutputData.cs" />
+    <Compile Include="Models\OutputDataPLL.cs" />
     <Compile Include="Processing\IProcessing.cs" />
     <Compile Include="Processing\Processing.cs" />
     <Compile Include="Decoding\Decoder.cs" />

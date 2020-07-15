@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
-using System.Text;
 
 namespace DataAccess
 {
@@ -15,7 +14,7 @@ namespace DataAccess
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
             Action<string> writing = s => sw.WriteLine(s);
-            for (var w = 0; w < data.Count; w++)
+            for (int w = 0; w < data.Count; w++)
             {
                 writing(data[w].Real.ToString() + separator + data[w].Imaginary.ToString());
             }
@@ -28,7 +27,7 @@ namespace DataAccess
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
             Action<string> writing = s => sw.WriteLine(s);
-            for (var w = 0; w < data.Count; w++)
+            for (int w = 0; w < data.Count; w++)
             {
                 writing(data[w].ToString());
             }
@@ -44,7 +43,7 @@ namespace DataAccess
         {
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            for (var w = 0; w < data.Count; w++)
+            for (int w = 0; w < data.Count; w++)
             {
                 sw.WriteLine(data[w]);
             }
@@ -56,7 +55,7 @@ namespace DataAccess
         {
             FileStream fs = new FileStream(nameOfFile, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            for (var w = 0; w < data.Count; w++)
+            for (int w = 0; w < data.Count; w++)
             {
                 sw.WriteLine(data[w]);
             }

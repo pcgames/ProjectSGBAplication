@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
-using MathAndPhysics;
 
 namespace MathAndProcess.Decoding
 {
     public class Decoder
     {
 
-        public static string FullMessage(List<Complex> signal)
+        public static string GetFullMessage(List<Complex> signal)
         {
-            var decodeMesage = "";
+            string decodeMesage = "";
 
             //при кодировании сообщения в OQPSK произошло разделение битов на чётные и нечетные,
             //в результате длина битов увеличилась вдвое-> всего 150 бит
-            for (var i = 25; i < 150; i++)
+            for (int i = 25; i < 150; i++)
             {
-                var r1 = 0.0;//energy odd
-                var r2 = 0.0;//energy not odd
-                var rc = 0.0;//нечетный знак
-                var rs = 0.0;//четный знак
-                for (var j = 0; j < 512; j++)//512 длина одного бита в случае передескритизации
+                double r1 = 0.0;//energy odd
+                double r2 = 0.0;//energy not odd
+                double rc = 0.0;//нечетный знак
+                double rs = 0.0;//четный знак
+                for (int j = 0; j < 512; j++)//512 длина одного бита в случае передескритизации
                 {
                     r1 = r1 + Math.Abs(signal[i * 512 + j].Real);
                     r2 = r2 + Math.Abs(signal[i * 512 + j].Imaginary);
@@ -53,7 +49,7 @@ namespace MathAndProcess.Decoding
 
         }
 
-        public static int decodeCountry(string fullMesage)
+        public static int DecodeCountryCode(string fullMesage)
         {
             return Convert.ToInt16(MathAndPhysics.NumeralSystems.
                 NumeralSystemConverter.

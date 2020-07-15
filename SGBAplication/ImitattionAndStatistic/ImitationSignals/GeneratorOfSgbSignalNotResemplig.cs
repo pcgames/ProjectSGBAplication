@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Generator.ImitationSignals
 {
     public class GeneratorOfSgbSignalNotResemplig // : ISGBSignalGenerator
     {
-        
+
 
         public static List<Complex> GetSGBSignal(double SNR = 100)
         {

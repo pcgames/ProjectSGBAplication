@@ -1,4 +1,4 @@
-﻿using Controllers.Data;
+﻿using Controllers.Models;
 using Controllers.Statistic;
 using DigitalSignalProcessing;
 using MathAndProcess.Calculations;

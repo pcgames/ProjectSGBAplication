@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess
 {
@@ -22,13 +19,13 @@ namespace DataAccess
 
                 StreamReader sr = new StreamReader(pathToCoeffsFolder + fileName);
                 string line;
-                var numberOfCurrentRow = 0;
+                int numberOfCurrentRow = 0;
                 while ((line = sr.ReadLine()) != null && numberOfCurrentRow < numberOfElements + startIndex)
                 {
                     if (numberOfCurrentRow >= (startIndex))
                     {
-                        var elements = line.Split(seporator);
-                        var k = elements[0];
+                        string[] elements = line.Split(seporator);
+                        string k = elements[0];
                         Samples.Add(Convert.ToDouble(elements[0].Replace('.', ',')));
 
                     }

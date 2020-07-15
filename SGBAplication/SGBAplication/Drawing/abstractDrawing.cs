@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SGBAplication.Drawing
 {
     /// <summary>
-/// данный класс является родительским классом отрисовки графиков
-/// </summary>
-/// <typeparam name="T"></typeparam>
+    /// данный класс является родительским классом отрисовки графиков
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class abstractDrawing<T> where T : struct
     {
         /// <summary>
@@ -30,7 +28,7 @@ namespace SGBAplication.Drawing
         /// <param name="Samples">падаваемые элементы</param>
         public virtual void DrawChart(List<T> Samples)
         {
-            var ChartSeries = new Series()
+            Series ChartSeries = new Series()
             {
                 XValueType = ChartValueType.Int32,
                 ChartType = SeriesChartType.Point,
@@ -42,11 +40,11 @@ namespace SGBAplication.Drawing
             CleanSeries(_samplesChart, ChartSeries.Name);
             Enumerable.Range((int)0, (int)Samples.Count()).ToList();
             DrawSamples(ChartSeries, Enumerable.Range(0, Samples.Count()).ToList()
-                .Select(element=>(double)element).ToList(), Samples);
+                .Select(element => (double)element).ToList(), Samples);
         }
         public virtual void DrawChart(List<T> Samples, List<double> xValues)
         {
-            var ChartSeries = new Series()
+            Series ChartSeries = new Series()
             {
                 XValueType = ChartValueType.Int32,
                 ChartType = SeriesChartType.Point,
@@ -65,7 +63,7 @@ namespace SGBAplication.Drawing
         #region protected methods
         protected virtual void DrawSamples(Series usefullSeries, List<double> xValues, List<T> yValues)
         {
-            for (var i = 0; i < xValues.Count; i++)
+            for (int i = 0; i < xValues.Count; i++)
             {
                 DrawPoint(_samplesChart, usefullSeries, xValues[i], Convert.ToDouble(yValues[i]));
             }

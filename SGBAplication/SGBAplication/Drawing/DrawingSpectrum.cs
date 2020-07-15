@@ -1,9 +1,8 @@
-﻿using System;
+﻿using DigitalSignalProcessing;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Linq;
+using System.Numerics;
 using System.Windows.Forms.DataVisualization.Charting;
-using DigitalSignalProcessing;
 
 namespace SGBAplication.Drawing
 {
@@ -11,7 +10,7 @@ namespace SGBAplication.Drawing
     public class DrawingSpectrum : abstractDrawing<Complex>
     {
         private static double _fSempling;
-       public DrawingSpectrum(Chart samplesChart,double frequancySempling) : base(samplesChart)
+        public DrawingSpectrum(Chart samplesChart, double frequancySempling) : base(samplesChart)
         {
             _fSempling = frequancySempling;
             _samplesChart = samplesChart;
@@ -21,9 +20,9 @@ namespace SGBAplication.Drawing
             _samplesChart = samplesChart;
         }
 
-        public override void DrawChart(List<Complex> spectrum,List<double> xValues)
+        public override void DrawChart(List<Complex> spectrum, List<double> xValues)
         {
-            var ChartSeries = new Series()
+            Series ChartSeries = new Series()
             {
                 XValueType = ChartValueType.Int32,
                 ChartType = SeriesChartType.Point,
@@ -38,7 +37,7 @@ namespace SGBAplication.Drawing
 
             if (_fSempling.Equals(0))
             {
-                 xValues=Enumerable.Range(0,spectrum.Count).Select<int,double>(element=>element).ToList();
+                xValues = Enumerable.Range(0, spectrum.Count).Select<int, double>(element => element).ToList();
             }
             else
             {
@@ -48,18 +47,18 @@ namespace SGBAplication.Drawing
 
             }
             DrawSamples(ChartSeries, xValues, spectrum);
-            DrawCarrierFrequancy(spectrum,xValues);
+            DrawCarrierFrequancy(spectrum, xValues);
         }
-        private void DrawCarrierFrequancy(List<Complex> spectrum,List<double> xValues)
+        private void DrawCarrierFrequancy(List<Complex> spectrum, List<double> xValues)
         {
 
-            var ChartSeries = new Series()
+            Series ChartSeries = new Series()
             {
                 XValueType = ChartValueType.Int32,
                 ChartType = SeriesChartType.Point,
                 Color = System.Drawing.Color.Black,
                 MarkerSize = 4,
-                MarkerStyle=MarkerStyle.Cross,
+                MarkerStyle = MarkerStyle.Cross,
                 Name = "carrier frequancy"
             };
             //взял список,создал новую переменную(типа Anonymous) с полями которые можно получить, 
@@ -77,7 +76,7 @@ namespace SGBAplication.Drawing
         }
         protected override void DrawSamples(Series usefullSeries, List<double> xValues, List<Complex> yValues)
         {
-            for (var i = 0; i < xValues.Count; i++)
+            for (int i = 0; i < xValues.Count; i++)
             {
                 DrawPoint(_samplesChart, usefullSeries, xValues[i], (yValues[i]).Magnitude);
             }
