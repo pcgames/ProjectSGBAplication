@@ -33,8 +33,11 @@ namespace SGBFormAplication
 
             List<List<Complex>> rnewDataAndSpectrum = _controller.StartDecoder(type, ref _dataPack);
 
-            DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+            DrawBPSKSignal(rnewDataAndSpectrum[1]);
+            DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
         }
+
+        
 
         private ProcessingType SelectProcessorType()
         {
@@ -108,16 +111,19 @@ namespace SGBFormAplication
             _dataPack.Country = country.Text;
         }
 
-        private void DrawOfBPSKSignalAndSpectrum(List<Complex> newDataWindowed, List<Complex> rnewData)
+        private void DrawBPSKSpectrum(List<Complex> newDataWindowed)
         {
-            List<Complex> spectrum = new List<Complex>();
-            List<double> xValues = new List<double>();
-            _controller.GetDataForSpectrumChart(ref spectrum, ref xValues, newDataWindowed);
+            List<Complex> spectrum = _controller.GetSpectrumForChart(newDataWindowed);
+            List<double> xValues = _controller.GetXValuesForSpectrumChart(spectrum);
+
+            new SGBAplication.Drawing.DrawingSpectrum(spectrumChart).DrawChart(spectrum, xValues);
+        }
+
+        private void DrawBPSKSignal(List<Complex> rnewData)
+        {
             List<double> signalsWithIQChanals = ControllerSGBApplication.GetDataForSignalChart(rnewData);
 
             new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
-
-            new SGBAplication.Drawing.DrawingSpectrum(spectrumChart).DrawChart(spectrum, xValues);
         }
     }
 }

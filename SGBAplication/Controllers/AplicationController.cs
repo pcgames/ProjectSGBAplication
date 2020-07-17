@@ -51,6 +51,16 @@ namespace Controllers
             xValues = FreqCalculation.Getfrequancy(spectrum.Count, 76800);
         }
 
+        public List<Complex> GetSpectrumForChart(List<Complex> newDataWindowed)
+        {
+            return FFT.Forward(newDataWindowed.GetRange(0, 8192));
+        }
+
+        public List<double> GetXValuesForSpectrumChart(List<Complex> spectrum)
+        {
+            return FreqCalculation.Getfrequancy(spectrum.Count, 76800);
+        }
+
         public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
             return ModulatingSignal.GenerateBPSKSignal(rnewData, 512).GetRange(20000, 10000);
