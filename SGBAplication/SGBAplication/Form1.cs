@@ -20,38 +20,45 @@ namespace SGBFormAplication
 
         private void Go_Click(object sender, EventArgs e)
         {
-            InitializeGUIDataPack();
-
-            List<List<Complex>> rnewDataAndSpectrum;
-            if (checkResempling.Checked)
+            if (CheckingSimulateSignal.Checked)
             {
-                rnewDataAndSpectrum = _controller.StartDecoderOfResemplingSignalWithoutPll(ref _dataPack);
-                DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                _dataPack.StartIndex = "0";
+                fileName.Text = "simulatedSignalnew.csv";
+                var snr = Convert.ToDouble(SNR.Text);
+                _controller.SimulateSignal(snr, fileName.Text);
             }
-            else
+
+            InitializeGUIDataPack();
+            ProcessingType type = SelectProcessorType();
+
+            List<List<Complex>> rnewDataAndSpectrum = _controller.StartDecoder(type, ref _dataPack);
+
+            DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+        }
+
+        private ProcessingType SelectProcessorType()
+        {
+            if(checkResempling.Checked)
             {
-                if (CheckingSimulateSignal.Checked)
+                if(checkUsePLLForProcessing.Checked)
                 {
-                    startIndex.Text = "0";
-
-                    fileName.Text = "simulatedSignalnew.csv";
-
-                    var snr = Convert.ToDouble(SNR.Text);
-
-                    var sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, 900.2, 102300).GetSGBSignal().ToList();
-
-                    DataAccess.DataWriter.WriteToFile(sgbSignal, fileName.Text);
-
-                    rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignalWithoutPll(ref _dataPack);
-
-                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    return ProcessingType.ResemplingWithPll;
                 }
                 else
                 {
-                    rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignalWithoutPll(ref _dataPack);
-                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
+                    return ProcessingType.ResemplingWithoutPll;
                 }
-
+            }
+            else
+            {
+                if (checkUsePLLForProcessing.Checked)
+                {
+                    return ProcessingType.NonResemplingWithPll;
+                }
+                else
+                {
+                    return ProcessingType.NonResemplingWithoutPll;
+                }
             }
         }
 
@@ -59,7 +66,7 @@ namespace SGBFormAplication
         {
             if (checkResempling.Checked == true)
             {
-                if (checkUsePLL.Checked == true)
+                if (checkUsePLLForStatictic.Checked == true)
                 {
                     InitializeGUIDataPack();
 
@@ -78,45 +85,13 @@ namespace SGBFormAplication
 
             InitializeGUIDataPack();
 
-            if (checkUsePLL.Checked)
+            if (checkUsePLLForStatictic.Checked)
             {
                 _controller.GenerateStatisticsWithPLL(countMessages, _dataPack);
             }
             else
             {
                 _controller.GenerateStatistics(countMessages, _dataPack);
-            }
-        }
-
-        private void PllProcess_Click(object sender, EventArgs e)
-        {
-            List<List<Complex>> rnewDataAndSpectrum;
-            InitializeGUIDataPack();
-
-            if (checkResempling.Checked)
-            {
-                rnewDataAndSpectrum = _controller.StartDecoderOfResemplingSignalWithPll(ref _dataPack);
-                DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
-            }
-            else 
-            { 
-                if (CheckingSimulateSignal.Checked)
-                {
-                    startIndex.Text = "0";
-                    fileName.Text = "simulatedSignalnew.csv";
-                    InitializeGUIDataPack();
-
-                    DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
-                    rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignalWithPll(ref _dataPack);
-
-                    InitializeForm();
-                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
-                }
-                else
-                {
-                    rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignalWithPll(ref _dataPack);
-                    DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
-                }
             }
         }
 
@@ -133,17 +108,6 @@ namespace SGBFormAplication
             _dataPack.Country = country.Text;
         }
 
-        private void InitializeForm()
-        {
-            currentFrequancy.Text = _dataPack.CurrentFrequency_Hz;
-            fileName.Text = _dataPack.FileName;
-            fileOfPackages.Text = _dataPack.fileOfPackages;
-            fullMessage.Text = _dataPack.FullMessage;
-            SNR.Text = _dataPack.SNR;
-            startIndex.Text = _dataPack.StartIndex;
-            country.Text = _dataPack.Country;
-        }
-
         private void DrawOfBPSKSignalAndSpectrum(List<Complex> newDataWindowed, List<Complex> rnewData)
         {
             List<Complex> spectrum = new List<Complex>();
@@ -153,7 +117,7 @@ namespace SGBFormAplication
 
             new SGBAplication.Drawing.DrawingSignals(signalChart).DrawChart(signalsWithIQChanals);
 
-            new SGBAplication.Drawing.DrawingSpectrum(spectrumChart, 76800).DrawChart(spectrum, xValues);
+            new SGBAplication.Drawing.DrawingSpectrum(spectrumChart).DrawChart(spectrum, xValues);
         }
     }
 }

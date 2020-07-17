@@ -38,8 +38,8 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.checkUsePLL = new System.Windows.Forms.CheckBox();
-            this.pllProcess = new System.Windows.Forms.Button();
+            this.checkUsePLLForProcessing = new System.Windows.Forms.CheckBox();
+            this.checkUsePLLForStatictic = new System.Windows.Forms.CheckBox();
             this.statisticGenerator = new System.Windows.Forms.Button();
             this.CheckingSimulateSignal = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -142,8 +142,8 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.checkUsePLL);
-            this.panel5.Controls.Add(this.pllProcess);
+            this.panel5.Controls.Add(this.checkUsePLLForProcessing);
+            this.panel5.Controls.Add(this.checkUsePLLForStatictic);
             this.panel5.Controls.Add(this.statisticGenerator);
             this.panel5.Controls.Add(this.CheckingSimulateSignal);
             this.panel5.Controls.Add(this.label6);
@@ -166,26 +166,27 @@
             this.panel5.Size = new System.Drawing.Size(232, 302);
             this.panel5.TabIndex = 11;
             // 
-            // checkUsePLL
+            // checkUsePLLForProcessing
             // 
-            this.checkUsePLL.AutoSize = true;
-            this.checkUsePLL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkUsePLL.Location = new System.Drawing.Point(173, 258);
-            this.checkUsePLL.Name = "checkUsePLL";
-            this.checkUsePLL.Size = new System.Drawing.Size(45, 17);
-            this.checkUsePLL.TabIndex = 19;
-            this.checkUsePLL.Text = "PLL";
-            this.checkUsePLL.UseVisualStyleBackColor = true;
+            this.checkUsePLLForProcessing.AutoSize = true;
+            this.checkUsePLLForProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkUsePLLForProcessing.Location = new System.Drawing.Point(143, 11);
+            this.checkUsePLLForProcessing.Name = "checkUsePLLForProcessing";
+            this.checkUsePLLForProcessing.Size = new System.Drawing.Size(45, 17);
+            this.checkUsePLLForProcessing.TabIndex = 20;
+            this.checkUsePLLForProcessing.Text = "PLL";
+            this.checkUsePLLForProcessing.UseVisualStyleBackColor = true;
             // 
-            // pllProcess
+            // checkUsePLLForStatictic
             // 
-            this.pllProcess.Location = new System.Drawing.Point(134, 5);
-            this.pllProcess.Name = "pllProcess";
-            this.pllProcess.Size = new System.Drawing.Size(75, 23);
-            this.pllProcess.TabIndex = 18;
-            this.pllProcess.Text = "pllProcess";
-            this.pllProcess.UseVisualStyleBackColor = true;
-            this.pllProcess.Click += new System.EventHandler(this.PllProcess_Click);
+            this.checkUsePLLForStatictic.AutoSize = true;
+            this.checkUsePLLForStatictic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkUsePLLForStatictic.Location = new System.Drawing.Point(173, 258);
+            this.checkUsePLLForStatictic.Name = "checkUsePLLForStatictic";
+            this.checkUsePLLForStatictic.Size = new System.Drawing.Size(45, 17);
+            this.checkUsePLLForStatictic.TabIndex = 19;
+            this.checkUsePLLForStatictic.Text = "PLL";
+            this.checkUsePLLForStatictic.UseVisualStyleBackColor = true;
             // 
             // statisticGenerator
             // 
@@ -474,8 +475,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox fullMessage;
         private System.Windows.Forms.Button statisticGenerator;
-        private System.Windows.Forms.Button pllProcess;
-        private System.Windows.Forms.CheckBox checkUsePLL;
+        private System.Windows.Forms.CheckBox checkUsePLLForStatictic;
+        private System.Windows.Forms.CheckBox checkUsePLLForProcessing;
     }
 }
 

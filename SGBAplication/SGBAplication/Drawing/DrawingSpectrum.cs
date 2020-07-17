@@ -19,6 +19,7 @@ namespace SGBAplication.Drawing
 
         public DrawingSpectrum(Chart samplesChart) : base(samplesChart)
         {
+            _fSempling = 76800;
             _samplesChart = samplesChart;
         }
 

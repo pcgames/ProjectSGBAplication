@@ -2,11 +2,14 @@
 using Controllers.Statistic;
 using DigitalSignalProcessing;
 using MathAndProcess.Calculations;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Controllers
 {
+    
     /// <summary>
     /// данный класс создан для использования патерна Медиатор
     /// </summary>
@@ -22,50 +25,24 @@ namespace Controllers
             _statisticGenerator = new StatisicGenerator();
         }
 
-        public List<List<Complex>>  StartDecoder(bool resampling, bool usingPll, ref GUIData dataPack)
+        
+        public List<List<Complex>> StartDecoder(ProcessingType processingType, ref GUIData dataPack)
         {
-            if (resampling)
+            switch (processingType)
             {
-                if (usingPll)
-                {
+                case ProcessingType.ResemplingWithPll:
                     return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
-                }
-                else
-                {
-                    return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
-                }
-            }
-            else
-            {
-                if (usingPll)
-                {
+
+                case ProcessingType.NonResemplingWithPll:
                     return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
-                }
-                else
-                {
+
+                case ProcessingType.ResemplingWithoutPll:
+                    return _controllerMAP.StartDecoderOfResemplingSignalWithoutPll(ref dataPack);
+
+                case ProcessingType.NonResemplingWithoutPll:
                     return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
-                }
             }
-        }
-
-        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
-        {
-            return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
-        }
-
-        public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
-        {
-            return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
-        }
-
-        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithoutPll(ref GUIData dataPack)
-        {
-            return _controllerMAP.StartDecoderOfNonResemplingSignalWithoutPll(ref dataPack);
-        }
-
-        public List<List<Complex>> StartDecoderOfResemplingSignalWithoutPll(ref GUIData dataPack)
-        {
-            return _controllerMAP.StartDecoderOfResemplingSignalWithoutPll(ref dataPack);
+            throw new Exception();
         }
 
         public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
@@ -77,6 +54,11 @@ namespace Controllers
         public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
             return ModulatingSignal.GenerateBPSKSignal(rnewData, 512).GetRange(20000, 10000);
+        }
+        public void SimulateSignal(double snr, string fileName)
+        {
+            List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, 900.2, 102300).GetSGBSignal().ToList();
+            DataAccess.DataWriter.WriteToFile(sgbSignal, fileName);
         }
 
         public void GenerateRealResemplingDataStatistics(GUIData dataPack)
@@ -99,5 +81,7 @@ namespace Controllers
         {
             _statisticGenerator.GenerateStatisticsWithPLL(countMessages, GUIDataPack);
         }
+
+
     }
 }
