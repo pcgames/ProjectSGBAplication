@@ -19,14 +19,14 @@ namespace SGBFormAplication
 
 
         private void Go_Click(object sender, EventArgs e)
-        //Я думаю это стоит перенести в отдельный класс который будет выполнять только список функций определенных кнопок
         {
+            InitializeGUIDataPack();
+
             switch (checkResempling.Checked)
             {
                 case true:
                     InitializeGUIDataPack();
                     List<List<System.Numerics.Complex>> rnewDataAndSpectrum = _controller.StartDecoderOfResemplingSignal(ref dataPack);
-                    InitializeForm();
                     DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     break;
                 case false:
@@ -36,13 +36,9 @@ namespace SGBFormAplication
 
                         fileName.Text = "simulatedSignalnew.csv";
 
-                        InitializeGUIDataPack();
-
                         DataAccess.DataWriter.WriteToFile(new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(Convert.ToDouble(SNR.Text), 900.2, 102300).GetSGBSignal().ToList(), fileName.Text);
 
                         rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignal(ref dataPack);
-
-                        InitializeForm();
 
                         DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
@@ -50,7 +46,6 @@ namespace SGBFormAplication
                     {
                         InitializeGUIDataPack();
                         rnewDataAndSpectrum = _controller.StartDecoderOfNonResemplingSignal(ref dataPack);
-                        InitializeForm();
                         DrawOfBPSKSignalAndSpectrum(rnewDataAndSpectrum[0], rnewDataAndSpectrum[1]);
                     }
 
@@ -73,34 +68,25 @@ namespace SGBFormAplication
                 }
                 else
                 {
-                    InitializeGUIDataPack();
-
                     _controller.GenerateRealResemplingDataStatistics(dataPack);
-
                 }
-
             }
-
         }
 
         private void StatisticGenerator_Click(object sender, EventArgs e)
         {
             int countMessages = 10000;
 
+            InitializeGUIDataPack();
+
             if (checkUsePLL.Checked)
             {
-                InitializeGUIDataPack();
-
-                _controller.GenerateStatisticsWithPLL(countMessages, dataPack);//это ужасно!!!!!
+                _controller.GenerateStatisticsWithPLL(countMessages, dataPack);
             }
             else
             {
-                InitializeGUIDataPack();
-
-                _controller.GenerateStatistics(countMessages, dataPack);//АНАЛОГИЧНО
-
+                _controller.GenerateStatistics(countMessages, dataPack);
             }
-
         }
 
         private void PllProcess_Click(object sender, EventArgs e)
@@ -140,7 +126,7 @@ namespace SGBFormAplication
         }
         private void InitializeGUIDataPack()
         {
-            dataPack = new Controllers.Models.GUIData();
+            dataPack = new GUIData();
 
             dataPack.CurrentFrequency_Hz = currentFrequancy.Text;
             dataPack.FileName = fileName.Text;

@@ -10,6 +10,10 @@ namespace MathAndProcess.Transformation
     /// </summary>
     public class Mseqtransform
     {
+        private int _unmodulatedPartOfSignal = 128 * 32;
+
+        //private int _fullPartOfS
+
         /// <summary>
         /// часть исходного сигнала,в которой нет никакой информации,
         /// с которой будет сниматься псевдо последовательность
