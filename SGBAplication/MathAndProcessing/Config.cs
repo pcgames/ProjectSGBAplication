@@ -8,7 +8,7 @@ namespace MathAndProcessing
 {
     public class Config
     {
-        public readonly int MagicNumber1 = 7800;
+        public readonly int MagicNumber1 = 76800;
 
         public readonly int MagicNumber2 = 100000;
 
