@@ -13,7 +13,7 @@ namespace Controllers.Statistic
             _controller = controller;
         }
 
-        public void ProcessRealResemplingData(GUIData GUIDataPack)
+        public void ProcessRealResemplingDataWithoutPll(GUIData GUIDataPack)
         {
             SampleReader dataAccess = new SampleReader();
             List<string> dataToWrite = new List<string>();
@@ -28,7 +28,7 @@ namespace Controllers.Statistic
                     if (Convert.ToDouble((dataOfPackages[i][1]).Replace('.', ',')) > Convert.ToDouble((dataOfPackages[i - 1][1]).Replace('.', ',')))
                     {
                         string startIndex = dataOfPackages[i][0];
-                        _controller.StartDecoderOfResemplingSignal(ref GUIDataPack);
+                        _controller.StartDecoderOfResemplingSignalWithoutPll(ref GUIDataPack);
                         startIndex = dataOfPackages[i][0];
                         string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                         dataToWrite[dataToWrite.Count - 1] = toWrite;
@@ -41,7 +41,7 @@ namespace Controllers.Statistic
                 else
                 {
                     string startIndex = dataOfPackages[i][0];
-                    _controller.StartDecoderOfResemplingSignal(ref GUIDataPack);
+                    _controller.StartDecoderOfResemplingSignalWithoutPll(ref GUIDataPack);
                     string toWrite = startIndex + ";" + dataPack.Country + ";" + dataPack.CurrentFrequency_Hz + ";" + dataPack.FullMessage;
                     dataToWrite.Add(toWrite);
                 }

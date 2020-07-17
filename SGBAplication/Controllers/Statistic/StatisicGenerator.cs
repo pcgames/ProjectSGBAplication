@@ -26,7 +26,7 @@ namespace Controllers.Statistic
                 double rightFreq = 900.2;
                 string rightMessage = GenerateRandomSignal(Convert.ToDouble(GUIDataPack.SNR) + k, ref rightFreq);
 
-                _controller.StartDecoderOfNonResemplingSignal(ref GUIDataPack);
+                _controller.StartDecoderOfNonResemplingSignalWithoutPll(ref GUIDataPack);
 
                 string toWrite = (rightFreq - 300).ToString() + ";" + GUIDataPack.CurrentFrequency_Hz + ";" + rightMessage.Substring(50) + ";" + GUIDataPack.FullMessage;
 

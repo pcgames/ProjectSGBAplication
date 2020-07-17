@@ -54,7 +54,7 @@ namespace Controllers
             return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        public List<List<Complex>> StartDecoderOfNonResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithoutPll(ref GUIData dataPack)
         {
             InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000, 0));
 
@@ -63,7 +63,7 @@ namespace Controllers
             return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
         }
 
-        public List<List<Complex>> StartDecoderOfResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignalWithoutPll(ref GUIData dataPack)
         {
             InputData inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
 

@@ -22,6 +22,32 @@ namespace Controllers
             _statisticGenerator = new StatisicGenerator();
         }
 
+        public List<List<Complex>>  StartDecoder(bool resampling, bool usingPll, ref GUIData dataPack)
+        {
+            if (resampling)
+            {
+                if (usingPll)
+                {
+                    return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
+                }
+                else
+                {
+                    return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
+                }
+            }
+            else
+            {
+                if (usingPll)
+                {
+                    return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
+                }
+                else
+                {
+                    return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
+                }
+            }
+        }
+
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
             return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
@@ -32,14 +58,14 @@ namespace Controllers
             return _controllerMAP.StartDecoderOfResemplingSignalWithPll(ref dataPack);
         }
 
-        public List<List<Complex>> StartDecoderOfNonResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            return _controllerMAP.StartDecoderOfNonResemplingSignal(ref dataPack);
+            return _controllerMAP.StartDecoderOfNonResemplingSignalWithoutPll(ref dataPack);
         }
 
-        public List<List<Complex>> StartDecoderOfResemplingSignal(ref GUIData dataPack)
+        public List<List<Complex>> StartDecoderOfResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            return _controllerMAP.StartDecoderOfResemplingSignal(ref dataPack);
+            return _controllerMAP.StartDecoderOfResemplingSignalWithoutPll(ref dataPack);
         }
 
         public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
@@ -56,7 +82,7 @@ namespace Controllers
         public void GenerateRealResemplingDataStatistics(GUIData dataPack)
         {
 
-            _statisticControl.ProcessRealResemplingData(dataPack);
+            _statisticControl.ProcessRealResemplingDataWithoutPll(dataPack);
         }
 
         public void GenerateRealResemplingDataStatisticsWithPll(GUIData dataPack)
