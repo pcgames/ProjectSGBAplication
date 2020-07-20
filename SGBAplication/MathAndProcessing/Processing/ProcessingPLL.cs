@@ -20,7 +20,7 @@ namespace MathAndProcessing.Calculations
             _coffReader = new CoefficientsReader();
         }
 
-        public List<List<Complex>> Decoder(List<double> rI, List<double> rQ, string startIndexStr)
+        public List<List<Complex>> Decode(List<double> rI, List<double> rQ, string startIndexStr)
         {
             if (startIndexStr != "")
             {
@@ -29,7 +29,7 @@ namespace MathAndProcessing.Calculations
                     int startIndex = Convert.ToInt32(startIndexStr);
                     List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
 
-                    EvaluationAndCompensation.PreprocessingOfSignal(result);
+                    EvaluationAndCompensation.PreprocessOfSignal(result);
                     List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801));
                     List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + 8 - 1, 76801));
                     List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801), true);
@@ -71,10 +71,7 @@ namespace MathAndProcessing.Calculations
                     _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
                     List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
                         StartOperation(bestData);
-
-                    //new Drawing.DrawingSignals(signalChart).DrawChart(Enumerable.Range(12000, 10000).Select(i => rnewData[i].Real).ToList());
-                    //количество отсчетов в 1 бите OQPSK модуляции =512 т.к. в любой из частей комплексного сигнала каждый бит занимает два бита, +передискретизации два отсчёта на чип ПСП
-
+                    
                     Window window = new Window(WindowType.Blackman, 0.16);
                     List<Complex> newDataWindowed = window.StartOperation(rnewData);
 

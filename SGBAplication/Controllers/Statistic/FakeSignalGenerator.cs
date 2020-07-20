@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Controllers.Statistic
 {
-    public class StatisicGenerator
+    public class FakeSignalGenerator
     {
         ControllerMathAndProcessing _controller = new ControllerMathAndProcessing();
-        public void GenerateStatistics(int countMessages, GUIData GUIDataPack) //TODO: переименовать
+        public void GenerateFakeSignalWithoutPll(int countMessages, GUIData GUIDataPack) //TODO: переименовать
         {
             GUIDataPack.StartIndex = "0";
             GUIDataPack.FileName = "simulatedSignalnew_";
@@ -37,7 +37,7 @@ namespace Controllers.Statistic
             DataAccess.DataWriter.WriteToFile(dataToWrite, GUIDataPack.FileName + "SNR=" + GUIDataPack.SNR + "_statistics.csv");
         }
 
-        public void GenerateStatisticsWithPLL(int countMessages, GUIData GUIDataPack)
+        public void GenerateFakeSignalWithPLL(int countMessages, GUIData GUIDataPack)
         {
             GUIDataPack.StartIndex = "0";
             GUIDataPack.FileName = "simulatedSignalnew.csv";

@@ -9,20 +9,25 @@ using System.Numerics;
 
 namespace Controllers
 {
-    
-    /// <summary>
-    /// данный класс создан для использования патерна Медиатор
-    /// </summary>
     public class ControllerSGBApplication
     {
+        //Constants
+        readonly int numOfSamples = 76800;
+        readonly int numOfSOMETHING = 8192; //переименовать и выкинуть в отдельный класс
+        //Пока что все константы будут в своих классах для понимания происходящего
+
+        //не, бля это невозможно без тебя Сань
+        //выпиши все константы с нормальными названиями, я их перенесу в другой класс
+
+
         ControllerMathAndProcessing _controllerMAP;
         ProcessRealData _statisticControl;
-        StatisicGenerator _statisticGenerator;
+        FakeSignalGenerator _statisticGenerator;
         public ControllerSGBApplication()
         {
             _controllerMAP = new ControllerMathAndProcessing();
             _statisticControl = new ProcessRealData(_controllerMAP);
-            _statisticGenerator = new StatisicGenerator();
+            _statisticGenerator = new FakeSignalGenerator();
         }
 
         
@@ -84,12 +89,12 @@ namespace Controllers
 
         public void GenerateStatistics(int countMessages, GUIData GUIDataPack)
         {
-            _statisticGenerator.GenerateStatistics(countMessages, GUIDataPack);
+            _statisticGenerator.GenerateFakeSignalWithoutPll(countMessages, GUIDataPack);
         }
 
         public void GenerateStatisticsWithPLL(int countMessages, GUIData GUIDataPack)
         {
-            _statisticGenerator.GenerateStatisticsWithPLL(countMessages, GUIDataPack);
+            _statisticGenerator.GenerateFakeSignalWithPLL(countMessages, GUIDataPack);
         }
 
 

@@ -12,32 +12,46 @@ namespace Controllers
 {
     public class ControllerMathAndProcessing
     {
+        //Constants
+        readonly int numOfNonResemplingSamples = 10000000;
+        readonly int numOfResemplingSamples = 76809;
+
+
         SampleReader _dataReader;
+
+        InputData _inputData;
+
+        IProcessing _processor;
 
         public ControllerMathAndProcessing()
         {
             _dataReader = new SampleReader();
         }
 
+        private List<List<Complex>> StartDecoderOfResemplingSignal2(ref GUIData dataPack)
+        {
+
+        }
+
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000, 0));
+            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0));
 
-            IProcessing processor = new ProcessingPLL();
+            _processor = new ProcessingPLL();
 
-            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
+            return StartDecoder(ref dataPack);
         }
 
         //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать
         #region фигня статистическая
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
         {
-            InputData inputData = _dataReader.GetSamples(dataPack.FileName, 10000000, 0);
+            InputData inputData = _dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0);
             List<double> rI = ResemplingOfSignal.GetResemplingSamples(inputData.I);
             List<double> rQ = ResemplingOfSignal.GetResemplingSamples(inputData.Q);
 
             ProcessingPLL processor = new ProcessingPLL();
-            List<List<Complex>> output = processor.Decoder(rI, rQ, dataPack.StartIndex);
+            List<List<Complex>> output = processor.Decode(rI, rQ, dataPack.StartIndex);
             data = (OutputDataPLL)processor.GetOutputData();
             dataPack.ConvertOutput2GUIData(data);
 
@@ -47,35 +61,35 @@ namespace Controllers
 
         public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            InputData inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
+            _inputData = _dataReader.GetSamples(dataPack.FileName, numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
 
-            IProcessing processor = new ProcessingPLL();
+            _processor = new ProcessingPLL();
 
-            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
+            return StartDecoder(ref dataPack);
         }
 
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            InputData inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, 10000000, 0));
+            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0));
 
-            IProcessing processor = new Processing();
+            _processor = new Processing();
 
-            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
+            return StartDecoder(ref dataPack);
         }
 
         public List<List<Complex>> StartDecoderOfResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            InputData inputData = _dataReader.GetSamples(dataPack.FileName, 76809, Convert.ToInt64(dataPack.StartIndex), ';');
+            _inputData = _dataReader.GetSamples(dataPack.FileName, numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
 
-            IProcessing processor = new Processing();
+            _processor = new Processing();
 
-            return StartDecoderOfResemplingSignal(inputData, processor, ref dataPack);
+            return StartDecoder(ref dataPack);
         }
 
-        private List<List<Complex>> StartDecoderOfResemplingSignal(InputData inputData, IProcessing processor, ref GUIData dataPack)
+        private List<List<Complex>> StartDecoder(ref GUIData dataPack)
         {
-            List<List<Complex>> output = processor.Decoder(inputData.I, inputData.Q, dataPack.StartIndex);
-            OutputData data = (OutputData)processor.GetOutputData();
+            List<List<Complex>> output = _processor.Decode(_inputData.I, _inputData.Q, dataPack.StartIndex);
+            OutputData data = (OutputData)_processor.GetOutputData();
             dataPack.ConvertOutput2GUIData(data);
             return output;
         }

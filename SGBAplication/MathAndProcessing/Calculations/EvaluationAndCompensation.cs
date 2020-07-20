@@ -120,7 +120,7 @@ namespace MathAndProcess.Calculations
         /// частоту и фазу,которую оставляет в классе
         /// </summary>
         /// <param name="signal">передискретизованный сигнал со снятой псевдопоследовательностью</param>
-        public static void PreprocessingOfSignal(List<Complex> signal)
+        public static void PreprocessOfSignal(List<Complex> signal)
         {
             AccuracyFreq = EvaluationOfFreq(signal);
             Phaza = EvaluationPhaze(signal);
