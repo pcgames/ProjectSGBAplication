@@ -1,5 +1,5 @@
 ﻿using Controllers.Models;
-using Controllers.Statistic;
+using DataAccess;
 using DigitalSignalProcessing;
 using MathAndProcess.Calculations;
 using System;
@@ -21,13 +21,13 @@ namespace Controllers
 
 
         ControllerMathAndProcessing _controllerMAP;
-        ProcessRealData _statisticControl;
-        FakeSignalGenerator _statisticGenerator;
+        ISampleWriter _writer;
+
+
         public ControllerSGBApplication()
         {
             _controllerMAP = new ControllerMathAndProcessing();
-            _statisticControl = new ProcessRealData(_controllerMAP);
-            _statisticGenerator = new FakeSignalGenerator();
+            _writer = new SampleWriter();
         }
 
         
@@ -73,30 +73,8 @@ namespace Controllers
         public void SimulateSignal(double snr, string fileName)
         {
             List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, 900.2, 102300).GetSGBSignal().ToList();
-            DataAccess.DataWriter.WriteToFile(sgbSignal, fileName);
+            
+            _writer.WriteToFile(sgbSignal, fileName);
         }
-
-        public void GenerateRealResemplingDataStatistics(GUIData dataPack)
-        {
-
-            _statisticControl.ProcessRealResemplingDataWithoutPll(dataPack);
-        }
-
-        public void GenerateRealResemplingDataStatisticsWithPll(GUIData dataPack)
-        {
-            _statisticControl.ProcessRealResemplingDataWithPLL(dataPack);
-        }
-
-        public void GenerateStatistics(int countMessages, GUIData GUIDataPack)
-        {
-            _statisticGenerator.GenerateFakeSignalWithoutPll(countMessages, GUIDataPack);
-        }
-
-        public void GenerateStatisticsWithPLL(int countMessages, GUIData GUIDataPack)
-        {
-            _statisticGenerator.GenerateFakeSignalWithPLL(countMessages, GUIDataPack);
-        }
-
-
     }
 }

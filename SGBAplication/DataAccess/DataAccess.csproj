@@ -41,10 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SampleReader.cs" />
-    <Compile Include="DataWriter.cs" />
+    <Compile Include="SampleWriter.cs" />
     <Compile Include="CoefficientsReader.cs" />
     <Compile Include="ISampleReader.cs" />
-    <Compile Include="IDataWriter.cs" />
+    <Compile Include="ISampleWriter.cs" />
     <Compile Include="Models\InputData.cs" />
   </ItemGroup>
   <ItemGroup>

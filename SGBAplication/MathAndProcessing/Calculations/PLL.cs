@@ -98,7 +98,7 @@ namespace MathAndProcess.Calculations
                 exp_d = gamma * exp_d + (1 - gamma) * realSignal[i].Magnitude;
 
 
-                exp_d1 = gamma * exp_d1 + (1 - gamma) * Complex.Pow(realSignal[i], 2).Magnitude;//не уверен что здесь именно то что надо
+                exp_d1 = gamma * exp_d1 + (1 - gamma) * Complex.Pow(realSignal[i], 2).Magnitude;
 
                 mulRes = PhaseDetector((Complex.Pow(realSignal[i], 2) / exp_d1), vcoSig);
                 if (QSignal.Count() != 0)
@@ -111,7 +111,7 @@ namespace MathAndProcess.Calculations
                     outputSignal = OutPhaseDetector(realSignal[i] / exp_d, VCOGenerator(_omega / 2, i, dphi) * Complex.Exp(Complex.ImaginaryOne * Math.PI / 4));
                 }
                 ShiftRegistr(register, 1);
-                register[countOfCoeffs - 1] = outputSignal;//не уверен 
+                register[countOfCoeffs - 1] = outputSignal;
                 realResultData = MathAndPhysics.LinearAlgebra.Vector.ScalarProduct(new
                     MathAndPhysics.LinearAlgebra.Vector(ComplexSignals.Real(register.ToList()).ToArray()), new
                     MathAndPhysics.LinearAlgebra.Vector(coeffs.ToArray()));
@@ -134,7 +134,7 @@ namespace MathAndProcess.Calculations
                 _powerQ += imagResultData * imagResultData;
                 imagPartOfMulRes = mulRes.Imaginary;
                 ShiftRegistr(register1, 1);
-                register1[countOfCoeffs - 1] = imagPartOfMulRes;//не уверен 
+                register1[countOfCoeffs - 1] = imagPartOfMulRes;
                 imagPartOfMulRes = MathAndPhysics.LinearAlgebra.Vector.ScalarProduct(new
                     MathAndPhysics.LinearAlgebra.Vector(register1.ToList().ToArray()), new
                     MathAndPhysics.LinearAlgebra.Vector(coeffs.ToArray()));

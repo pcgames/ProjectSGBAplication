@@ -5,16 +5,8 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SGBAplication.Drawing
 {
-    /// <summary>
-    /// данный класс является родительским классом отрисовки графиков
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public abstract class AbstractDrawing<T> where T : struct
     {
-        /// <summary>
-        /// ссылка на график,
-        /// на котором будет производиться отрисовка
-        /// </summary>
         protected static Chart _samplesChart;
 
         #region public methods
@@ -22,10 +14,7 @@ namespace SGBAplication.Drawing
         {
             _samplesChart = samplesChart;
         }
-        /// <summary>
-        /// функция отрисовки падаваемых элементов
-        /// </summary>
-        /// <param name="Samples">падаваемые элементы</param>
+
         public virtual void DrawChart(List<T> Samples)
         {
             Series ChartSeries = new Series()
@@ -38,10 +27,11 @@ namespace SGBAplication.Drawing
                 Name = "AbstractChart"
             };
             CleanSeries(_samplesChart, ChartSeries.Name);
-            Enumerable.Range((int)0, (int)Samples.Count()).ToList();
+            Enumerable.Range(0, Samples.Count()).ToList();
             DrawSamples(ChartSeries, Enumerable.Range(0, Samples.Count()).ToList()
                 .Select(element => (double)element).ToList(), Samples);
         }
+
         public virtual void DrawChart(List<T> Samples, List<double> xValues)
         {
             Series ChartSeries = new Series()
@@ -54,7 +44,7 @@ namespace SGBAplication.Drawing
                 Name = "AbstractChart"
             };
             CleanSeries(_samplesChart, ChartSeries.Name);
-            Enumerable.Range((int)0, (int)Samples.Count()).ToList();
+            Enumerable.Range(0, Samples.Count()).ToList();
             DrawSamples(ChartSeries, Enumerable.Range(0, Samples.Count()).ToList()
                 .Select(element => (double)element).ToList(), Samples);
         }

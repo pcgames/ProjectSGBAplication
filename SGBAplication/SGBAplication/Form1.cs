@@ -65,39 +65,6 @@ namespace SGBFormAplication
             }
         }
 
-        private void StatisticButton_Click(object sender, EventArgs e)
-        {
-            if (checkResempling.Checked == true)
-            {
-                if (checkUsePLLForStatictic.Checked == true)
-                {
-                    InitializeGUIDataPack();
-
-                    _controller.GenerateRealResemplingDataStatisticsWithPll(_dataPack);
-                }
-                else
-                {
-                    _controller.GenerateRealResemplingDataStatistics(_dataPack);
-                }
-            }
-        }
-
-        private void StatisticGenerator_Click(object sender, EventArgs e)
-        {
-            int countMessages = 10000;
-
-            InitializeGUIDataPack();
-
-            if (checkUsePLLForStatictic.Checked)
-            {
-                _controller.GenerateStatisticsWithPLL(countMessages, _dataPack);
-            }
-            else
-            {
-                _controller.GenerateStatistics(countMessages, _dataPack);
-            }
-        }
-
         private void InitializeGUIDataPack()
         {
             _dataPack = new GUIData();

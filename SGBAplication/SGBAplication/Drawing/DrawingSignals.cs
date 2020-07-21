@@ -11,7 +11,6 @@ namespace SGBAplication.Drawing
 
         public DrawingSignals(Chart samplesChart, double start, double finish) : base(samplesChart)
         {
-            //_samplesChart = samplesChart;
             _s = start;
             _f = finish;
         }

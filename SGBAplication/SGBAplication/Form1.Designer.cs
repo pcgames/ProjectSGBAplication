@@ -196,7 +196,6 @@
             this.statisticGenerator.TabIndex = 17;
             this.statisticGenerator.Text = "генератор статистики";
             this.statisticGenerator.UseVisualStyleBackColor = true;
-            this.statisticGenerator.Click += new System.EventHandler(this.StatisticGenerator_Click);
             // 
             // CheckingSimulateSignal
             // 
@@ -252,7 +251,6 @@
             this.statisticButton.TabIndex = 10;
             this.statisticButton.Text = "статистика";
             this.statisticButton.UseVisualStyleBackColor = true;
-            this.statisticButton.Click += new System.EventHandler(this.StatisticButton_Click);
             // 
             // label5
             // 

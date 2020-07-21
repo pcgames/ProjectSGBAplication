@@ -28,11 +28,6 @@ namespace Controllers
             _dataReader = new SampleReader();
         }
 
-        private List<List<Complex>> StartDecoderOfResemplingSignal2(ref GUIData dataPack)
-        {
-
-        }
-
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
             _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0));

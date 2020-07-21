@@ -40,7 +40,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImitationSignals\GeneratorOfSgbSignalNotResemplig.cs" />
     <Compile Include="ImitationSignals\GeneratorOfSgbSignalResemplig.cs" />
     <Compile Include="ImitationSignals\ISGBSignalGenerator.cs" />
   </ItemGroup>

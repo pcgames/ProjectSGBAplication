@@ -46,7 +46,7 @@
     <Compile Include="Calculations\FreqCalculation.cs" />
     <Compile Include="Calculations\ModulatingSignal.cs" />
     <Compile Include="Calculations\PLL.cs" />
-    <Compile Include="Calculations\resemplingOfSignal.cs" />
+    <Compile Include="Calculations\ResemplingOfSignal.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Models\AOutputData.cs" />
     <Compile Include="Models\OutputData.cs" />

@@ -45,7 +45,7 @@ namespace SGBAplication.Drawing
             else
             {
                 _samplesChart.ChartAreas[0].AxisX.Minimum = -38400;
-                _samplesChart.ChartAreas[0].AxisX.Maximum = 38400;
+                _samplesChart.ChartAreas[0].AxisX.Maximum = 38400; //грязь
                 _samplesChart.ChartAreas[0].AxisX.Interval = 12800;
 
             }
@@ -65,9 +65,6 @@ namespace SGBAplication.Drawing
                 MarkerStyle = MarkerStyle.Cross,
                 Name = "carrier frequancy"
             };
-            //взял список,создал новую переменную(типа Anonymous) с полями которые можно получить, 
-            //далее просто применил агрегирование к списку, итератор будет смотреть на элемент 
-            //который уже запомнил элемент и сравнивать со следующим элементом, после чего выбирать максимальный
             CleanSeries(_samplesChart, ChartSeries.Name);
             var maxElement = ComplexSignals.Module(spectrum)
                     .Select((value, index) => new { Value = value, Index = index })
