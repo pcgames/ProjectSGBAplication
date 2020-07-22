@@ -9,7 +9,7 @@ namespace MathAndProcess.Calculations
     {
 
         /*__________________ FFT ___________________*/
-        public static void fft_f(ref double[] br, ref double[] bi, int n, int p)
+        public static void Fft_f(ref double[] br, ref double[] bi, int n, int p)
         {
             float tr, ti, ur, ui, wr, wi, pil, ar, ai;
             int i, j, k, nat, le, lr, ip;
@@ -86,7 +86,7 @@ namespace MathAndProcess.Calculations
                 }
             }
         } // fft
-        private static List<float> generationOfFrequancyWindow()
+        private static List<float> GgenerateFrequancyWindow()
         {
             List<float> fw = new List<float>();
             int nb1 = 8192;
@@ -108,7 +108,7 @@ namespace MathAndProcess.Calculations
 
                 /*8. FFT */
 
-                fft_f(ref br, ref bi, nb1, -1);
+                Fft_f(ref br, ref bi, nb1, -1);
 
                 i1 = 0;
                 double r1 = Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
@@ -126,7 +126,7 @@ namespace MathAndProcess.Calculations
             fs.Close();
             return fw;
         }
-        public static List<float> getFrequancyWindow()
+        public static List<float> GetFrequancyWindow()
         {
             List<float> fw;
             try
@@ -144,7 +144,7 @@ namespace MathAndProcess.Calculations
             }
             catch
             {
-                fw = generationOfFrequancyWindow();
+                fw = GgenerateFrequancyWindow();
             }
             return fw;
         }

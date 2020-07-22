@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using DigitalSignalProcessing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -13,12 +14,6 @@ namespace MathAndProcess.Transformation
     {
         private int _unmodulatedPartOfSignal = 128 * 32;
 
-        //private int _fullPartOfS
-
-        /// <summary>
-        /// часть исходного сигнала,в которой нет никакой информации,
-        /// с которой будет сниматься псевдо последовательность
-        /// </summary>
         public static List<Complex> EmptyPartOfOriginalSignal { get; private set; }
         private static double _startIndex;
         /// <summary>
@@ -68,6 +63,7 @@ namespace MathAndProcess.Transformation
             }//i1
             return result;
         }
+
         /// <summary>
         /// Функция которая осуществляет снятие ПСП с нужной части сигнала
         /// </summary>
@@ -90,6 +86,7 @@ namespace MathAndProcess.Transformation
 
             return PseudosequanceMultiplication(EmptyPartOfOriginalSignal, MsequanceI, MsequanceQ);
         }
+
         /// <summary>
         /// Функция которая осуществляет снятие ПСП с нужной части сигнала
         /// </summary>
@@ -109,6 +106,7 @@ namespace MathAndProcess.Transformation
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements + 1, out MsequanceI, out MsequanceQ);
             return PseudosequanceMultiplication(EmptyPartOfOriginalSignal, MsequanceI, MsequanceQ);
         }
+
         /// <summary>
         /// Функция которая осуществляет снятие ПСП с нужной части сигнала
         /// </summary>
@@ -118,14 +116,11 @@ namespace MathAndProcess.Transformation
         /// <returns>часть сигнала с которой снимается м последовательность начиная со стартового индекса,длинной 16368 элементов</returns>
         public static List<Complex> GetSamplesOfFullPackage(List<double> ImSamples, List<double> QSamples)
         {
-            int numberOfElements = 128 * 300;//128*150-пполная часть сигнала
-            List<double> MsequanceI = new List<double>();
-            List<double> MsequanceQ = new List<double>();
-            //_startIndex = startIndex;
+            int numberOfElements = 128 * 300;
             List<Complex> Fullpackage = Enumerable.Range(0, numberOfElements * 2).Select(i => new Complex(ImSamples[i], QSamples[i])).ToList();
-            PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements + 1, out MsequanceI, out MsequanceQ);
-            return PseudosequanceMultiplication(Fullpackage, MsequanceI, MsequanceQ);
+            return GetSamplesOfFullPackage(Fullpackage);
         }
+
         /// <summary>
         /// Функция которая осуществляет снятие ПСП с нужной части сигнала
         /// </summary>

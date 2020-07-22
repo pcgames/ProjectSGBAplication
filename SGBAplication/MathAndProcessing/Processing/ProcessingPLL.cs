@@ -52,7 +52,7 @@ namespace MathAndProcessing.Calculations
                         PLL pllResult = new PLL(76800, omega, phaza, 127);
 
                         List<double> FIRImpulsCharacteristics = CoeficientFinder.Find(omega);
-                        List<Complex> data = pllResult.pll_from_class_mamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, 76850)), ComplexSignals.Real(sinIsig.GetRange(0, 76850))),
+                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, 76850)), ComplexSignals.Real(sinIsig.GetRange(0, 76850))),
                             ComplexSignals.Imaginary(cosQsig.GetRange(0, 76850)), FIRImpulsCharacteristics);
                         if (pllResult._stdOmega < minStd)
                         {
@@ -75,9 +75,11 @@ namespace MathAndProcessing.Calculations
                     Window window = new Window(WindowType.Blackman, 0.16);
                     List<Complex> newDataWindowed = window.StartOperation(rnewData);
 
-                    List<List<Complex>> listOfComplexComplex = new List<List<Complex>>();
-                    listOfComplexComplex.Add(rnewData);
-                    listOfComplexComplex.Add(newDataWindowed);
+                    List<List<Complex>> listOfComplexComplex = new List<List<Complex>>
+                    {
+                        rnewData,
+                        newDataWindowed
+                    };
                     return listOfComplexComplex;
                 }
                 else

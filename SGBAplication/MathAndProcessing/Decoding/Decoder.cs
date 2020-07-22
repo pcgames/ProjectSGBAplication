@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathAndPhysics.NumeralSystems;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -51,11 +52,8 @@ namespace MathAndProcess.Decoding
 
         public static int DecodeCountryCode(string fullMesage)
         {
-            return Convert.ToInt16(MathAndPhysics.NumeralSystems.
-                NumeralSystemConverter.
-                ConvertNumber(MathAndPhysics.NumeralSystems.NumeralSystem.Binary,
-                    MathAndPhysics.NumeralSystems.NumeralSystem.Decimal,
-                    fullMesage.Substring(30, 10)));
+            return Convert.ToInt16(NumeralSystemConverter.ConvertNumber(NumeralSystem.Binary, NumeralSystem.Decimal, 
+                                                                        fullMesage.Substring(30, 10)));
         }
     }
 }

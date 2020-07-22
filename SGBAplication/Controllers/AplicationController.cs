@@ -45,7 +45,7 @@ namespace Controllers
                     return _controllerMAP.StartDecoderOfResemplingSignalWithoutPll(ref dataPack);
 
                 case ProcessingType.NonResemplingWithoutPll:
-                    return _controllerMAP.StartDecoderOfNonResemplingSignalWithPll(ref dataPack);
+                    return _controllerMAP.StartDecoderOfNonResemplingSignalWithoutPll(ref dataPack);
             }
             throw new Exception();
         }

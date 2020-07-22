@@ -37,45 +37,42 @@ namespace SGBFormAplication
             DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
         }
 
-        
-
         private ProcessingType SelectProcessorType()
         {
-            if(checkResempling.Checked)
+            if(checkResempling.Checked && checkUsePLLForProcessing.Checked)
             {
-                if(checkUsePLLForProcessing.Checked)
-                {
-                    return ProcessingType.ResemplingWithPll;
-                }
-                else
-                {
-                    return ProcessingType.ResemplingWithoutPll;
-                }
+                return ProcessingType.ResemplingWithPll;
             }
+            else if(checkResempling.Checked && checkUsePLLForProcessing.Checked == false)
+            {
+                return ProcessingType.ResemplingWithoutPll;
+            }
+            else if(checkResempling.Checked == false && checkUsePLLForProcessing.Checked)
+            {
+                return ProcessingType.NonResemplingWithPll;
+            }
+            else if(checkResempling.Checked == false && checkUsePLLForProcessing.Checked == false)
+            {
+                return ProcessingType.NonResemplingWithoutPll;
+            } 
             else
             {
-                if (checkUsePLLForProcessing.Checked)
-                {
-                    return ProcessingType.NonResemplingWithPll;
-                }
-                else
-                {
-                    return ProcessingType.NonResemplingWithoutPll;
-                }
+                throw new Exception();
             }
         }
 
         private void InitializeGUIDataPack()
         {
-            _dataPack = new GUIData();
-
-            _dataPack.CurrentFrequency_Hz = currentFrequancy.Text;
-            _dataPack.FileName = fileName.Text;
-            _dataPack.fileOfPackages = fileOfPackages.Text;
-            _dataPack.FullMessage = fullMessage.Text;
-            _dataPack.SNR = SNR.Text;
-            _dataPack.StartIndex = startIndex.Text;
-            _dataPack.Country = country.Text;
+            _dataPack = new GUIData
+            {
+                CurrentFrequency_Hz = currentFrequancy.Text,
+                FileName = fileName.Text,
+                fileOfPackages = fileOfPackages.Text,
+                FullMessage = fullMessage.Text,
+                SNR = SNR.Text,
+                StartIndex = startIndex.Text,
+                Country = country.Text
+            };
         }
 
         private void DrawBPSKSpectrum(List<Complex> newDataWindowed)

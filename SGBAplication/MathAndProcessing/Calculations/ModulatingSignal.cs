@@ -9,7 +9,6 @@ namespace MathAndProcess.Calculations
     {
         public static List<double> GenerateBPSKSignal(List<Complex> QPSKSignal, int lengthOfOneBit)
         {
-
             List<double> result = new List<double>();
             for (int i = 0; i < QPSKSignal.Count / lengthOfOneBit; i++)
 
@@ -26,7 +25,6 @@ namespace MathAndProcess.Calculations
 
                 }
             return result;
-
         }
     }
 }

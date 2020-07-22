@@ -36,24 +36,7 @@ namespace Controllers
 
             return StartDecoder(ref dataPack);
         }
-
-        //TODO: вот эта фигня не вписывается в декоратор, нужно переделывать
-        #region фигня статистическая
-        public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(GUIData dataPack, ref OutputDataPLL data)
-        {
-            InputData inputData = _dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0);
-            List<double> rI = ResemplingOfSignal.GetResemplingSamples(inputData.I);
-            List<double> rQ = ResemplingOfSignal.GetResemplingSamples(inputData.Q);
-
-            ProcessingPLL processor = new ProcessingPLL();
-            List<List<Complex>> output = processor.Decode(rI, rQ, dataPack.StartIndex);
-            data = (OutputDataPLL)processor.GetOutputData();
-            dataPack.ConvertOutput2GUIData(data);
-
-            return output;
-        }
-        #endregion
-
+        
         public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
             _inputData = _dataReader.GetSamples(dataPack.FileName, numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');

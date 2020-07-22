@@ -32,7 +32,7 @@ namespace MathAndProcess.Calculations
             //I.Reverse();
             //Q.Reverse();
 
-            FourierTransform.fft_f(ref I, ref Q, I.Length, -1);
+            FourierTransform.Fft_f(ref I, ref Q, I.Length, -1);
             Spectrum = ComplexSignals.ToComplex(I.ToList(), Q.ToList());
 
 
@@ -48,7 +48,7 @@ namespace MathAndProcess.Calculations
             r = 1000.0 * r / r2;
 
             int i3 = 0;
-            List<float> freq = FourierTransform.getFrequancyWindow();
+            List<float> freq = FourierTransform.GetFrequancyWindow();
             for (int i1 = 0; i1 < freq.Count - 1; i1++)
             {
                 if ((r > freq[i1]) && (r <= freq[i1 + 1])) { i3 = i1; }
@@ -75,7 +75,7 @@ namespace MathAndProcess.Calculations
             double[] I = ComplexSignals.Real(newSignal).ToArray();
             double[] Q = ComplexSignals.Imaginary(newSignal).ToArray();
 
-            FourierTransform.fft_f(ref I, ref Q, I.Length, -1);
+            FourierTransform.Fft_f(ref I, ref Q, I.Length, -1);
             List<Complex> newSpectrum = ComplexSignals.ToComplex(I.ToList(), Q.ToList());
 
 

@@ -1,4 +1,6 @@
 ﻿using DigitalSignalProcessing;
+using MathAndPhysics;
+using MathAndPhysics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +57,7 @@ namespace MathAndProcess.Calculations
 
         }
 
-        public List<Complex> pll_from_class_mamedov(List<Complex> realSignal, List<double> coeffs, List<double> QSignal = null)
+        public List<Complex> PllFromMamedov(List<Complex> realSignal, List<double> coeffs, List<double> QSignal = null)
         {
             List<Complex> returnSignal = new List<Complex>();
             double dphi = 0.0;
@@ -112,12 +114,10 @@ namespace MathAndProcess.Calculations
                 }
                 ShiftRegistr(register, 1);
                 register[countOfCoeffs - 1] = outputSignal;
-                realResultData = MathAndPhysics.LinearAlgebra.Vector.ScalarProduct(new
-                    MathAndPhysics.LinearAlgebra.Vector(ComplexSignals.Real(register.ToList()).ToArray()), new
-                    MathAndPhysics.LinearAlgebra.Vector(coeffs.ToArray()));
-                imagResultData = MathAndPhysics.LinearAlgebra.Vector.ScalarProduct(new
-                    MathAndPhysics.LinearAlgebra.Vector(ComplexSignals.Imaginary(register.ToList()).ToArray()), new
-                    MathAndPhysics.LinearAlgebra.Vector(coeffs.ToArray()));
+                realResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Real(register.ToList()).ToArray()), 
+                    new Vector(coeffs.ToArray()));
+                imagResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Imaginary(register.ToList()).ToArray()), 
+                    new Vector(coeffs.ToArray()));
                 if (i < 12000)
                 {
                     preambulaMeanR += realResultData / 12000;
@@ -135,9 +135,8 @@ namespace MathAndProcess.Calculations
                 imagPartOfMulRes = mulRes.Imaginary;
                 ShiftRegistr(register1, 1);
                 register1[countOfCoeffs - 1] = imagPartOfMulRes;
-                imagPartOfMulRes = MathAndPhysics.LinearAlgebra.Vector.ScalarProduct(new
-                    MathAndPhysics.LinearAlgebra.Vector(register1.ToList().ToArray()), new
-                    MathAndPhysics.LinearAlgebra.Vector(coeffs.ToArray()));
+                imagPartOfMulRes = Vector.ScalarProduct(new Vector(register1.ToList().ToArray()), 
+                    new Vector(coeffs.ToArray()));
                 downLoop += _k2 * imagPartOfMulRes;
                 error = (imagPartOfMulRes * _k1 + downLoop);
                 _omega += (VCOLoop + error);
@@ -146,8 +145,8 @@ namespace MathAndProcess.Calculations
 
             }
 
-            _stdOmega = MathAndPhysics.Statistics.CalculateStandardDeviation(_lisOmega.GetRange(12000, 64850));
-            _meanOmega = MathAndPhysics.Statistics.CalculateMean(_lisOmega.GetRange(12000, 64850));
+            _stdOmega = Statistics.CalculateStandardDeviation(_lisOmega.GetRange(12000, 64850));
+            _meanOmega = Statistics.CalculateMean(_lisOmega.GetRange(12000, 64850));
 
             return resultData;
 

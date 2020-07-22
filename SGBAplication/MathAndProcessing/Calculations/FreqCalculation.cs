@@ -14,7 +14,6 @@ namespace MathAndProcess.Calculations
         public static List<double> Getfrequancy(int countOfElements, double freqSempling)
         {
             return Enumerable.Range(0, countOfElements).Select(element => -freqSempling / 2.0 + element * freqSempling / countOfElements).ToList();
-
         }
     }
 }
