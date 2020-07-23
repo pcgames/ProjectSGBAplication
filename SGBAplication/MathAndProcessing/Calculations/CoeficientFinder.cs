@@ -11,7 +11,7 @@ namespace MathAndProcessing.Calculations
     {
         internal static List<double> Find(double _omega)
         {
-            int countOfCoeffs = 127; //TODO: tudu
+            int countOfCoeffs = 127;
             CoefficientsReader _coffReader = new CoefficientsReader();
             List<double> coeffs = ComplexSignals.Real(GetImpulseResponse(countOfCoeffs + 1, (_omega) * 0.03, 76800).GetRange(1, countOfCoeffs));
 
