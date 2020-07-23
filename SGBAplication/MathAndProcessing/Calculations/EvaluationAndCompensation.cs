@@ -14,6 +14,10 @@ namespace MathAndProcess.Calculations
         public static List<Complex> Spectrum { get; private set; }
         public static double Phaza { get; private set; }
         public static double AccuracyFreq { get; private set; }
+        EvaluationAndCompensation()
+        {
+
+        }
         #region public methods
         /// <summary>
         /// данная функция предназначена для оценки частоты сигнала,написана она Назаровым, 

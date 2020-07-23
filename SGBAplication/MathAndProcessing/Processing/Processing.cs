@@ -10,6 +10,13 @@ namespace MathAndProcessing
 {
     public class Processing : IProcessing
     {
+        readonly int NazarovShift = 8;
+        readonly int countPackageSamples = 76800;
+        readonly int bpfImpRespLength = 128;
+        readonly int lowFreq = 0;
+        readonly int highFreq = 1000;
+
+
         private OutputData _dataPack { get; set; }
 
         public Processing()
@@ -27,19 +34,19 @@ namespace MathAndProcessing
 
                 EvaluationAndCompensation.PreprocessOfSignal(samplesOfEmptyPart);
 
-                List<Complex> signalSamples = ComplexSignals.ToComplex(rI, rQ).GetRange(startIndex + 8 - 1, 76801);
+                List<Complex> signalSamples = ComplexSignals.ToComplex(rI, rQ).GetRange(startIndex + NazarovShift , countPackageSamples);
                 List<Complex> preprocessedSignalSamples = EvaluationAndCompensation.CompensationOfPhazeAndFrequancy(signalSamples);
 
                 Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
 
-                preprocessedSignalSamples = Mseqtransform.GetSamplesOfFullPackage(preprocessedSignalSamples.GetRange(1, 76800));
+                preprocessedSignalSamples = Mseqtransform.GetSamplesOfFullPackage(preprocessedSignalSamples);
 
-                _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.GetFullMessage(preprocessedSignalSamples);
+                _dataPack.FullMessage = new MathAndProcess.Decoding.Decoder().GetFullMessage(preprocessedSignalSamples);
 
                 _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                 _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
-                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
+                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq, highFreq, countPackageSamples, bpfImpRespLength).
                     StartOperation(preprocessedSignalSamples);
                 
                 Window window = new Window(WindowType.Blackman, 0.16);

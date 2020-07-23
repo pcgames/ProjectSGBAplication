@@ -33,6 +33,7 @@ namespace SGBFormAplication
 
             List<List<Complex>> rnewDataAndSpectrum = _controller.StartDecoder(type, ref _dataPack);
 
+            InitializeGUIForm();
             DrawBPSKSignal(rnewDataAndSpectrum[1]);
             DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
         }
@@ -73,6 +74,12 @@ namespace SGBFormAplication
                 StartIndex = startIndex.Text,
                 Country = country.Text
             };
+        }
+        private void InitializeGUIForm()
+        {
+            currentFrequancy.Text = _dataPack.CurrentFrequency_Hz;
+            fullMessage.Text = _dataPack.FullMessage;
+            country.Text = _dataPack.Country;
         }
 
         private void DrawBPSKSpectrum(List<Complex> newDataWindowed)

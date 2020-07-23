@@ -13,6 +13,14 @@ namespace MathAndProcessing.Calculations
     {
         private OutputDataPLL _dataPack { get; set; }
         private CoefficientsReader _coffReader;
+        private double phasaShift = 2 * Math.PI / 21;
+        private double minStd = 1000.0;
+        readonly int NazarovShift = 8;
+        readonly int countPackageSamples = 76800;
+        readonly int bpfImpRespLength = 128;
+        readonly int lowFreq = 0;
+        readonly int highFreq = 1000;
+        readonly int countSamplesToPLL = 76850;
 
         public ProcessingPLL()
         {
@@ -27,33 +35,32 @@ namespace MathAndProcessing.Calculations
                 if (rI.Count != 0)
                 {
                     int startIndex = Convert.ToInt32(startIndexStr);
-                    List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
+                    List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + NazarovShift);//9829622
 
                     EvaluationAndCompensation.PreprocessOfSignal(result);
-                    List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801));
-                    List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + 8 - 1, 76801));
-                    List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + 8 - 1, 76801), true);
-                    List<Complex> cosIsig = Mseqtransform.GetSamplesOfFullPackage(cosData.GetRange(1, 76800));
-                    List<Complex> sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData.GetRange(1, 76800));
-                    List<Complex> cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel.GetRange(1, 76800));
+                    List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples));
+                    List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + NazarovShift, countPackageSamples));
+                    List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples), true);
+                    List<Complex> cosIsig = Mseqtransform.GetSamplesOfFullPackage(cosData);
+                    List<Complex> sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData);
+                    List<Complex> cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel);
                     List<double> coeffs = _coffReader.GetCoefficients("coeffs_wo_pll", 101);
                     Convolution conv = new Convolution(ConvolutionType.Common);
                     cosQsig = conv.StartMagic(cosQsig, ComplexSignals.ToComplex(coeffs));
                     sinIsig = conv.StartMagic(sinIsig, ComplexSignals.ToComplex(coeffs));
                     cosIsig = conv.StartMagic(cosIsig, ComplexSignals.ToComplex(coeffs));
                     int signPhasa = EvaluationAndCompensation.Phaza - Math.PI / 4 > 0 ? -1 : 1;
-                    double phasaShift = 2 * Math.PI / 21;
-                    double minStd = 1000.0;
+
                     List<Complex> bestData = null;
                     for (int i = 0; i < 22; i++)
                     {
                         double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
                         double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
-                        PLL pllResult = new PLL(76800, omega, phaza, 127);
+                        PLL pllResult = new PLL(countPackageSamples, omega, phaza, 127);
 
                         List<double> FIRImpulsCharacteristics = CoeficientFinder.Find(omega);
-                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, 76850)), ComplexSignals.Real(sinIsig.GetRange(0, 76850))),
-                            ComplexSignals.Imaginary(cosQsig.GetRange(0, 76850)), FIRImpulsCharacteristics);
+                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, countSamplesToPLL)), ComplexSignals.Real(sinIsig.GetRange(0, countSamplesToPLL))),
+                            ComplexSignals.Imaginary(cosQsig.GetRange(0, countSamplesToPLL)), FIRImpulsCharacteristics);
                         if (pllResult._stdOmega < minStd)
                         {
                             _dataPack.Phase = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
@@ -66,10 +73,10 @@ namespace MathAndProcessing.Calculations
 
                     }
 
-                    _dataPack.FullMessage = MathAndProcess.Decoding.Decoder.GetFullMessage(bestData);
+                    _dataPack.FullMessage = new MathAndProcess.Decoding.Decoder().GetFullMessage(bestData);
                     _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                     _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
-                    List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(0, 1000, 76800, 100).
+                    List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq, highFreq, countPackageSamples, bpfImpRespLength).
                         StartOperation(bestData);
                     
                     Window window = new Window(WindowType.Blackman, 0.16);

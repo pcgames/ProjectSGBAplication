@@ -36,9 +36,9 @@ namespace MathAndProcess.Transformation
             //былвывод result!
             //var rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.LPF(37000, 1000, 76800).
             //            StartOperation(result);
-            ISampleWriter writer = new SampleWriter();
-            writer.WriteToFile(signal, "emptyData.txt");
-            writer.WriteToFile(result, "empty_data_wo.txt");
+            //ISampleWriter writer = new SampleWriter();
+            //writer.WriteToFile(signal, "emptyData.txt");
+            //writer.WriteToFile(result, "empty_data_wo.txt");
             return result;
 
 
@@ -79,7 +79,7 @@ namespace MathAndProcess.Transformation
             _startIndex = startIndex;
             EmptyPartOfOriginalSignal = Enumerable.Range(0, numberOfElements * 2).Select(i => new Complex(ImSamples[startIndex + i], QSamples[startIndex + i])).ToList();
             ISampleWriter writer = new SampleWriter();
-            writer.WriteToFile(EmptyPartOfOriginalSignal, "emptyData.txt");
+            //writer.WriteToFile(EmptyPartOfOriginalSignal, "emptyData.txt");
             PseudorandomSequence.GetSequensies_2chipsPerBit(numberOfElements + 1, out MsequanceI, out MsequanceQ);
             //I.Reverse();
             //Q.Reverse();

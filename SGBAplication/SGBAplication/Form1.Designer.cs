@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -84,7 +84,7 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -98,7 +98,7 @@
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(318, 735);
             this.panel1.TabIndex = 1;
@@ -112,7 +112,7 @@
             this.tableLayoutPanel3.Controls.Add(this.panel7, 0, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.52F));
@@ -126,7 +126,7 @@
             this.panel6.Controls.Add(this.label3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(4, 382);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(310, 17);
             this.panel6.TabIndex = 12;
@@ -161,7 +161,7 @@
             this.panel5.Controls.Add(this.currentFrequancy);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(4, 4);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(310, 370);
             this.panel5.TabIndex = 11;
@@ -171,7 +171,7 @@
             this.checkUsePLLForProcessing.AutoSize = true;
             this.checkUsePLLForProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkUsePLLForProcessing.Location = new System.Drawing.Point(17, 259);
-            this.checkUsePLLForProcessing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkUsePLLForProcessing.Margin = new System.Windows.Forms.Padding(4);
             this.checkUsePLLForProcessing.Name = "checkUsePLLForProcessing";
             this.checkUsePLLForProcessing.Size = new System.Drawing.Size(55, 21);
             this.checkUsePLLForProcessing.TabIndex = 20;
@@ -183,7 +183,7 @@
             this.CheckingSimulateSignal.AutoSize = true;
             this.CheckingSimulateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckingSimulateSignal.Location = new System.Drawing.Point(17, 316);
-            this.CheckingSimulateSignal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CheckingSimulateSignal.Margin = new System.Windows.Forms.Padding(4);
             this.CheckingSimulateSignal.Name = "CheckingSimulateSignal";
             this.CheckingSimulateSignal.Size = new System.Drawing.Size(183, 21);
             this.CheckingSimulateSignal.TabIndex = 15;
@@ -203,7 +203,7 @@
             // SNR
             // 
             this.SNR.Location = new System.Drawing.Point(233, 345);
-            this.SNR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SNR.Margin = new System.Windows.Forms.Padding(4);
             this.SNR.Name = "SNR";
             this.SNR.Size = new System.Drawing.Size(53, 22);
             this.SNR.TabIndex = 13;
@@ -214,7 +214,7 @@
             this.checkResempling.AutoSize = true;
             this.checkResempling.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkResempling.Location = new System.Drawing.Point(17, 288);
-            this.checkResempling.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkResempling.Margin = new System.Windows.Forms.Padding(4);
             this.checkResempling.Name = "checkResempling";
             this.checkResempling.Size = new System.Drawing.Size(235, 21);
             this.checkResempling.TabIndex = 12;
@@ -224,7 +224,7 @@
             // fileOfPackages
             // 
             this.fileOfPackages.Location = new System.Drawing.Point(20, 342);
-            this.fileOfPackages.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileOfPackages.Margin = new System.Windows.Forms.Padding(4);
             this.fileOfPackages.Name = "fileOfPackages";
             this.fileOfPackages.Size = new System.Drawing.Size(132, 22);
             this.fileOfPackages.TabIndex = 11;
@@ -242,7 +242,7 @@
             // fileName
             // 
             this.fileName.Location = new System.Drawing.Point(21, 128);
-            this.fileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileName.Margin = new System.Windows.Forms.Padding(4);
             this.fileName.Name = "fileName";
             this.fileName.Size = new System.Drawing.Size(265, 22);
             this.fileName.TabIndex = 2;
@@ -271,7 +271,7 @@
             // country
             // 
             this.country.Location = new System.Drawing.Point(21, 223);
-            this.country.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.country.Margin = new System.Windows.Forms.Padding(4);
             this.country.Name = "country";
             this.country.Size = new System.Drawing.Size(148, 22);
             this.country.TabIndex = 5;
@@ -279,7 +279,7 @@
             // go
             // 
             this.go.Location = new System.Drawing.Point(21, 19);
-            this.go.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.go.Margin = new System.Windows.Forms.Padding(4);
             this.go.Name = "go";
             this.go.Size = new System.Drawing.Size(100, 28);
             this.go.TabIndex = 0;
@@ -300,7 +300,7 @@
             // startIndex
             // 
             this.startIndex.Location = new System.Drawing.Point(20, 81);
-            this.startIndex.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.startIndex.Margin = new System.Windows.Forms.Padding(4);
             this.startIndex.Name = "startIndex";
             this.startIndex.Size = new System.Drawing.Size(132, 22);
             this.startIndex.TabIndex = 1;
@@ -309,7 +309,7 @@
             // currentFrequancy
             // 
             this.currentFrequancy.Location = new System.Drawing.Point(21, 175);
-            this.currentFrequancy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.currentFrequancy.Margin = new System.Windows.Forms.Padding(4);
             this.currentFrequancy.Name = "currentFrequancy";
             this.currentFrequancy.Size = new System.Drawing.Size(148, 22);
             this.currentFrequancy.TabIndex = 6;
@@ -319,7 +319,7 @@
             this.panel7.Controls.Add(this.fullMessage);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(4, 407);
-            this.panel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel7.Margin = new System.Windows.Forms.Padding(4);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(310, 324);
             this.panel7.TabIndex = 13;
@@ -328,7 +328,7 @@
             // 
             this.fullMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fullMessage.Location = new System.Drawing.Point(0, 0);
-            this.fullMessage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fullMessage.Margin = new System.Windows.Forms.Padding(4);
             this.fullMessage.Name = "fullMessage";
             this.fullMessage.Size = new System.Drawing.Size(310, 324);
             this.fullMessage.TabIndex = 2;
@@ -339,7 +339,7 @@
             this.panel2.Controls.Add(this.tableLayoutPanel2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(330, 4);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(753, 735);
             this.panel2.TabIndex = 2;
@@ -353,7 +353,7 @@
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -366,20 +366,20 @@
             this.panel4.Controls.Add(this.spectrumChart);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(4, 371);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(745, 360);
             this.panel4.TabIndex = 1;
             // 
             // spectrumChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.spectrumChart.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.spectrumChart.ChartAreas.Add(chartArea1);
             this.spectrumChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.spectrumChart.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.spectrumChart.Legends.Add(legend1);
             this.spectrumChart.Location = new System.Drawing.Point(0, 0);
-            this.spectrumChart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.spectrumChart.Margin = new System.Windows.Forms.Padding(4);
             this.spectrumChart.Name = "spectrumChart";
             this.spectrumChart.Size = new System.Drawing.Size(745, 360);
             this.spectrumChart.TabIndex = 1;
@@ -390,20 +390,20 @@
             this.panel3.Controls.Add(this.signalChart);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(4, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(745, 359);
             this.panel3.TabIndex = 0;
             // 
             // signalChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.signalChart.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.signalChart.ChartAreas.Add(chartArea2);
             this.signalChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.signalChart.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.signalChart.Legends.Add(legend2);
             this.signalChart.Location = new System.Drawing.Point(0, 0);
-            this.signalChart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.signalChart.Margin = new System.Windows.Forms.Padding(4);
             this.signalChart.Name = "signalChart";
             this.signalChart.Size = new System.Drawing.Size(745, 359);
             this.signalChart.TabIndex = 0;
@@ -415,7 +415,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 743);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);

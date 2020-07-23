@@ -79,6 +79,7 @@ namespace MathAndProcess.Calculations
             Complex vcoSig = new Complex();
             Complex mulRes = new Complex();
             Complex outputSignal = new Complex();
+            int preambuleSamplesCount = 12000;
             double realResultData = 0.0;
             double imagResultData = 0.0;
             double imagPartOfMulRes = 0.0;
@@ -118,13 +119,13 @@ namespace MathAndProcess.Calculations
                     new Vector(coeffs.ToArray()));
                 imagResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Imaginary(register.ToList()).ToArray()), 
                     new Vector(coeffs.ToArray()));
-                if (i < 12000)
+                if (i < preambuleSamplesCount)
                 {
-                    preambulaMeanR += realResultData / 12000;
-                    preambulaMeanI += imagResultData / 12000;
+                    preambulaMeanR += realResultData / preambuleSamplesCount;
+                    preambulaMeanI += imagResultData / preambuleSamplesCount;
 
                 }
-                if (i == 12000)
+                if (i == preambuleSamplesCount)
                 {
                     signI = preambulaMeanI > 0 ? 1 : -1;
                     signR = preambulaMeanR > 0 ? 1 : -1;
