@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class Config
+    public class SGBConstants
     {
         public readonly int MagicNumber1 = 76800;
 
