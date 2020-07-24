@@ -10,6 +10,7 @@ namespace MathAndProcess.Calculations
 {
     public class PLL
     {
+        //
         double _Fs;
         double _omega;
         public List<double> _lisOmega { get; private set; }
