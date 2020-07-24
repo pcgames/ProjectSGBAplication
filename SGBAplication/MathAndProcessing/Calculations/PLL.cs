@@ -29,10 +29,10 @@ namespace MathAndProcess.Calculations
         {
             this._Fs = Fs;
             this._inputPhasa = input_phasa;
-            while (Math.Log(count_of_coeffs + 1, 2) % 1 != 0)
-            {
-                count_of_coeffs += 1;
-            }
+            //while (Math.Log(count_of_coeffs + 1, 2) % 1 != 0)
+            //{
+            //    count_of_coeffs += 1;
+            //}
             countOfCoeffs = count_of_coeffs;
             _omega = omega;
 

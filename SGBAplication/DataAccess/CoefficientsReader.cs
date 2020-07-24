@@ -21,7 +21,7 @@ namespace DataAccess
                     string line = sr.ReadLine();
                     string[] elements = line.Split(seporator);
                     string k = elements[0];
-                    Samples.Add(Convert.ToDouble(elements[0].Replace('.', ',')));
+                    Samples.Add(Convert.ToDouble(elements[0]));
 
                 }
             }

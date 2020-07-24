@@ -32,6 +32,7 @@ namespace SGBFormAplication
             ProcessingType type = SelectProcessorType();
 
             List<List<Complex>> rnewDataAndSpectrum = _controller.StartDecoder(type, ref _dataPack);
+            InitializeGUIForm();
 
             DrawBPSKSignal(rnewDataAndSpectrum[1]);
             DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
@@ -49,11 +50,11 @@ namespace SGBFormAplication
             {
                 return ProcessingType.ResemplingWithoutPll;
             }
-            else if (checkUsePLLForProcessing.Checked == false && checkUsePLLForProcessing.Checked)
+            else if (checkResempling.Checked == false && checkUsePLLForProcessing.Checked)
             {
                 return ProcessingType.NonResemplingWithPll;
             }
-            else if (checkUsePLLForProcessing.Checked == false && checkUsePLLForProcessing.Checked == false)
+            else if (checkResempling.Checked == false && checkUsePLLForProcessing.Checked == false)
             {
                 return ProcessingType.NonResemplingWithoutPll;
             }
@@ -74,6 +75,12 @@ namespace SGBFormAplication
             _dataPack.SNR = SNR.Text;
             _dataPack.StartIndex = startIndex.Text;
             _dataPack.Country = country.Text;
+        }
+        private void InitializeGUIForm()
+        {
+            currentFrequancy.Text = _dataPack.CurrentFrequency_Hz;
+            fullMessage.Text = _dataPack.FullMessage;
+            country.Text = _dataPack.Country;
         }
 
         private void DrawBPSKSpectrum(List<Complex> newDataWindowed)

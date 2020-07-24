@@ -13,7 +13,7 @@ namespace MathAndProcessing
         public const int NON_RESEMPLING_SAMPLES_COUNT = 10000000;
         public const int PREAMBULE_SAMPLES_COUNT = 8192;
         public const int PREAM_FREQ_CELLS_COUNT = 10000;
-        public const int BPF_IMP_RESP_LENGTH = 127;
+        public const int BPF_IMP_RESP_LENGTH = 128;
         public const int ORIGINAL_COUNT_PACKAGE_SAMPLES = 102300;
         public const int LOW_FREQ_350_Hz = 350;
         public const int LOW_FREQ_550_Hz = 550;

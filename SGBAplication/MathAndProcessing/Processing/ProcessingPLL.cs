@@ -50,11 +50,12 @@ namespace MathAndProcessing.Calculations
                     {
                         double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * PHAZA_SHIFT * i;
                         double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
-                        PLL pllResult = new PLL(PACKAGE_SMPLES_COUNT, omega, phaza, BPF_IMP_RESP_LENGTH);
+                        PLL pllResult = new PLL(PACKAGE_SMPLES_COUNT, omega, phaza, BPF_IMP_RESP_LENGTH-1);
 
                         List<double> FIRImpulsCharacteristics = new CoeficientFinder().Find(omega);
-                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)), ComplexSignals.Real(sinIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT))),
-                            ComplexSignals.Imaginary(cosQsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)), FIRImpulsCharacteristics);
+                        var a = ComplexSignals.Imaginary(cosQsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT));
+                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)), ComplexSignals.Real(sinIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)))
+                            , FIRImpulsCharacteristics,ComplexSignals.Imaginary(cosQsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)));
                         if (pllResult._stdOmega < minStd)
                         {
                             _dataPack.Phase = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * PHAZA_SHIFT * i;
