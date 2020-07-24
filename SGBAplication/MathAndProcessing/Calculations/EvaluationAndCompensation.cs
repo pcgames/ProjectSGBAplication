@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using static MathAndProcessing.SGBConstants;
 
 namespace MathAndProcess.Calculations
 {/// <summary>
@@ -11,6 +10,7 @@ namespace MathAndProcess.Calculations
 /// </summary>
     public class EvaluationAndCompensation
     {
+        private static double _fsempling = 76800;
         public static List<Complex> Spectrum { get; private set; }
         public static double Phaza { get; private set; }
         public static double AccuracyFreq { get; private set; }
@@ -164,7 +164,7 @@ namespace MathAndProcess.Calculations
                 AccuracyFreq = EvaluationOfFreq(Spectrum);
             }
 
-            return ComplexSignals.Shift(signal, -AccuracyFreq, NUM_OF_SAMPLES);//<-здесь изменение
+            return ComplexSignals.Shift(signal, -AccuracyFreq, _fsempling);//<-здесь изменение
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace MathAndProcess.Calculations
         /// с компенсированной фазой</returns>
         private static List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
         {
-            return ComplexSignals.Shift(signal, 0, NUM_OF_SAMPLES, -Phaza);
+            return ComplexSignals.Shift(signal, 0, _fsempling, -Phaza);
         }
         #endregion
 

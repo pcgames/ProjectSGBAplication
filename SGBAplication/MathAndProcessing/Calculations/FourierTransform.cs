@@ -71,6 +71,15 @@ namespace MathAndProcess.Calculations
                         bi[k] = (float)bi[k] + ti;// *(bi + k) = *(bi + k) + ti;
 
                     }
+                    //FileStream fs = new FileStream("data_before_psp.txt", FileMode.OpenOrCreate);
+                    //StreamWriter sw = new StreamWriter(fs);
+                    //Action<string> writing = s => sw.WriteLine(s);
+                    //for (var w = 0; w < 8192; w++)
+                    //{
+                    //    writing(br[w].ToString() + '+' + bi[w].ToString() + 'j');
+                    //}
+                    //sw.Close();
+                    //fs.Close();
                     tr = ur * wr - ui * wi;
                     ui = ui * wr + ur * wi;
                     ur = tr;
@@ -107,7 +116,10 @@ namespace MathAndProcess.Calculations
                 double r2 = Math.Sqrt(br[i1] * br[i1] + bi[i1] * bi[i1]);
                 fw.Add((float)(1000.0 * r2 / r1));
                 sw.WriteLine(fw.Last().ToString());
-                
+                //fprintf(fp," i=%d r1=%f r2=%f 1000.*r2/r1=%f f0=%f\n",i,r1,r2,1000.*r2/r1,f0);
+                //	  getch();
+                //printf("\n %f",freq[i]);
+                //getch();
             }//i
             sw.Close();
 

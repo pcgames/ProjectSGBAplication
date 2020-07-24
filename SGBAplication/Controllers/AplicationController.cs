@@ -11,6 +11,15 @@ namespace Controllers
 {
     public class ControllerSGBApplication
     {
+        //Constants
+        readonly int numOfSamples = 76800;
+        readonly int numOfSOMETHING = 8192; //переименовать и выкинуть в отдельный класс
+        //Пока что все константы будут в своих классах для понимания происходящего
+
+        //не, бля это невозможно без тебя Сань
+        //выпиши все константы с нормальными названиями, я их перенесу в другой класс
+
+
         ControllerMathAndProcessing _controllerMAP;
         ISampleWriter _writer;
 
