@@ -33,53 +33,82 @@ namespace SGBFormAplication
 
             List<List<Complex>> rnewDataAndSpectrum = _controller.StartDecoder(type, ref _dataPack);
 
-            InitializeGUIForm();
             DrawBPSKSignal(rnewDataAndSpectrum[1]);
             DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
         }
 
+        
+
         private ProcessingType SelectProcessorType()
         {
-            if(checkResempling.Checked && checkUsePLLForProcessing.Checked)
+            if(checkResempling.Checked)
             {
-                return ProcessingType.ResemplingWithPll;
+                if(checkUsePLLForProcessing.Checked)
+                {
+                    return ProcessingType.ResemplingWithPll;
+                }
+                else
+                {
+                    return ProcessingType.ResemplingWithoutPll;
+                }
             }
-            else if(checkResempling.Checked && checkUsePLLForProcessing.Checked == false)
-            {
-                return ProcessingType.ResemplingWithoutPll;
-            }
-            else if(checkResempling.Checked == false && checkUsePLLForProcessing.Checked)
-            {
-                return ProcessingType.NonResemplingWithPll;
-            }
-            else if(checkResempling.Checked == false && checkUsePLLForProcessing.Checked == false)
-            {
-                return ProcessingType.NonResemplingWithoutPll;
-            } 
             else
             {
-                throw new Exception();
+                if (checkUsePLLForProcessing.Checked)
+                {
+                    return ProcessingType.NonResemplingWithPll;
+                }
+                else
+                {
+                    return ProcessingType.NonResemplingWithoutPll;
+                }
+            }
+        }
+
+        private void StatisticButton_Click(object sender, EventArgs e)
+        {
+            if (checkResempling.Checked == true)
+            {
+                if (checkUsePLLForStatictic.Checked == true)
+                {
+                    InitializeGUIDataPack();
+
+                    _controller.GenerateRealResemplingDataStatisticsWithPll(_dataPack);
+                }
+                else
+                {
+                    _controller.GenerateRealResemplingDataStatistics(_dataPack);
+                }
+            }
+        }
+
+        private void StatisticGenerator_Click(object sender, EventArgs e)
+        {
+            int countMessages = 10000;
+
+            InitializeGUIDataPack();
+
+            if (checkUsePLLForStatictic.Checked)
+            {
+                _controller.GenerateStatisticsWithPLL(countMessages, _dataPack);
+            }
+            else
+            {
+                _controller.GenerateStatistics(countMessages, _dataPack);
             }
         }
 
         private void InitializeGUIDataPack()
         {
-            _dataPack = new GUIData
-            {
-                CurrentFrequency_Hz = currentFrequancy.Text,
-                FileName = fileName.Text,
-                fileOfPackages = fileOfPackages.Text,
-                FullMessage = fullMessage.Text,
-                SNR = SNR.Text,
-                StartIndex = startIndex.Text,
-                Country = country.Text
-            };
-        }
-        private void InitializeGUIForm()
-        {
-            currentFrequancy.Text = _dataPack.CurrentFrequency_Hz;
-            fullMessage.Text = _dataPack.FullMessage;
-            country.Text = _dataPack.Country;
+            _dataPack = new GUIData();
+
+            _dataPack.CurrentFrequency_Hz = currentFrequancy.Text;
+            _dataPack.FileName = fileName.Text;
+            _dataPack.fileOfPackages = fileOfPackages.Text;
+            _dataPack.FullMessage = fullMessage.Text;
+            _dataPack.SNR = SNR.Text;
+            _dataPack.StartIndex = startIndex.Text;
+            _dataPack.Country = country.Text;
         }
 
         private void DrawBPSKSpectrum(List<Complex> newDataWindowed)
