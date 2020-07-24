@@ -6,20 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using static MathAndProcessing.SGBConstants;
 
 namespace Controllers
 {
     public class ControllerSGBApplication
     {
-        //Constants
-        readonly int numOfSamples = 76800;
-        readonly int numOfSOMETHING = 8192; //переименовать и выкинуть в отдельный класс
-        //Пока что все константы будут в своих классах для понимания происходящего
-
-        //не, бля это невозможно без тебя Сань
-        //выпиши все константы с нормальными названиями, я их перенесу в другой класс
-
-
         ControllerMathAndProcessing _controllerMAP;
         ISampleWriter _writer;
 
@@ -52,27 +44,27 @@ namespace Controllers
 
         public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
         {
-            spectrum = FFT.Forward(newDataWindowed.GetRange(0, 8192));
-            xValues = FreqCalculation.Getfrequancy(spectrum.Count, 76800);
+            spectrum = FFT.Forward(newDataWindowed.GetRange(0, countPreambuleSamples));
+            xValues = FreqCalculation.Getfrequancy(spectrum.Count, countPackageSamples);
         }
 
         public List<Complex> GetSpectrumForChart(List<Complex> newDataWindowed)
         {
-            return FFT.Forward(newDataWindowed.GetRange(0, 8192));
+            return FFT.Forward(newDataWindowed.GetRange(0, countPreambuleSamples));
         }
 
         public List<double> GetXValuesForSpectrumChart(List<Complex> spectrum)
         {
-            return FreqCalculation.Getfrequancy(spectrum.Count, 76800);
+            return FreqCalculation.Getfrequancy(spectrum.Count, countPackageSamples);
         }
 
         public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
-            return ModulatingSignal.GenerateBPSKSignal(rnewData, 512).GetRange(20000, 10000);
+            return ModulatingSignal.GenerateBPSKSignal(rnewData, countSamplesPerBit).GetRange(20000, 10000);
         }
         public void SimulateSignal(double snr, string fileName)
         {
-            List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, 900.2, 102300).GetSGBSignal().ToList();
+            List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, origFreq_Hz, ORIGINAL_COUNT_PACKAGE_SAMPLES).GetSGBSignal().ToList();
             
             _writer.WriteToFile(sgbSignal, fileName);
         }

@@ -2,15 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using static MathAndProcessing.SGBConstants;
 
 namespace MathAndProcess.Decoding
 {
     public class Decoder
     {
-        readonly int startBitInd = 25;
-        readonly int countBit = 150;
-        readonly int countSamplesPerBit = 512;
-
         public string GetFullMessage(List<Complex> signal)
         {
             string decodeMesage = "";

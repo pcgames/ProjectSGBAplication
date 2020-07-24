@@ -7,8 +7,6 @@ namespace DataAccess
 {
     public class SampleReader : ISampleReader
     {
-        //char _separator { get; set; } = ',';
-        //private string _filePath;
         public SampleReader(/*string fullFilePath*/)
         {
             //_filePath = fullFilePath;

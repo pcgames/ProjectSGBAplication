@@ -7,14 +7,13 @@ using MathAndProcessing.Calculations;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using static MathAndProcessing.SGBConstants;
 
 namespace Controllers
 {
     public class ControllerMathAndProcessing
     {
-        //Constants
-        readonly int numOfNonResemplingSamples = 10000000;
-        readonly int numOfResemplingSamples = 76809;
+        readonly int _numOfResemplingSamples = 76809;
 
 
         SampleReader _dataReader;
@@ -39,7 +38,7 @@ namespace Controllers
         
         public List<List<Complex>> StartDecoderOfResemplingSignalWithPll(ref GUIData dataPack)
         {
-            _inputData = _dataReader.GetSamples(dataPack.FileName, numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
+            _inputData = _dataReader.GetSamples(dataPack.FileName, _numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
 
             _processor = new ProcessingPLL();
 
@@ -57,7 +56,7 @@ namespace Controllers
 
         public List<List<Complex>> StartDecoderOfResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            _inputData = _dataReader.GetSamples(dataPack.FileName, numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
+            _inputData = _dataReader.GetSamples(dataPack.FileName, _numOfResemplingSamples, Convert.ToInt64(dataPack.StartIndex), ';');
 
             _processor = new Processing();
 

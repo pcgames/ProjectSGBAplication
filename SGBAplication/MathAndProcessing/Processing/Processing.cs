@@ -5,18 +5,12 @@ using MathAndProcess.Transformation;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using static MathAndProcessing.SGBConstants;
 
 namespace MathAndProcessing
 {
     public class Processing : IProcessing
     {
-        readonly int NazarovShift = 8;
-        readonly int countPackageSamples = 76800;
-        readonly int bpfImpRespLength = 128;
-        readonly int lowFreq = 0;
-        readonly int highFreq = 1000;
-
-
         private OutputData _dataPack { get; set; }
 
         public Processing()
@@ -46,7 +40,7 @@ namespace MathAndProcessing
                 _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                 _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
-                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq, highFreq, countPackageSamples, bpfImpRespLength).
+                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq0_Hz, highFreq1000_Hz, countPackageSamples, bpfImpRespLength).
                     StartOperation(preprocessedSignalSamples);
                 
                 Window window = new Window(WindowType.Blackman, 0.16);

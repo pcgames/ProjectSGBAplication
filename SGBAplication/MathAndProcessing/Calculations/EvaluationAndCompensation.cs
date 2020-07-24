@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using static MathAndProcessing.SGBConstants;
 
 namespace MathAndProcess.Calculations
 {/// <summary>
@@ -10,12 +11,6 @@ namespace MathAndProcess.Calculations
 /// </summary>
     public class EvaluationAndCompensation
     {
-        readonly int countPackageSamples = 76800;
-        readonly int countPreambuleSamples = 8192;
-        readonly int countPreamFreqCells = 10000;
-
-
-        private double _fsempling = 76800;
         public static List<Complex> Spectrum { get; private set; }
         public static double Phaza { get; private set; }
         public static double AccuracyFreq { get; private set; }
@@ -62,10 +57,10 @@ namespace MathAndProcess.Calculations
             {
                 if ((r > freq[i1]) && (r <= freq[i1 + 1])) { i3 = i1; }
             }
-            if (r1 < r3) { AccuracyFreq = maxIndex * (double)countPackageSamples / (double)countPreambuleSamples + i3 / (double)countPreamFreqCells / 2.0 * (double)countPackageSamples / (double)countPreambuleSamples; }
-            if (r1 > r3) { AccuracyFreq = maxIndex * (double)countPackageSamples / (double)countPreambuleSamples - i3 / (double)countPreamFreqCells / 2.0 * (double)countPackageSamples / (double)countPreambuleSamples; }
+            if (r1 < r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples + i3 / (double)countPreamFreqCells / 2.0 * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples; }
+            if (r1 > r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples - i3 / (double)countPreamFreqCells / 2.0 * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples; }
 
-            if (maxIndex > countPreambuleSamples / 2) { AccuracyFreq -= countPackageSamples; }
+            if (maxIndex > countPreambuleSamples / 2) { AccuracyFreq -= MathAndProcessing.SGBConstants.countPackageSamples; }
 
             return AccuracyFreq;
         }
@@ -169,7 +164,7 @@ namespace MathAndProcess.Calculations
                 AccuracyFreq = EvaluationOfFreq(Spectrum);
             }
 
-            return ComplexSignals.Shift(signal, -AccuracyFreq, _fsempling);//<-здесь изменение
+            return ComplexSignals.Shift(signal, -AccuracyFreq, countPackageSamples);//<-здесь изменение
         }
 
         /// <summary>
@@ -199,7 +194,7 @@ namespace MathAndProcess.Calculations
         /// с компенсированной фазой</returns>
         private  List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
         {
-            return ComplexSignals.Shift(signal, 0, _fsempling, -Phaza);
+            return ComplexSignals.Shift(signal, 0, countPackageSamples, -Phaza);
         }
         #endregion
 
