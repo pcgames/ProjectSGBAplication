@@ -17,7 +17,7 @@ namespace MathAndProcess.Calculations
         /// <param name="resemplingData">массив созданный под передискретизованный сигнал</param>
         private static void Farrow(List<double> inputData, ref List<double> resemplingData)
         {
-            float r = (float)ORIGINAL_COUNT_PACKAGE_SAMPLES / (float)countPackageSamples;//ratio of frequancies r= f1/f2 f1-which we have f2-which we want
+            float r = (float)ORIGINAL_COUNT_PACKAGE_SAMPLES / (float)PACKAGE_SMPLES_COUNT;//ratio of frequancies r= f1/f2 f1-which we have f2-which we want
 
             resemplingData = new List<double>();
             int j = 0;

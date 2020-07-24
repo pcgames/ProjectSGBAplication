@@ -29,12 +29,12 @@ namespace MathAndProcessing.Calculations
                 if (rI.Count != 0)
                 {
                     int startIndex = Convert.ToInt32(startIndexStr);
-                    List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + NazarovShift);//9829622
+                    List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + NAZAROF_SHIFT);//9829622
 
                     new EvaluationAndCompensation().PreprocessOfSignal(result);
-                    List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples));
-                    List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + NazarovShift, countPackageSamples));
-                    List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples), true);
+                    List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + NAZAROF_SHIFT, PACKAGE_SMPLES_COUNT));
+                    List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + NAZAROF_SHIFT, PACKAGE_SMPLES_COUNT));
+                    List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + NAZAROF_SHIFT, PACKAGE_SMPLES_COUNT), true);
                     List<Complex> cosIsig = Mseqtransform.GetSamplesOfFullPackage(cosData);
                     List<Complex> sinIsig = Mseqtransform.GetSamplesOfFullPackage(sinData);
                     List<Complex> cosQsig = Mseqtransform.GetSamplesOfFullPackage(cosQchanel);
@@ -48,18 +48,18 @@ namespace MathAndProcessing.Calculations
                     List<Complex> bestData = null;
                     for (int i = 0; i < 22; i++)
                     {
-                        double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
+                        double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * PHAZA_SHIFT * i;
                         double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
-                        PLL pllResult = new PLL(countPackageSamples, omega, phaza, bpfImpRespLength);
+                        PLL pllResult = new PLL(PACKAGE_SMPLES_COUNT, omega, phaza, BPF_IMP_RESP_LENGTH);
 
                         List<double> FIRImpulsCharacteristics = new CoeficientFinder().Find(omega);
-                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, countPackageSamples + SamplesShift)), ComplexSignals.Real(sinIsig.GetRange(0, countPackageSamples + SamplesShift))),
-                            ComplexSignals.Imaginary(cosQsig.GetRange(0, countPackageSamples + SamplesShift)), FIRImpulsCharacteristics);
+                        List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)), ComplexSignals.Real(sinIsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT))),
+                            ComplexSignals.Imaginary(cosQsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT)), FIRImpulsCharacteristics);
                         if (pllResult._stdOmega < minStd)
                         {
-                            _dataPack.Phase = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * phasaShift * i;
+                            _dataPack.Phase = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * PHAZA_SHIFT * i;
                             minStd = pllResult._stdOmega;
-                            bestData = data.GetRange(SamplesShift, countPackageSamples);
+                            bestData = data.GetRange(SAMPLES_SHIFT, PACKAGE_SMPLES_COUNT);
                             _dataPack.Std = minStd;
                             _dataPack.MeanFrequency_Hz = pllResult._meanOmega;
                             _dataPack.Iteration = i;
@@ -70,7 +70,7 @@ namespace MathAndProcessing.Calculations
                     _dataPack.FullMessage = new MathAndProcess.Decoding.Decoder().GetFullMessage(bestData);
                     _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                     _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
-                    List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq0_Hz, highFreq1000_Hz, countPackageSamples, bpfImpRespLength).
+                    List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(LOW_FREQ_0_Hz, HIGH_FREQ_1000_Hz, PACKAGE_SMPLES_COUNT, BPF_IMP_RESP_LENGTH).
                         StartOperation(bestData);
                     
                     Window window = new Window(WindowType.Blackman, 0.16);

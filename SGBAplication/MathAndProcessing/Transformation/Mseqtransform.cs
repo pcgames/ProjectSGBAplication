@@ -70,10 +70,10 @@ namespace MathAndProcess.Transformation
             List<double> MsequanceI = new List<double>();
             List<double> MsequanceQ = new List<double>();
 
-            EmptyPartOfOriginalSignal = Enumerable.Range(0, _unmodulatedPartOfSignal * 2).Select(i => new Complex(ImSamples[startIndex + i], QSamples[startIndex + i])).ToList();
+            EmptyPartOfOriginalSignal = Enumerable.Range(0, UNMODULETED_SIGNAL_PART * 2).Select(i => new Complex(ImSamples[startIndex + i], QSamples[startIndex + i])).ToList();
             ISampleWriter writer = new SampleWriter();
             
-            PseudorandomSequence.GetSequensies_2chipsPerBit(_unmodulatedPartOfSignal + 1, out MsequanceI, out MsequanceQ);
+            PseudorandomSequence.GetSequensies_2chipsPerBit(UNMODULETED_SIGNAL_PART + 1, out MsequanceI, out MsequanceQ);
             
 
             return PseudosequanceMultiplication(EmptyPartOfOriginalSignal, MsequanceI, MsequanceQ);
@@ -91,9 +91,9 @@ namespace MathAndProcess.Transformation
             List<double> MsequanceI = new List<double>();
             List<double> MsequanceQ = new List<double>();
 
-            EmptyPartOfOriginalSignal = Enumerable.Range(0, _unmodulatedPartOfSignal * 2).Select(i => (signal[startIndex + i])).ToList();
+            EmptyPartOfOriginalSignal = Enumerable.Range(0, UNMODULETED_SIGNAL_PART * 2).Select(i => (signal[startIndex + i])).ToList();
 
-            PseudorandomSequence.GetSequensies_2chipsPerBit(_unmodulatedPartOfSignal + 1, out MsequanceI, out MsequanceQ);
+            PseudorandomSequence.GetSequensies_2chipsPerBit(UNMODULETED_SIGNAL_PART + 1, out MsequanceI, out MsequanceQ);
             return PseudosequanceMultiplication(EmptyPartOfOriginalSignal, MsequanceI, MsequanceQ);
         }
 
@@ -106,7 +106,7 @@ namespace MathAndProcess.Transformation
         /// <returns>часть сигнала с которой снимается м последовательность начиная со стартового индекса,длинной 16368 элементов</returns>
         public static List<Complex> GetSamplesOfFullPackage(List<double> ImSamples, List<double> QSamples)
         {
-            List<Complex> Fullpackage = Enumerable.Range(0, MseqElementsCount * 2).Select(i => new Complex(ImSamples[i], QSamples[i])).ToList();
+            List<Complex> Fullpackage = Enumerable.Range(0, M_SEQUENCE_ELEMENTS_COUNT * 2).Select(i => new Complex(ImSamples[i], QSamples[i])).ToList();
             return GetSamplesOfFullPackage(Fullpackage);
         }
 
@@ -121,7 +121,7 @@ namespace MathAndProcess.Transformation
         {
             List<double> MsequanceI = new List<double>();
             List<double> MsequanceQ = new List<double>();
-            PseudorandomSequence.GetSequensies_2chipsPerBit(MseqElementsCount + 4, out MsequanceI, out MsequanceQ);
+            PseudorandomSequence.GetSequensies_2chipsPerBit(M_SEQUENCE_ELEMENTS_COUNT + 4, out MsequanceI, out MsequanceQ);
             return PseudosequanceMultiplicationOfFullPackage(signal, MsequanceI, MsequanceQ);
         }
     }

@@ -28,7 +28,7 @@ namespace MathAndProcessing
 
                 new EvaluationAndCompensation().PreprocessOfSignal(samplesOfEmptyPart);
 
-                List<Complex> signalSamples = ComplexSignals.ToComplex(rI, rQ).GetRange(startIndex + NazarovShift , countPackageSamples);
+                List<Complex> signalSamples = ComplexSignals.ToComplex(rI, rQ).GetRange(startIndex + NAZAROF_SHIFT , PACKAGE_SMPLES_COUNT);
                 List<Complex> preprocessedSignalSamples = new EvaluationAndCompensation().CompensationOfPhazeAndFrequancy(signalSamples);
 
                 Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
@@ -40,7 +40,7 @@ namespace MathAndProcessing
                 _dataPack.Country = Convert.ToString(MathAndProcess.Decoding.Decoder.DecodeCountryCode(_dataPack.FullMessage));
                 _dataPack.CurrentFrequency_Hz = Convert.ToString(EvaluationAndCompensation.AccuracyFreq);
 
-                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(lowFreq0_Hz, highFreq1000_Hz, countPackageSamples, bpfImpRespLength).
+                List<Complex> rnewData = new DigitalSignalProcessing.Filters.Nonrecursive.BPF(LOW_FREQ_0_Hz, HIGH_FREQ_1000_Hz, PACKAGE_SMPLES_COUNT, BPF_IMP_RESP_LENGTH).
                     StartOperation(preprocessedSignalSamples);
                 
                 Window window = new Window(WindowType.Blackman, 0.16);

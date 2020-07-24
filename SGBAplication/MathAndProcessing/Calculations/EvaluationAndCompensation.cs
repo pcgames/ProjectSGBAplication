@@ -57,10 +57,10 @@ namespace MathAndProcess.Calculations
             {
                 if ((r > freq[i1]) && (r <= freq[i1 + 1])) { i3 = i1; }
             }
-            if (r1 < r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples + i3 / (double)countPreamFreqCells / 2.0 * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples; }
-            if (r1 > r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples - i3 / (double)countPreamFreqCells / 2.0 * (double)MathAndProcessing.SGBConstants.countPackageSamples / (double)countPreambuleSamples; }
+            if (r1 < r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.PACKAGE_SMPLES_COUNT / (double)PREAMBULE_SAMPLES_COUNT + i3 / (double)PREAM_FREQ_CELLS_COUNT / 2.0 * (double)MathAndProcessing.SGBConstants.PACKAGE_SMPLES_COUNT / (double)PREAMBULE_SAMPLES_COUNT; }
+            if (r1 > r3) { AccuracyFreq = maxIndex * (double)MathAndProcessing.SGBConstants.PACKAGE_SMPLES_COUNT / (double)PREAMBULE_SAMPLES_COUNT - i3 / (double)PREAM_FREQ_CELLS_COUNT / 2.0 * (double)MathAndProcessing.SGBConstants.PACKAGE_SMPLES_COUNT / (double)PREAMBULE_SAMPLES_COUNT; }
 
-            if (maxIndex > countPreambuleSamples / 2) { AccuracyFreq -= MathAndProcessing.SGBConstants.countPackageSamples; }
+            if (maxIndex > PREAMBULE_SAMPLES_COUNT / 2) { AccuracyFreq -= MathAndProcessing.SGBConstants.PACKAGE_SMPLES_COUNT; }
 
             return AccuracyFreq;
         }
@@ -164,7 +164,7 @@ namespace MathAndProcess.Calculations
                 AccuracyFreq = EvaluationOfFreq(Spectrum);
             }
 
-            return ComplexSignals.Shift(signal, -AccuracyFreq, countPackageSamples);//<-здесь изменение
+            return ComplexSignals.Shift(signal, -AccuracyFreq, PACKAGE_SMPLES_COUNT);//<-здесь изменение
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace MathAndProcess.Calculations
         /// с компенсированной фазой</returns>
         private  List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
         {
-            return ComplexSignals.Shift(signal, 0, countPackageSamples, -Phaza);
+            return ComplexSignals.Shift(signal, 0, PACKAGE_SMPLES_COUNT, -Phaza);
         }
         #endregion
 

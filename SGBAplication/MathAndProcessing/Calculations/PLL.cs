@@ -115,10 +115,8 @@ namespace MathAndProcess.Calculations
                 }
                 ShiftRegistr(register, 1);
                 register[countOfCoeffs - 1] = outputSignal;
-                realResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Real(register.ToList()).ToArray()), 
-                    new Vector(coeffs.ToArray()));
-                imagResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Imaginary(register.ToList()).ToArray()), 
-                    new Vector(coeffs.ToArray()));
+                realResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Real(register.ToList()).ToArray()), new Vector(coeffs.ToArray()));
+                imagResultData = Vector.ScalarProduct(new Vector(ComplexSignals.Imaginary(register.ToList()).ToArray()), new Vector(coeffs.ToArray()));
                 if (i < preambuleSamplesCount)
                 {
                     preambulaMeanR += realResultData / preambuleSamplesCount;
@@ -136,8 +134,7 @@ namespace MathAndProcess.Calculations
                 imagPartOfMulRes = mulRes.Imaginary;
                 ShiftRegistr(register1, 1);
                 register1[countOfCoeffs - 1] = imagPartOfMulRes;
-                imagPartOfMulRes = Vector.ScalarProduct(new Vector(register1.ToList().ToArray()), 
-                    new Vector(coeffs.ToArray()));
+                imagPartOfMulRes = Vector.ScalarProduct(new Vector(register1.ToList().ToArray()), new Vector(coeffs.ToArray()));
                 downLoop += _k2 * imagPartOfMulRes;
                 error = (imagPartOfMulRes * _k1 + downLoop);
                 _omega += (VCOLoop + error);

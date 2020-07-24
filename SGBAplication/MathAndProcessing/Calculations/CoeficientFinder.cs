@@ -13,19 +13,19 @@ namespace MathAndProcessing.Calculations
         internal List<double> Find(double _omega)
         {
             CoefficientsReader _coffReader = new CoefficientsReader();
-            List<double> coeffs = ComplexSignals.Real(GetImpulseResponse(bpfImpRespLength + 1, (_omega) * 0.03, countPackageSamples).GetRange(1, bpfImpRespLength));
+            List<double> coeffs = ComplexSignals.Real(GetImpulseResponse(BPF_IMP_RESP_LENGTH + 1, (_omega) * 0.03, PACKAGE_SMPLES_COUNT).GetRange(1, BPF_IMP_RESP_LENGTH));
 
-            if (_lowFreq350_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < _highFreq400_Hz * 2 * 2 * Math.PI)
+            if (LOW_FREQ_350_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < HIGH_FREQ_400_Hz * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_357.csv", bpfImpRespLength);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_357.csv", BPF_IMP_RESP_LENGTH);
             }
-            if (_lowFreq550_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < _highFreq650_Hz * 2 * 2 * Math.PI)
+            if (LOW_FREQ_550_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < HIGH_FREQ_650_Hz * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_599.csv", bpfImpRespLength);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_599.csv", BPF_IMP_RESP_LENGTH);
             }
-            if (_lowFreq440_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < _highFreq500_Hz * 2 * 2 * Math.PI)
+            if (LOW_FREQ_440_Hz * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < HIGH_FREQ_500_Hz * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_475.csv", bpfImpRespLength);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_475.csv", BPF_IMP_RESP_LENGTH);
             }
             return coeffs;
         }

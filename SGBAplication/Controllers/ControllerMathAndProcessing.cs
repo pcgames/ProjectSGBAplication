@@ -29,7 +29,7 @@ namespace Controllers
 
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithPll(ref GUIData dataPack)
         {
-            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0));
+            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, NON_RESEMPLING_SAMPLES_COUNT, 0));
 
             _processor = new ProcessingPLL();
 
@@ -47,7 +47,7 @@ namespace Controllers
 
         public List<List<Complex>> StartDecoderOfNonResemplingSignalWithoutPll(ref GUIData dataPack)
         {
-            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, numOfNonResemplingSamples, 0));
+            _inputData = ResampleInputData(_dataReader.GetSamples(dataPack.FileName, NON_RESEMPLING_SAMPLES_COUNT, 0));
 
             _processor = new Processing();
 

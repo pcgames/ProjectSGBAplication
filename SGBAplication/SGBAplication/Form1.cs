@@ -41,29 +41,28 @@ namespace SGBFormAplication
 
         private ProcessingType SelectProcessorType()
         {
-            if(checkResempling.Checked)
+            if (checkResempling.Checked && checkUsePLLForProcessing.Checked)
             {
-                if(checkUsePLLForProcessing.Checked)
-                {
-                    return ProcessingType.ResemplingWithPll;
-                }
-                else
-                {
-                    return ProcessingType.ResemplingWithoutPll;
-                }
+                return ProcessingType.ResemplingWithPll;
+            }
+            else if(checkResempling.Checked && checkUsePLLForProcessing.Checked == false)
+            {
+                return ProcessingType.NonResemplingWithPll;
+            }
+            else if(checkUsePLLForProcessing.Checked = false && checkUsePLLForProcessing.Checked)
+            {
+                return ProcessingType.NonResemplingWithPll;
+            }
+            else if(checkUsePLLForProcessing.Checked = false && checkUsePLLForProcessing.Checked == false)
+            {
+                return ProcessingType.NonResemplingWithoutPll;
             }
             else
             {
-                if (checkUsePLLForProcessing.Checked)
-                {
-                    return ProcessingType.NonResemplingWithPll;
-                }
-                else
-                {
-                    return ProcessingType.NonResemplingWithoutPll;
-                }
+                throw new Exception();
             }
         }
+
         private void InitializeGUIDataPack()
         {
             _dataPack = new GUIData();

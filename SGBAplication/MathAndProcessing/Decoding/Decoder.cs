@@ -14,7 +14,7 @@ namespace MathAndProcess.Decoding
 
             //при кодировании сообщения в OQPSK произошло разделение битов на чётные и нечетные,
             //в результате длина битов увеличилась вдвое-> всего 150 бит
-            for (int i = startBitInd; i < countBit; i++)
+            for (int i = START_BIT_INDEX; i < BIT_COUNT; i++)
             {
                 double r1 = 0.0;//energy odd
                 double r2 = 0.0;//energy not odd
@@ -22,10 +22,10 @@ namespace MathAndProcess.Decoding
                 double rs = 0.0;//четный знак
                 for (int j = 0; j < 512; j++)//512 длина одного бита в случае передескритизации
                 {
-                    r1 = r1 + Math.Abs(signal[i * countSamplesPerBit + j].Real);
-                    r2 = r2 + Math.Abs(signal[i * countSamplesPerBit + j].Imaginary);
-                    rc = rc + signal[i * countSamplesPerBit + j].Real;
-                    rs = rs + signal[i * countSamplesPerBit + j].Imaginary;
+                    r1 = r1 + Math.Abs(signal[i * SAMPLES_PER_BIT_COUNT + j].Real);
+                    r2 = r2 + Math.Abs(signal[i * SAMPLES_PER_BIT_COUNT + j].Imaginary);
+                    rc = rc + signal[i * SAMPLES_PER_BIT_COUNT + j].Real;
+                    rs = rs + signal[i * SAMPLES_PER_BIT_COUNT + j].Imaginary;
                 }
 
 

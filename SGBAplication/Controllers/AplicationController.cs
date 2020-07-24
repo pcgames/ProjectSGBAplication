@@ -44,27 +44,27 @@ namespace Controllers
 
         public void GetDataForSpectrumChart(ref List<Complex> spectrum, ref List<double> xValues, List<Complex> newDataWindowed)
         {
-            spectrum = FFT.Forward(newDataWindowed.GetRange(0, countPreambuleSamples));
-            xValues = FreqCalculation.Getfrequancy(spectrum.Count, countPackageSamples);
+            spectrum = FFT.Forward(newDataWindowed.GetRange(0, PREAMBULE_SAMPLES_COUNT));
+            xValues = FreqCalculation.Getfrequancy(spectrum.Count, PACKAGE_SMPLES_COUNT);
         }
 
         public List<Complex> GetSpectrumForChart(List<Complex> newDataWindowed)
         {
-            return FFT.Forward(newDataWindowed.GetRange(0, countPreambuleSamples));
+            return FFT.Forward(newDataWindowed.GetRange(0, PREAMBULE_SAMPLES_COUNT));
         }
 
         public List<double> GetXValuesForSpectrumChart(List<Complex> spectrum)
         {
-            return FreqCalculation.Getfrequancy(spectrum.Count, countPackageSamples);
+            return FreqCalculation.Getfrequancy(spectrum.Count, PACKAGE_SMPLES_COUNT);
         }
 
         public static List<double> GetDataForSignalChart(List<Complex> rnewData)
         {
-            return ModulatingSignal.GenerateBPSKSignal(rnewData, countSamplesPerBit).GetRange(20000, 10000);
+            return ModulatingSignal.GenerateBPSKSignal(rnewData, SAMPLES_PER_BIT_COUNT).GetRange(20000, 10000);
         }
         public void SimulateSignal(double snr, string fileName)
         {
-            List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, origFreq_Hz, ORIGINAL_COUNT_PACKAGE_SAMPLES).GetSGBSignal().ToList();
+            List<Complex> sgbSignal = new Generator.ImitationSignals.GeneratorOfSgbSignalResemplig(snr, TESTING_FREQUENCY_Hz, ORIGINAL_COUNT_PACKAGE_SAMPLES).GetSGBSignal().ToList();
             
             _writer.WriteToFile(sgbSignal, fileName);
         }
