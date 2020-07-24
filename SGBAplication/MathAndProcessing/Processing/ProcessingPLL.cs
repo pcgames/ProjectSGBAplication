@@ -37,7 +37,7 @@ namespace MathAndProcessing.Calculations
                     int startIndex = Convert.ToInt32(startIndexStr);
                     List<Complex> result = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + NazarovShift);//9829622
 
-                    EvaluationAndCompensation.PreprocessOfSignal(result);
+                    new EvaluationAndCompensation().PreprocessOfSignal(result);
                     List<Complex> cosData = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples));
                     List<Complex> sinData = ComplexSignals.ToComplex(rQ.GetRange(startIndex + NazarovShift, countPackageSamples));
                     List<Complex> cosQchanel = ComplexSignals.ToComplex(rI.GetRange(startIndex + NazarovShift, countPackageSamples), true);
@@ -58,7 +58,7 @@ namespace MathAndProcessing.Calculations
                         double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
                         PLL pllResult = new PLL(countPackageSamples, omega, phaza, 127);
 
-                        List<double> FIRImpulsCharacteristics = CoeficientFinder.Find(omega);
+                        List<double> FIRImpulsCharacteristics = new CoeficientFinder().Find(omega);
                         List<Complex> data = pllResult.PllFromMamedov(ComplexSignals.ToComplex(ComplexSignals.Real(cosIsig.GetRange(0, countSamplesToPLL)), ComplexSignals.Real(sinIsig.GetRange(0, countSamplesToPLL))),
                             ComplexSignals.Imaginary(cosQsig.GetRange(0, countSamplesToPLL)), FIRImpulsCharacteristics);
                         if (pllResult._stdOmega < minStd)

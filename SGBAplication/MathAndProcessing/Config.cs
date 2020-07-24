@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace MathAndProcessing
 {
-    public class Config
+    public static class SGBConstants
     {
-        public readonly int MagicNumber1 = 76800;
+        public const int NUM_OF_SAMPLES = 76800;
 
-        public readonly int MagicNumber2 = 100000;
+        public const int MagicNumber2 = 100000;
 
+        public const int startBitInd = 25;
 
+        public const int countBit = 150;
+
+        public const int countSamplesPerBit = 512;
     }
 }
