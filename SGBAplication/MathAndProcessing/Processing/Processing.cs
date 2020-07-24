@@ -32,10 +32,10 @@ namespace MathAndProcessing
                 int startIndex = Convert.ToInt32(startIndexStr);
                 List<Complex> samplesOfEmptyPart = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
 
-                new EvaluationAndCompensation().PreprocessOfSignal(samplesOfEmptyPart);
+                EvaluationAndCompensation.PreprocessOfSignal(samplesOfEmptyPart);
 
                 List<Complex> signalSamples = ComplexSignals.ToComplex(rI, rQ).GetRange(startIndex + NazarovShift , countPackageSamples);
-                List<Complex> preprocessedSignalSamples = new EvaluationAndCompensation().CompensationOfPhazeAndFrequancy(signalSamples);
+                List<Complex> preprocessedSignalSamples = EvaluationAndCompensation.CompensationOfPhazeAndFrequancy(signalSamples);
 
                 Console.WriteLine(EvaluationAndCompensation.AccuracyFreq);
 
