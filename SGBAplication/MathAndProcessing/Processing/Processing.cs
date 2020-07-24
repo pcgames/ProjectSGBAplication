@@ -24,7 +24,7 @@ namespace MathAndProcessing
             if (startIndexStr != "" && rI.Count != 0)
             {
                 int startIndex = Convert.ToInt32(startIndexStr);
-                List<Complex> samplesOfEmptyPart = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + 8);//9829622
+                List<Complex> samplesOfEmptyPart = Mseqtransform.GetSamplesOfEmptyPart(rI, rQ, startIndex + NAZAROF_SHIFT);//9829622
 
                 new EvaluationAndCompensation().PreprocessOfSignal(samplesOfEmptyPart);
 

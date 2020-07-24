@@ -1,5 +1,6 @@
 ﻿using SGBFormAplication;
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace SGBAplication
@@ -14,6 +15,10 @@ namespace SGBAplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            CultureInfo.CurrentCulture = new CultureInfo("ru-RU")
+            {
+                NumberFormat = new CultureInfo("en-GB").NumberFormat
+            };
             Application.Run(new Form1());
         }
     }
