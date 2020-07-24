@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using static MathAndProcessing.SGBConstants;
 
 namespace MathAndProcess.Calculations
 {/// <summary>
@@ -11,10 +10,16 @@ namespace MathAndProcess.Calculations
 /// </summary>
     public class EvaluationAndCompensation
     {
+        readonly int countPackageSamples = 76800;
+        readonly int countPreambuleSamples = 8192;
+        readonly int countPreamFreqCells = 10000;
+
+
+        private double _fsempling = 76800;
         public static List<Complex> Spectrum { get; private set; }
         public static double Phaza { get; private set; }
         public static double AccuracyFreq { get; private set; }
-        EvaluationAndCompensation()
+        public EvaluationAndCompensation()
         {
 
         }
@@ -26,7 +31,7 @@ namespace MathAndProcess.Calculations
         /// <param name="signal">>сигнал на частоте в области ±50 кГц со снятой
         /// псевдослучайной последовательностью </param>
         /// <returns>оцененная частота чигнала</returns>
-        public static double EvaluationOfFreq(List<Complex> signal)////Назаров мод
+        public double EvaluationOfFreq(List<Complex> signal)////Назаров мод
         {
 
 
@@ -57,10 +62,10 @@ namespace MathAndProcess.Calculations
             {
                 if ((r > freq[i1]) && (r <= freq[i1 + 1])) { i3 = i1; }
             }
-            if (r1 < r3) { AccuracyFreq = maxIndex * 76800.0 / 8192 + i3 / 10000.0 / 2.0 * 76800.0 / 8192; }
-            if (r1 > r3) { AccuracyFreq = maxIndex * 76800.0 / 8192 - i3 / 10000.0 / 2.0 * 76800.0 / 8192; }
+            if (r1 < r3) { AccuracyFreq = maxIndex * (double)countPackageSamples / (double)countPreambuleSamples + i3 / (double)countPreamFreqCells / 2.0 * (double)countPackageSamples / (double)countPreambuleSamples; }
+            if (r1 > r3) { AccuracyFreq = maxIndex * (double)countPackageSamples / (double)countPreambuleSamples - i3 / (double)countPreamFreqCells / 2.0 * (double)countPackageSamples / (double)countPreambuleSamples; }
 
-            if (maxIndex > 8192 / 2) { AccuracyFreq -= 76800.0; }
+            if (maxIndex > countPreambuleSamples / 2) { AccuracyFreq -= countPackageSamples; }
 
             return AccuracyFreq;
         }
@@ -72,7 +77,7 @@ namespace MathAndProcess.Calculations
         /// <param name="signal">сигнал на низкой частоте со снятой
         /// псевдослучайной последовательностью </param>
         /// <returns>фаза сигнала на нулевой частоте</returns>
-        public static double EvaluationPhaze(List<Complex> signal)//Назаров мод
+        public double EvaluationPhaze(List<Complex> signal)//Назаров мод
         {
             List<Complex> newSignal = NazarovCompensationOfFreq(signal);
 
@@ -97,7 +102,7 @@ namespace MathAndProcess.Calculations
         /// </summary>
         /// <param name="signal">исходный передескритизованный сигнал</param>
         /// <returns>сигнал(список комплексных отсчетов) с компенсированной частотой и фазой</returns>
-        public static List<Complex> CompensationOfPhazeAndFrequancy(List<Complex> signal)
+        public List<Complex> CompensationOfPhazeAndFrequancy(List<Complex> signal)
         {
             List<Complex> resultSignal;
             if (AccuracyFreq.Equals(null) != true)
@@ -124,7 +129,7 @@ namespace MathAndProcess.Calculations
         /// частоту и фазу,которую оставляет в классе
         /// </summary>
         /// <param name="signal">передискретизованный сигнал со снятой псевдопоследовательностью</param>
-        public static void PreprocessOfSignal(List<Complex> signal)
+        public void PreprocessOfSignal(List<Complex> signal)
         {
             AccuracyFreq = EvaluationOfFreq(signal);
             Phaza = EvaluationPhaze(signal);
@@ -150,7 +155,7 @@ namespace MathAndProcess.Calculations
         /// псевдослучайной последовательностью </param>
         /// <returns>сигнал(список комплексных отсчетотв выведенных)
         /// с компенсированной частотой(перенесенный в окресность нуля)</returns>
-        private static List<Complex> NazarovCompensationOfFreq(List<Complex> signal)
+        private List<Complex> NazarovCompensationOfFreq(List<Complex> signal)
         {
 
             if (Spectrum.Equals(null))
@@ -164,7 +169,7 @@ namespace MathAndProcess.Calculations
                 AccuracyFreq = EvaluationOfFreq(Spectrum);
             }
 
-            return ComplexSignals.Shift(signal, -AccuracyFreq, NUM_OF_SAMPLES);//<-здесь изменение
+            return ComplexSignals.Shift(signal, -AccuracyFreq, _fsempling);//<-здесь изменение
         }
 
         /// <summary>
@@ -192,9 +197,9 @@ namespace MathAndProcess.Calculations
         /// перенесенной в область нулевых частот</param>
         /// <returns>сигнал(список комплексных отсчетотв выведенных)
         /// с компенсированной фазой</returns>
-        private static List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
+        private  List<Complex> NazarovCompensationoOfPhaze(List<Complex> signal)
         {
-            return ComplexSignals.Shift(signal, 0, NUM_OF_SAMPLES, -Phaza);
+            return ComplexSignals.Shift(signal, 0, _fsempling, -Phaza);
         }
         #endregion
 

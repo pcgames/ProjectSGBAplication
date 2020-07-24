@@ -7,25 +7,28 @@ using System.Numerics;
 
 namespace MathAndProcessing.Calculations
 {
-    internal static class CoeficientFinder
+    internal class CoeficientFinder
     {
-        internal static List<double> Find(double _omega)
+        readonly int countPackageSamples = 76800;
+        readonly int bpfImpRespLength = 127;
+
+        internal List<double> Find(double _omega)
         {
-            int countOfCoeffs = 127;
+            //int bpfImpRespLength = 127; //TODO: tudu
             CoefficientsReader _coffReader = new CoefficientsReader();
-            List<double> coeffs = ComplexSignals.Real(GetImpulseResponse(countOfCoeffs + 1, (_omega) * 0.03, 76800).GetRange(1, countOfCoeffs));
+            List<double> coeffs = ComplexSignals.Real(GetImpulseResponse(bpfImpRespLength + 1, (_omega) * 0.03, countPackageSamples).GetRange(1, bpfImpRespLength));
 
             if (350 * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < 400 * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_357.csv", countOfCoeffs);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_357.csv", bpfImpRespLength);
             }
             if (550 * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < 650 * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_599.csv", countOfCoeffs);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_599.csv", bpfImpRespLength);
             }
             if (440 * 2 * 2 * Math.PI < Math.Abs(_omega) && Math.Abs(_omega) < 500 * 2 * 2 * Math.PI)
             {
-                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_475.csv", countOfCoeffs);
+                coeffs = _coffReader.GetCoefficients("coeffs_in_pll_475.csv", bpfImpRespLength);
             }
             return coeffs;
         }
