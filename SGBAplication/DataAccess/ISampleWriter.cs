@@ -5,7 +5,7 @@ namespace DataAccess
 {
     public interface ISampleWriter
     {
-        void WriteToFile(List<Complex> data, string nameOfFile, char separator = ';');
+        void WriteToFile(List<Complex> data, string nameOfFile, char separator = ',');
         
     }
 }

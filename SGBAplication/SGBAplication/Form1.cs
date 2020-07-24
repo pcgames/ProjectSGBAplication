@@ -2,7 +2,6 @@
 using Controllers.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
 
@@ -16,15 +15,16 @@ namespace SGBFormAplication
         {
             InitializeComponent();
             _controller = new ControllerSGBApplication();
+            _dataPack = new GUIData();
         }
 
         private void Go_Click(object sender, EventArgs e)
         {
             if (CheckingSimulateSignal.Checked)
             {
-                _dataPack.StartIndex = "0";
+                startIndex.Text = "0";
                 fileName.Text = "simulatedSignalnew.csv";
-                var snr = Convert.ToDouble(SNR.Text);
+                double snr = Convert.ToDouble(SNR.Text);
                 _controller.SimulateSignal(snr, fileName.Text);
             }
 
@@ -37,7 +37,7 @@ namespace SGBFormAplication
             DrawBPSKSpectrum(rnewDataAndSpectrum[0]);
         }
 
-        
+
 
         private ProcessingType SelectProcessorType()
         {
@@ -45,15 +45,15 @@ namespace SGBFormAplication
             {
                 return ProcessingType.ResemplingWithPll;
             }
-            else if(checkResempling.Checked && checkUsePLLForProcessing.Checked == false)
+            else if (checkResempling.Checked && checkUsePLLForProcessing.Checked == false)
+            {
+                return ProcessingType.ResemplingWithoutPll;
+            }
+            else if (checkUsePLLForProcessing.Checked == false && checkUsePLLForProcessing.Checked)
             {
                 return ProcessingType.NonResemplingWithPll;
             }
-            else if(checkUsePLLForProcessing.Checked = false && checkUsePLLForProcessing.Checked)
-            {
-                return ProcessingType.NonResemplingWithPll;
-            }
-            else if(checkUsePLLForProcessing.Checked = false && checkUsePLLForProcessing.Checked == false)
+            else if (checkUsePLLForProcessing.Checked == false && checkUsePLLForProcessing.Checked == false)
             {
                 return ProcessingType.NonResemplingWithoutPll;
             }
