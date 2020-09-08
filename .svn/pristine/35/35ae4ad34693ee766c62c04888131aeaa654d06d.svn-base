@@ -15,8 +15,6 @@ namespace MathAndProcessing.Calculations
         private OutputDataPLL _dataPack { get; set; }
         private CoefficientsReader _coffReader;
 
-
-
         public ProcessingPLL()
         {
             _dataPack = new OutputDataPLL();

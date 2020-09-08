@@ -15,8 +15,6 @@ namespace MathAndProcessing.Calculations
         private OutputDataPLL _dataPack { get; set; }
         private CoefficientsReader _coffReader;
 
-
-
         public ProcessingPLL()
         {
             _dataPack = new OutputDataPLL();
@@ -52,7 +50,7 @@ namespace MathAndProcessing.Calculations
                     {
                         double phaza = EvaluationAndCompensation.Phaza - Math.PI / 4 + signPhasa * PHAZA_SHIFT * i;
                         double omega = Math.Round(EvaluationAndCompensation.AccuracyFreq, 4) * 2 * Math.PI * 2;
-                        PLL pllResult = new PLL(PACKAGE_SMPLES_COUNT, omega, phaza, BPF_IMP_RESP_LENGTH-1);
+                        PLL pllResult = new PLL(PACKAGE_SMPLES_COUNT, omega, phaza, BPF_IMP_RESP_LENGTH);
 
                         List<double> FIRImpulsCharacteristics = new CoeficientFinder().Find(omega);
                         var a = ComplexSignals.Imaginary(cosQsig.GetRange(0, PACKAGE_SMPLES_COUNT + SAMPLES_SHIFT));

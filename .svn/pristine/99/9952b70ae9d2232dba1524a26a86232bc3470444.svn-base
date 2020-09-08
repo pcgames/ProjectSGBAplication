@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2F5B6EF7-F093-4730-9618-F424449E90C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MathAndProcessing</RootNamespace>
+    <AssemblyName>MathAndProcessing</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Calculations\EvaluationAndCompensation.cs" />
+    <Compile Include="Calculations\FourierTransform.cs" />
+    <Compile Include="Calculations\FreqCalculation.cs" />
+    <Compile Include="Calculations\ModulatingSignal.cs" />
+    <Compile Include="Calculations\PLL.cs" />
+    <Compile Include="Calculations\resemplingOfSignal.cs" />
+    <Compile Include="Processing.cs" />
+    <Compile Include="Decoding\Decoder.cs" />
+    <Compile Include="Transformation\Mseqtransform.cs" />
+    <Compile Include="Transformation\PseudorandomSequence.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DigitalSignalProcessing">
+      <HintPath>..\SGBAplication\libs\DigitalSignalProcessing.dll</HintPath>
+    </Reference>
+    <Reference Include="MathAndPhysics">
+      <HintPath>..\SGBAplication\libs\MathAndPhysics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{db92fb5e-7477-43e5-aaf6-a04ef1cb3366}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
