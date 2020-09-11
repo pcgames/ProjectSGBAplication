@@ -67,7 +67,7 @@ namespace Controllers
         private List<List<Complex>> StartDecoder(ref GUIData dataPack)
         {
             List<List<Complex>> output = _processor.Decode(_inputData.I, _inputData.Q, dataPack.StartIndex);
-            var d= _processor.GetOutputData();
+            //var d= _processor.GetOutputData();
             AOutputData data = _processor.GetOutputData();
             dataPack.ConvertOutput2GUIData(data);
             return output;
